@@ -1,0 +1,35 @@
+{
+  "siteId": "website-a",
+  "brandName": "AETHERION // CALIBRE ZERO",
+  "selectedMockup": "hero-mockup-1.png",
+  "colors": {
+    "bgVoid": "#07090D",
+    "bgSurface": "#0E131B",
+    "bgElevated": "#151C28",
+    "bgGlass": "rgba(14, 19, 27, 0.74)",
+    "textPrimary": "#F8FAFC",
+    "textSecondary": "#94A3B8",
+    "textMuted": "#64748B",
+    "accentPrimary": "#F59E0B",
+    "accentSecondary": "#38BDF8",
+    "borderHairline": "rgba(148, 163, 184, 0.16)"
+  },
+  "typography": {
+    "fontDisplay": "'Syne', sans-serif",
+    "fontSans": "'Plus Jakarta Sans', sans-serif",
+    "fontMono": "'JetBrains Mono', monospace",
+    "scale": {
+      "hero": "clamp(2.6rem, 1.4rem + 4.5vw, 5.4rem)",
+      "h2": "clamp(1.9rem, 1.1rem + 2.8vw, 3.4rem)",
+      "h3": "clamp(1.25rem, 1rem + 1vw, 1.75rem)",
+      "body": "1rem",
+      "mono": "0.75rem"
+    }
+  },
+  "layout": {
+    "maxWidth": "1440px",
+    "gridColumns": 12,
+    "heroSplit": "5:7 asymmetric overlay over full-viewport WebGL Canvas",
+    "chapters": 5
+  }
+}

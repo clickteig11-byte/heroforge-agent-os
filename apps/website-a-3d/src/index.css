@@ -1,0 +1,472 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg-paper: #f5f2eb;
+  --bg-stone: #ebe6dc;
+  --bg-card: #fcfaf6;
+  --ink-primary: #171513;
+  --ink-secondary: #524e48;
+  --ink-muted: #827c73;
+  --accent-champagne: #c5a478;
+  --accent-brass: #9a7846;
+  --border-soft: 1px solid rgba(23, 21, 19, 0.1);
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background-color: var(--bg-paper);
+  color: var(--ink-primary);
+  font-family: var(--font-sans);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background-color: var(--bg-paper);
+  color: var(--ink-primary);
+  overflow-x: hidden;
+}
+
+/* ==========================================================================
+   MINIMAL FLOATING PILL NAVIGATION (SHORT, NATURAL LABELS)
+   ========================================================================== */
+.floating-pill-header {
+  position: fixed;
+  top: 1.5rem;
+  left: 0;
+  right: 0;
+  z-index: 60;
+  display: flex;
+  justify-content: center;
+  padding: 0 1.5rem;
+  pointer-events: none;
+}
+
+.floating-pill-nav {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 2rem;
+  background: rgba(23, 20, 17, 0.68);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(252, 250, 246, 0.16);
+  border-radius: 9999px;
+  padding: 0.42rem 0.5rem 0.42rem 1.35rem;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.18);
+}
+
+.pill-brand {
+  color: #fcfaf6;
+  text-decoration: none;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.pill-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.pill-nav-links a {
+  color: rgba(252, 250, 246, 0.8);
+  text-decoration: none;
+  font-size: 0.76rem;
+  font-weight: 500;
+  padding: 0.38rem 0.85rem;
+  border-radius: 9999px;
+  transition: color 0.18s ease, background-color 0.18s ease;
+  white-space: nowrap;
+}
+
+.pill-nav-links a:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.pill-cta-btn {
+  appearance: none;
+  background: #fcfaf6;
+  color: #171513;
+  border: none;
+  border-radius: 9999px;
+  padding: 0.5rem 1.15rem;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+  white-space: nowrap;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.pill-cta-btn:hover {
+  background: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   RESTRAINED FULL-BLEED HERO (PRODUCT IS THE UNDISPUTED FOCAL POINT)
+   ========================================================================== */
+.atelier-hero-fullbleed {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  min-height: 680px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  color: #fcfaf6;
+}
+
+.atelier-hero-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 1;
+}
+
+/* Subtle bottom-left vignette that leaves the sunlit watch on the right completely bright */
+.atelier-hero-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(18, 15, 11, 0.66) 0%,
+      rgba(18, 15, 11, 0.26) 42%,
+      rgba(18, 15, 11, 0) 72%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(18, 15, 11, 0.18) 0%,
+      rgba(18, 15, 11, 0) 40%,
+      rgba(18, 15, 11, 0.62) 100%
+    );
+}
+
+.atelier-hero-body {
+  position: relative;
+  z-index: 10;
+  max-width: 1380px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 3.5rem 3.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 2rem;
+}
+
+.hero-copy-stack {
+  max-width: 600px;
+}
+
+/* One small, quiet project label — no box border, no decorative dot */
+.hero-small-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #e9d5b5;
+  margin-bottom: 0.85rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Balanced 2-line headline — zero orphan words */
+.atelier-hero-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.15rem, 3.6vw, 3.65rem);
+  font-weight: 400;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  text-wrap: balance;
+}
+
+.atelier-hero-title em {
+  font-style: italic;
+  color: #f3dfc1;
+}
+
+/* Short, readable 1-sentence supporting copy */
+.atelier-hero-lead {
+  font-size: 0.96rem;
+  line-height: 1.62;
+  color: rgba(252, 250, 246, 0.86);
+  max-width: 38ch;
+  margin-bottom: 1.65rem;
+}
+
+/* Single subtle supporting element on bottom-right — no bulky card competing with the watch */
+.hero-quiet-caption {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(252, 250, 246, 0.82);
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid rgba(252, 250, 246, 0.28);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   BELOW THE FOLD: EDITORIAL BENTO & 3D MOVEMENT STAGE
+   ========================================================================== */
+.studio-section {
+  max-width: 1340px;
+  margin: 0 auto;
+  padding: 5.5rem 3rem;
+}
+
+.section-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.section-kicker {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-brass);
+  margin-bottom: 0.65rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.editorial-headline {
+  font-family: var(--font-serif);
+  font-size: clamp(2.25rem, 3.6vw, 3.4rem);
+  font-weight: 400;
+  line-height: 1.04;
+  letter-spacing: -0.015em;
+  color: var(--ink-primary);
+  text-wrap: balance;
+}
+
+.bento-12-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1.25rem;
+}
+
+.bento-card {
+  background: var(--bg-card);
+  border: var(--border-soft);
+  border-radius: 22px;
+  padding: 2.1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.span-7 {
+  grid-column: span 7;
+}
+.span-5 {
+  grid-column: span 5;
+}
+.span-4 {
+  grid-column: span 4;
+}
+
+.bento-big-num {
+  font-family: var(--font-serif);
+  font-size: clamp(3rem, 4.6vw, 4.4rem);
+  font-weight: 400;
+  line-height: 0.95;
+  color: var(--ink-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.pill-selector-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: var(--bg-stone);
+  padding: 0.3rem;
+  border-radius: 9999px;
+  flex-wrap: wrap;
+}
+
+.pill-option-btn {
+  appearance: none;
+  background: transparent;
+  border: none;
+  border-radius: 9999px;
+  padding: 0.42rem 0.95rem;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--ink-secondary);
+  cursor: pointer;
+  transition: all 0.16s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.pill-option-btn.active,
+.pill-option-btn[aria-pressed="true"] {
+  background: var(--ink-primary);
+  color: var(--bg-card);
+}
+
+/* 3D Vitrine Stage */
+.vitrine-3d-shell {
+  background: var(--bg-card);
+  border: var(--border-soft);
+  border-radius: 26px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 42% 58%;
+  min-height: 620px;
+}
+
+.vitrine-left-panel {
+  padding: 2.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: var(--border-soft);
+}
+
+.vitrine-right-canvas {
+  position: relative;
+  height: 620px;
+  background: #f3f0e8;
+}
+
+.floating-3d-pill-dock {
+  position: absolute;
+  bottom: 1.35rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  background: rgba(252, 250, 246, 0.9);
+  backdrop-filter: blur(12px);
+  border: var(--border-soft);
+  border-radius: 9999px;
+  padding: 0.32rem;
+  display: flex;
+  gap: 0.3rem;
+  white-space: nowrap;
+}
+
+dialog.atelier-dialog {
+  margin: auto;
+  max-width: 480px;
+  width: calc(100% - 2rem);
+  background: var(--bg-card);
+  color: var(--ink-primary);
+  border: var(--border-soft);
+  border-radius: 22px;
+  padding: 2.25rem;
+}
+
+dialog.atelier-dialog::backdrop {
+  background: rgba(23, 21, 19, 0.45);
+  backdrop-filter: blur(4px);
+}
+
+.form-field {
+  margin-bottom: 1rem;
+}
+
+.form-field label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.35rem;
+}
+
+.form-field input,
+.form-field select {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  background: var(--bg-paper);
+  border: var(--border-soft);
+  border-radius: 10px;
+  color: var(--ink-primary);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 960px) {
+  .pill-nav-links {
+    display: none;
+  }
+  .atelier-hero-photo {
+    object-position: 62% center;
+  }
+  .atelier-hero-title {
+    font-size: clamp(2.05rem, 7.6vw, 2.55rem);
+  }
+  .atelier-hero-body {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 1.5rem 2.25rem;
+  }
+  .studio-section {
+    padding: 3.5rem 1.5rem;
+  }
+  .span-7,
+  .span-5,
+  .span-4 {
+    grid-column: span 12;
+  }
+  .vitrine-3d-shell {
+    grid-template-columns: 1fr;
+  }
+  .vitrine-right-canvas {
+    height: 420px;
+    order: -1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

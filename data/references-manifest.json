@@ -1,0 +1,36 @@
+{
+  "generatedAt": "2026-11-09T20:13:00-06:00",
+  "websites": {
+    "websiteA": {
+      "id": "idea-01",
+      "brandName": "AETHERION // CALIBRE ZERO",
+      "type": "Cinematic 3D (React Three Fiber + Drei + GSAP ScrollTrigger)",
+      "selectedHeroMockup": "hero-mockup-1.png",
+      "selectionReason": "Direction 1 achieves the clearest focal separation between left-aligned monumental Syne display typography, interactive 3-row subsystem controls, and the right-hand suspended triaxial tourbillon surrounded by cyan orbital reticle rings.",
+      "files": {
+        "heroMockup1": "/references/website-a/hero-mockup-1.png",
+        "heroMockup2": "/references/website-a/hero-mockup-2.png",
+        "heroMockup3": "/references/website-a/hero-mockup-3.png",
+        "referenceDesktop": "/references/website-a/reference-desktop.png",
+        "referenceMobile": "/references/website-a/reference-mobile.png"
+      }
+    },
+    "websiteB": {
+      "id": "idea-04",
+      "brandName": "KUROKAWA & VANE",
+      "type": "Premium Non-3D Editorial (React + Motion + GSAP + Architectural SVG)",
+      "selectedHeroMockup": "hero-mockup-1.png",
+      "selectionReason": "Direction 1 exemplifies Swiss-Japanese monograph precision: exposed 1px stone grid hairlines, a 7:5 asymmetric split, monumental Cormorant Garamond serif typography, a bottom two-cell index/action bar, and a brooding cantilevered basalt sanctuary plate.",
+      "files": {
+        "heroMockup1": "/references/website-b/hero-mockup-1.png",
+        "heroMockup2": "/references/website-b/hero-mockup-2.png",
+        "heroMockup3": "/references/website-b/hero-mockup-3.png",
+        "referenceDesktop": "/references/website-b/reference-desktop.png",
+        "referenceMobile": "/references/website-b/reference-mobile.png",
+        "plateReykjavik": "/references/website-b/plate-reykjavik-basalt.png",
+        "plateNaoshima": "/references/website-b/plate-naoshima-acoustic.png",
+        "plateAtacama": "/references/website-b/plate-atacama-travertine.png"
+      }
+    }
+  }
+}

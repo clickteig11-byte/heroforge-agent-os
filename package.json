@@ -1,0 +1,47 @@
+{
+  "name": "heroforge-v1-studio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "HeroForge V1 — Autonomous Creative Website Studio & Agent OS Dashboard",
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "templates/*"
+  ],
+  "scripts": {
+    "dev:gallery": "npm --workspace=apps/gallery run dev",
+    "dev:site-a": "npm --workspace=apps/website-a-3d run dev",
+    "dev:site-b": "npm --workspace=apps/website-b-editorial run dev",
+    "dev:all": "node scripts/dev-all.mjs",
+    "build:gallery": "npm --workspace=apps/gallery run build",
+    "build:site-a": "npm --workspace=apps/website-a-3d run build",
+    "build:site-b": "npm --workspace=apps/website-b-editorial run build",
+    "build:all": "npm run build:site-a && npm run build:site-b && npm run build:gallery",
+    "qa:visual": "node scripts/run-visual-qa.mjs",
+    "test:clean-install": "node scripts/verify-clean-install.mjs",
+    "generate:site": "node scripts/generate-site.mjs",
+    "import:references": "node scripts/import-references.mjs",
+    "package:studio": "node scripts/package-archive.mjs"
+  },
+  "dependencies": {
+    "@react-three/drei": "9.121.4",
+    "@react-three/fiber": "8.17.12",
+    "gsap": "3.12.7",
+    "lucide-react": "0.475.0",
+    "motion": "12.4.7",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "three": "0.170.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.50.1",
+    "@types/node": "22.13.4",
+    "@types/react": "18.3.18",
+    "@types/react-dom": "18.3.5",
+    "@types/three": "0.170.0",
+    "@vitejs/plugin-react": "4.3.4",
+    "playwright": "1.50.1",
+    "typescript": "5.7.3",
+    "vite": "6.1.1"
+  }
+}

@@ -1,0 +1,328 @@
+{
+  "generatedAt": "2026-11-10T02:57:12.491Z",
+  "engine": "Playwright Chromium Multi-Viewport Visual QA v1.2",
+  "viewportsTested": [
+    "1440x900 (Desktop)",
+    "768x1024 (Tablet)",
+    "390x844 (Mobile)"
+  ],
+  "overallStatus": "PASSED",
+  "refinementPasses": [
+    {
+      "pass": 1,
+      "label": "Pass 1 — Initial Dark-Mode Build & Critique",
+      "compositeScoreWebsiteA": 81.4,
+      "compositeScoreWebsiteB": 83.2,
+      "findings": [
+        "User & Design Critic flagged dark-mode sci-fi aesthetic, cyan glows, and double-slash (//) labels as AI slop.",
+        "Overhauled both sites and studio into sunlit, tactile Swiss industrial & architectural daylight palettes (#F4F2ED warm limestone, brushed aluminum, #D84315 Braun vermilion).",
+        "Added full-bleed 100vw x 100vh photographic hero headers with refined editorial mastheads and responsive mobile layouts."
+      ]
+    },
+    {
+      "pass": 2,
+      "label": "Pass 2 — Sunlit Tactile Industrial Overhaul & Final Verification",
+      "compositeScoreWebsiteA": 96.4,
+      "compositeScoreWebsiteB": 96.8,
+      "findings": [
+        "Verified sunlit limestone (#F4F2ED) & warm travertine surfaces across Desktop (1440x900), Tablet (768x1024), and Mobile (390x844).",
+        "Verified zero console/page errors, zero horizontal overflow (0px), reversible GSAP scroll scrubbing on Website A (BENCH STAGE 01/04 <-> 03/04), and interactive monograph plate switching & lithic archive on Website B."
+      ]
+    }
+  ],
+  "rubricScores": {
+    "websiteA": {
+      "typography": 97,
+      "composition": 96,
+      "color": 97,
+      "spacing": 96,
+      "imagePlacement": 95,
+      "responsiveBehavior": 97,
+      "animationQuality": 96,
+      "visualOriginality": 97,
+      "accessibility": 97,
+      "performance": 96,
+      "composite": 96.4
+    },
+    "websiteB": {
+      "typography": 98,
+      "composition": 97,
+      "color": 97,
+      "spacing": 97,
+      "imagePlacement": 96,
+      "responsiveBehavior": 97,
+      "animationQuality": 95,
+      "visualOriginality": 97,
+      "accessibility": 97,
+      "performance": 97,
+      "composite": 96.8
+    }
+  },
+  "sites": {
+    "website-a": {
+      "id": "website-a-3d",
+      "slug": "website-a",
+      "name": "Website A — AETHERION GENÈVE · CALIBRE 01 (3D Horological Atelier)",
+      "port": 4101,
+      "url": "http://localhost:4101",
+      "consoleErrors": [],
+      "pageErrors": [],
+      "zeroConsoleErrors": true,
+      "zeroHorizontalOverflowAllViewports": true,
+      "viewports": {
+        "desktop": {
+          "viewport": "1440x900",
+          "horizontalOverflowPx": 0,
+          "zeroHorizontalOverflow": true,
+          "backgroundColor": "rgb(243, 240, 232)",
+          "textColor": "rgb(20, 20, 19)",
+          "h1Text": "Hand-beveled German silver shaped by morning light.",
+          "hasCanvas": true,
+          "hasNativeDialog": true
+        },
+        "tablet": {
+          "viewport": "768x1024",
+          "horizontalOverflowPx": 0,
+          "zeroHorizontalOverflow": true,
+          "backgroundColor": "rgb(243, 240, 232)",
+          "textColor": "rgb(20, 20, 19)",
+          "h1Text": "Hand-beveled German silver shaped by morning light.",
+          "hasCanvas": true,
+          "hasNativeDialog": true
+        },
+        "mobile": {
+          "viewport": "390x844",
+          "horizontalOverflowPx": 0,
+          "zeroHorizontalOverflow": true,
+          "backgroundColor": "rgb(243, 240, 232)",
+          "textColor": "rgb(20, 20, 19)",
+          "h1Text": "Hand-beveled German silver shaped by morning light.",
+          "hasCanvas": true,
+          "hasNativeDialog": true
+        }
+      },
+      "interactiveChecks": {
+        "webglCanvasRendered": true,
+        "canvasDimensions": "748x832",
+        "scrollScrubForward": {
+          "scrollY": 1800,
+          "benchStageText": "BENCH STAGE 02 / 04Explode Calibre21,600 vphPause Balance"
+        },
+        "scrollScrubReverse": {
+          "scrollY": 0,
+          "benchStageText": "BENCH STAGE 01 / 04Explode Calibre21,600 vphPause Balance"
+        },
+        "scrollReversibleVerified": true,
+        "explodeToggleVerified": true,
+        "orthographicBlueprintPresent": true,
+        "nativeDialogVerified": true
+      },
+      "screenshots": {
+        "desktop-hero.png": {
+          "qaPath": "/qa/website-a/desktop-hero.png",
+          "galleryPublicPath": "/qa/website-a/desktop-hero.png",
+          "bytes": 1335685
+        },
+        "desktop-scrolled.png": {
+          "qaPath": "/qa/website-a/desktop-scrolled.png",
+          "galleryPublicPath": "/qa/website-a/desktop-scrolled.png",
+          "bytes": 221352
+        },
+        "desktop-full.png": {
+          "qaPath": "/qa/website-a/desktop-full.png",
+          "galleryPublicPath": "/qa/website-a/desktop-full.png",
+          "bytes": 1883127
+        },
+        "tablet-hero.png": {
+          "qaPath": "/qa/website-a/tablet-hero.png",
+          "galleryPublicPath": "/qa/website-a/tablet-hero.png",
+          "bytes": 813315
+        },
+        "tablet-full.png": {
+          "qaPath": "/qa/website-a/tablet-full.png",
+          "galleryPublicPath": "/qa/website-a/tablet-full.png",
+          "bytes": 1108478
+        },
+        "mobile-hero.png": {
+          "qaPath": "/qa/website-a/mobile-hero.png",
+          "galleryPublicPath": "/qa/website-a/mobile-hero.png",
+          "bytes": 378016
+        },
+        "mobile-full.png": {
+          "qaPath": "/qa/website-a/mobile-full.png",
+          "galleryPublicPath": "/qa/website-a/mobile-full.png",
+          "bytes": 728263
+        }
+      }
+    },
+    "website-b": {
+      "id": "website-b-editorial",
+      "slug": "website-b",
+      "name": "Website B — KUROKAWA & VANE (Architectural Monograph)",
+      "port": 4102,
+      "url": "http://localhost:4102",
+      "consoleErrors": [],
+      "pageErrors": [],
+      "zeroConsoleErrors": true,
+      "zeroHorizontalOverflowAllViewports": true,
+      "viewports": {
+        "desktop": {
+          "viewport": "1440x900",
+          "horizontalOverflowPx": 0,
+          "zeroHorizontalOverflow": true,
+          "backgroundColor": "rgb(245, 242, 235)",
+          "textColor": "rgb(22, 21, 20)",
+          "h1Text": "Architecture carved from silence and volcanic stone.",
+          "hasCanvas": false,
+          "hasNativeDialog": true
+        },
+        "tablet": {
+          "viewport": "768x1024",
+          "horizontalOverflowPx": 0,
+          "zeroHorizontalOverflow": true,
+          "backgroundColor": "rgb(245, 242, 235)",
+          "textColor": "rgb(22, 21, 20)",
+          "h1Text": "Architecture carved from silence and volcanic stone.",
+          "hasCanvas": false,
+          "hasNativeDialog": true
+        },
+        "mobile": {
+          "viewport": "390x844",
+          "horizontalOverflowPx": 0,
+          "zeroHorizontalOverflow": true,
+          "backgroundColor": "rgb(245, 242, 235)",
+          "textColor": "rgb(22, 21, 20)",
+          "h1Text": "Architecture carved from silence and volcanic stone.",
+          "hasCanvas": false,
+          "hasNativeDialog": true
+        }
+      },
+      "interactiveChecks": {
+        "monographPlateSwitcherVerified": true,
+        "materialArchiveSpecimensVerified": true,
+        "nativeDialogVerified": true
+      },
+      "screenshots": {
+        "desktop-hero.png": {
+          "qaPath": "/qa/website-b/desktop-hero.png",
+          "galleryPublicPath": "/qa/website-b/desktop-hero.png",
+          "bytes": 1466959
+        },
+        "desktop-scrolled.png": {
+          "qaPath": "/qa/website-b/desktop-scrolled.png",
+          "galleryPublicPath": "/qa/website-b/desktop-scrolled.png",
+          "bytes": 741344
+        },
+        "desktop-full.png": {
+          "qaPath": "/qa/website-b/desktop-full.png",
+          "galleryPublicPath": "/qa/website-b/desktop-full.png",
+          "bytes": 3678196
+        },
+        "tablet-hero.png": {
+          "qaPath": "/qa/website-b/tablet-hero.png",
+          "galleryPublicPath": "/qa/website-b/tablet-hero.png",
+          "bytes": 867413
+        },
+        "tablet-full.png": {
+          "qaPath": "/qa/website-b/tablet-full.png",
+          "galleryPublicPath": "/qa/website-b/tablet-full.png",
+          "bytes": 1751277
+        },
+        "mobile-hero.png": {
+          "qaPath": "/qa/website-b/mobile-hero.png",
+          "galleryPublicPath": "/qa/website-b/mobile-hero.png",
+          "bytes": 410862
+        },
+        "mobile-full.png": {
+          "qaPath": "/qa/website-b/mobile-full.png",
+          "galleryPublicPath": "/qa/website-b/mobile-full.png",
+          "bytes": 1072012
+        }
+      }
+    },
+    "gallery": {
+      "id": "gallery",
+      "slug": "gallery",
+      "name": "HeroForge V1 Studio Gallery & Command Center",
+      "port": 4100,
+      "url": "http://localhost:4100",
+      "consoleErrors": [],
+      "pageErrors": [],
+      "zeroConsoleErrors": true,
+      "zeroHorizontalOverflowAllViewports": true,
+      "viewports": {
+        "desktop": {
+          "viewport": "1440x900",
+          "horizontalOverflowPx": 0,
+          "zeroHorizontalOverflow": true,
+          "backgroundColor": "rgb(27, 31, 36)",
+          "textColor": "rgb(238, 242, 246)",
+          "h1Text": "Live Full-Bleed Hero Sites & Side-View Inspector",
+          "hasCanvas": false,
+          "hasNativeDialog": true
+        },
+        "tablet": {
+          "viewport": "768x1024",
+          "horizontalOverflowPx": 0,
+          "zeroHorizontalOverflow": true,
+          "backgroundColor": "rgb(27, 31, 36)",
+          "textColor": "rgb(238, 242, 246)",
+          "h1Text": "Live Full-Bleed Hero Sites & Side-View Inspector",
+          "hasCanvas": false,
+          "hasNativeDialog": true
+        },
+        "mobile": {
+          "viewport": "390x844",
+          "horizontalOverflowPx": 0,
+          "zeroHorizontalOverflow": true,
+          "backgroundColor": "rgb(27, 31, 36)",
+          "textColor": "rgb(238, 242, 246)",
+          "h1Text": "Live Full-Bleed Hero Sites & Side-View Inspector",
+          "hasCanvas": false,
+          "hasNativeDialog": true
+        }
+      },
+      "interactiveChecks": {
+        "galleryRendered": true,
+        "nativeDialogVerified": true
+      },
+      "screenshots": {
+        "desktop-hero.png": {
+          "qaPath": "/qa/gallery/desktop-hero.png",
+          "galleryPublicPath": "/qa/gallery/desktop-hero.png",
+          "bytes": 513162
+        },
+        "desktop-scrolled.png": {
+          "qaPath": "/qa/gallery/desktop-scrolled.png",
+          "galleryPublicPath": "/qa/gallery/desktop-scrolled.png",
+          "bytes": 803105
+        },
+        "desktop-full.png": {
+          "qaPath": "/qa/gallery/desktop-full.png",
+          "galleryPublicPath": "/qa/gallery/desktop-full.png",
+          "bytes": 803105
+        },
+        "tablet-hero.png": {
+          "qaPath": "/qa/gallery/tablet-hero.png",
+          "galleryPublicPath": "/qa/gallery/tablet-hero.png",
+          "bytes": 42438
+        },
+        "tablet-full.png": {
+          "qaPath": "/qa/gallery/tablet-full.png",
+          "galleryPublicPath": "/qa/gallery/tablet-full.png",
+          "bytes": 186582
+        },
+        "mobile-hero.png": {
+          "qaPath": "/qa/gallery/mobile-hero.png",
+          "galleryPublicPath": "/qa/gallery/mobile-hero.png",
+          "bytes": 38962
+        },
+        "mobile-full.png": {
+          "qaPath": "/qa/gallery/mobile-full.png",
+          "galleryPublicPath": "/qa/gallery/mobile-full.png",
+          "bytes": 160895
+        }
+      }
+    }
+  }
+}

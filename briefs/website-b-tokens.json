@@ -1,0 +1,33 @@
+{
+  "siteId": "website-b",
+  "brandName": "KUROKAWA & VANE",
+  "selectedMockup": "hero-mockup-1.png",
+  "colors": {
+    "bgBasalt": "#101214",
+    "bgSlatePanel": "#171A1E",
+    "bgTravertine": "#EAE4DC",
+    "textInkLight": "#F4F1EA",
+    "textStoneMuted": "#A1A1AA",
+    "textInkDark": "#141413",
+    "accentOchre": "#D97706",
+    "borderStone": "rgba(244, 241, 234, 0.13)"
+  },
+  "typography": {
+    "fontSerif": "'Cormorant Garamond', Georgia, serif",
+    "fontSans": "'Plus Jakarta Sans', sans-serif",
+    "fontMono": "'IBM Plex Mono', monospace",
+    "scale": {
+      "hero": "clamp(2.8rem, 1.6rem + 4.8vw, 5.8rem)",
+      "h2": "clamp(2.1rem, 1.2rem + 3vw, 3.8rem)",
+      "h3": "clamp(1.35rem, 1.05rem + 1.2vw, 2.1rem)",
+      "body": "1rem",
+      "mono": "0.75rem"
+    }
+  },
+  "layout": {
+    "maxWidth": "1440px",
+    "gridColumns": 12,
+    "heroSplit": "7:5 asymmetric exposed-hairline monograph grid",
+    "sections": 5
+  }
+}

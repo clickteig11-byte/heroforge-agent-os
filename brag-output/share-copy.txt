@@ -1,0 +1,8 @@
+We took a brutal B / B− design critique on our AI-generated heroes and used it to re-architect our entire autonomous studio.
+
+Introducing HeroForge V1:
+• Minimalist Hero Restraint Law (Watch: B− → A+, Architecture: B → A+)
+• 2-line balanced headlines with zero orphan words & 1 primary CTA
+• Chalkboard Slate & Stone Agent OS (Hermes Chat, Codex CLI, Obsidian Vault, OpenDesign)
+• 7 complete A+ Flagship Websites + copyable Master Replication Prompts
+• 38 consolidated skills (heroforge-master-studio + hyperframes-motion-graphics)

@@ -1,0 +1,464 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --stone-paper: #f5f2eb;
+  --stone-warm: #eae4d8;
+  --stone-card: #fcfaf6;
+  --ink-dark: #161514;
+  --ink-body: #4d4a44;
+  --ink-muted: #7e7970;
+  --accent-bronze: #9c7a54;
+  --border-soft: 1px solid rgba(22, 21, 20, 0.1);
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background-color: var(--stone-paper);
+  color: var(--ink-dark);
+  font-family: var(--font-sans);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background-color: var(--stone-paper);
+  color: var(--ink-dark);
+  overflow-x: hidden;
+}
+
+/* ==========================================================================
+   MINIMAL FLOATING PILL NAVIGATION (SHORT, CLEAR NAMES)
+   ========================================================================== */
+.floating-pill-header {
+  position: fixed;
+  top: 1.5rem;
+  left: 0;
+  right: 0;
+  z-index: 60;
+  display: flex;
+  justify-content: center;
+  padding: 0 1.5rem;
+  pointer-events: none;
+}
+
+.floating-pill-nav {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 2rem;
+  background: rgba(18, 18, 17, 0.66);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(252, 250, 246, 0.16);
+  border-radius: 9999px;
+  padding: 0.42rem 0.5rem 0.42rem 1.35rem;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.2);
+}
+
+.pill-brand {
+  color: #fcfaf6;
+  text-decoration: none;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.pill-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.pill-nav-links a {
+  color: rgba(252, 250, 246, 0.8);
+  text-decoration: none;
+  font-size: 0.76rem;
+  font-weight: 500;
+  padding: 0.38rem 0.85rem;
+  border-radius: 9999px;
+  transition: color 0.18s ease, background-color 0.18s ease;
+  white-space: nowrap;
+}
+
+.pill-nav-links a:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.pill-cta-btn {
+  appearance: none;
+  background: #fcfaf6;
+  color: #161514;
+  border: none;
+  border-radius: 9999px;
+  padding: 0.5rem 1.15rem;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+  white-space: nowrap;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.pill-cta-btn:hover {
+  background: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   RESTRAINED FULL-BLEED ARCHITECTURAL HERO (UNOBSTRUCTED PHOTOGRAPHY)
+   ========================================================================== */
+.hero-fullbleed {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  min-height: 680px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  color: #fcfaf6;
+}
+
+.hero-bg-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.hero-bg-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Gentle lower-left gradient leaving the warm geothermal pavilion completely clear */
+.hero-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(14, 15, 17, 0.62) 0%,
+      rgba(14, 15, 17, 0.2) 44%,
+      rgba(14, 15, 17, 0) 70%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(14, 15, 17, 0.18) 0%,
+      rgba(14, 15, 17, 0) 42%,
+      rgba(14, 15, 17, 0.68) 100%
+    );
+}
+
+.hero-overlay-content {
+  position: relative;
+  z-index: 10;
+  max-width: 1380px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 3.5rem 3.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 2.5rem;
+}
+
+.hero-copy-block {
+  max-width: 460px;
+}
+
+/* One small project label — clean, unboxed */
+.hero-small-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(252, 250, 246, 0.8);
+  margin-bottom: 0.85rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Intentional 2-line headline — compact so it never covers the architecture */
+.hero-display-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.75rem, 4.3vw, 4.25rem);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  text-wrap: balance;
+}
+
+.hero-display-title em {
+  font-style: italic;
+  color: #ebdcc7;
+}
+
+/* Concise 1-sentence paragraph with comfortable line length */
+.hero-summary {
+  font-size: 0.96rem;
+  line-height: 1.62;
+  color: rgba(252, 250, 246, 0.86);
+  max-width: 38ch;
+  margin-bottom: 1.65rem;
+}
+
+/* Minimal inline project selector on bottom-right (no bulky card or decorative title) */
+.hero-minimal-switcher {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(18, 18, 17, 0.58);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(252, 250, 246, 0.16);
+  border-radius: 9999px;
+  padding: 0.32rem;
+}
+
+.project-switch-pill {
+  appearance: none;
+  background: transparent;
+  border: none;
+  border-radius: 9999px;
+  padding: 0.44rem 0.95rem;
+  color: rgba(252, 250, 246, 0.75);
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.project-switch-pill:hover {
+  color: #ffffff;
+}
+
+.project-switch-pill.active {
+  background: #fcfaf6;
+  color: #161514;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   BELOW THE FOLD: ARCHITECTURAL MONOGRAPH & STUDIO BENTO
+   ========================================================================== */
+.editorial-section {
+  max-width: 1340px;
+  margin: 0 auto;
+  padding: 5.5rem 3rem;
+}
+
+.section-kicker {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-bronze);
+  margin-bottom: 0.65rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.section-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(2.25rem, 3.6vw, 3.4rem);
+  font-weight: 400;
+  line-height: 1.04;
+  letter-spacing: -0.015em;
+  color: var(--ink-dark);
+  text-wrap: balance;
+}
+
+.bento-12-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1.25rem;
+  margin-top: 2.25rem;
+}
+
+.bento-card {
+  background: var(--stone-card);
+  border: var(--border-soft);
+  border-radius: 22px;
+  padding: 2.1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.span-7 {
+  grid-column: span 7;
+}
+.span-5 {
+  grid-column: span 5;
+}
+.span-4 {
+  grid-column: span 4;
+}
+
+.bento-big-num {
+  font-family: var(--font-serif);
+  font-size: clamp(3rem, 4.6vw, 4.4rem);
+  font-weight: 400;
+  line-height: 0.95;
+  font-variant-numeric: tabular-nums;
+}
+
+.residence-showcase-card {
+  background: var(--stone-card);
+  border: var(--border-soft);
+  border-radius: 26px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 58% 42%;
+  margin-top: 2rem;
+}
+
+.residence-media {
+  position: relative;
+  min-height: 500px;
+  background: var(--stone-warm);
+}
+
+.residence-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.residence-details {
+  padding: 2.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.segmented-pill-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: var(--stone-warm);
+  padding: 0.3rem;
+  border-radius: 9999px;
+  flex-wrap: wrap;
+}
+
+.seg-pill-btn {
+  appearance: none;
+  background: transparent;
+  border: none;
+  border-radius: 9999px;
+  padding: 0.42rem 0.95rem;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--ink-body);
+  cursor: pointer;
+  transition: all 0.16s ease;
+}
+
+.seg-pill-btn.active {
+  background: var(--ink-dark);
+  color: var(--stone-card);
+}
+
+.work-specs-dl {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  padding-top: 1.35rem;
+  margin-top: 1.35rem;
+  border-top: var(--border-soft);
+}
+
+.work-specs-dl dt {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+}
+
+.work-specs-dl dd {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--ink-dark);
+  margin-top: 0.2rem;
+  font-variant-numeric: tabular-nums;
+}
+
+dialog.folio-dialog {
+  margin: auto;
+  max-width: 480px;
+  width: calc(100% - 2rem);
+  background: var(--stone-card);
+  color: var(--ink-dark);
+  border: var(--border-soft);
+  border-radius: 22px;
+  padding: 2.25rem;
+}
+
+dialog.folio-dialog::backdrop {
+  background: rgba(18, 18, 17, 0.48);
+  backdrop-filter: blur(4px);
+}
+
+@media (max-width: 960px) {
+  .pill-nav-links {
+    display: none;
+  }
+  .hero-overlay-content {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 1.5rem 2.25rem;
+  }
+  .editorial-section {
+    padding: 3.5rem 1.5rem;
+  }
+  .span-7,
+  .span-5,
+  .span-4 {
+    grid-column: span 12;
+  }
+  .residence-showcase-card {
+    grid-template-columns: 1fr;
+  }
+  .residence-media {
+    min-height: 340px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "buildCommand": "npm run build:gallery",
+  "outputDirectory": "apps/gallery/dist",
+  "framework": "vite"
+}

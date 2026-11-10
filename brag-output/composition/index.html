@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>HeroForge V1 — 60s Hyperframes /Brag Launch Video</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      background: #101215;
+      color: #F5F7FA;
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .stage {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      background: radial-gradient(circle at 18% 18%, #1B222C 0%, #101215 65%);
+    }
+    /* Persistent Top HUD Bar */
+    .hud-top {
+      position: absolute;
+      top: 36px;
+      left: 56px;
+      right: 56px;
+      z-index: 50;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      pointer-events: none;
+    }
+    .hud-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(18, 20, 24, 0.82);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 9999px;
+      padding: 10px 22px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 15px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.35);
+    }
+    .dot-blue {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #58A6FF;
+      box-shadow: 0 0 12px #58A6FF;
+    }
+    .dot-green {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #3FB950;
+      box-shadow: 0 0 12px #3FB950;
+    }
+    /* Bottom Progress Bar */
+    .hud-progress-track {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 8px;
+      background: rgba(255,255,255,0.08);
+      z-index: 60;
+    }
+    .hud-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #58A6FF, #3FB950);
+      width: 0%;
+    }
+    .scene {
+      position: absolute;
+      inset: 0;
+      padding: 118px 64px 72px;
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .scene.active {
+      display: flex;
+    }
+    .kicker {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 16px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #58A6FF;
+      margin-bottom: 14px;
+    }
+    .display-xl {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 86px;
+      font-weight: 400;
+      line-height: 1.02;
+      letter-spacing: -0.02em;
+      color: #FFFFFF;
+    }
+    .display-xl em {
+      font-style: italic;
+      color: #E8D5B7;
+    }
+    .sub-lead {
+      font-size: 24px;
+      line-height: 1.5;
+      color: #B4BDC8;
+      max-width: 820px;
+      margin-top: 18px;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1.05fr 1fr;
+      gap: 40px;
+      align-items: center;
+      height: 100%;
+    }
+    .card-slate {
+      background: rgba(24, 28, 34, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 24px;
+      padding: 32px;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
+    }
+    .hero-frame {
+      position: relative;
+      width: 100%;
+      height: 760px;
+      border-radius: 28px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+    }
+    .hero-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .hero-frame-scrim {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(12,12,12,0.76) 0%, rgba(12,12,12,0.22) 52%, rgba(12,12,12,0.05) 100%),
+                  linear-gradient(180deg, rgba(12,12,12,0.2) 0%, rgba(12,12,12,0.72) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 36px 44px;
+    }
+    .mock-pill-nav {
+      align-self: center;
+      display: inline-flex;
+      align-items: center;
+      gap: 28px;
+      background: rgba(18, 16, 14, 0.76);
+      border: 1px solid rgba(252, 250, 246, 0.2);
+      border-radius: 9999px;
+      padding: 10px 14px 10px 26px;
+      font-size: 15px;
+      color: #FCFAF6;
+    }
+    .mock-cta {
+      background: #FCFAF6;
+      color: #161514;
+      border-radius: 9999px;
+      padding: 8px 20px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .badge-grade {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(63, 185, 80, 0.18);
+      border: 1px solid rgba(63, 185, 80, 0.5);
+      color: #3FB950;
+      padding: 8px 18px;
+      border-radius: 9999px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 16px;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <!-- Persistent Top HUD -->
+    <div class="hud-top">
+      <div class="hud-pill">
+        <span class="dot-blue"></span>
+        <span>HEROFORGE V1 · AUTONOMOUS CREATIVE STUDIO &amp; AGENT OS</span>
+      </div>
+      <div class="hud-pill">
+        <span class="dot-green"></span>
+        <span id="hud-scene-label">01 / POSTER HOOK · B− TO A+ RESTRAINT</span>
+        <span id="hud-timecode" style="color:#58A6FF; margin-left:10px;">00:00 / 01:00</span>
+      </div>
+    </div>
+
+    <!-- SCENE 1 (0.0s - 7.5s): POSTER FRAME & HOOK -->
+    <section id="scene-1" class="scene active">
+      <div class="grid-2">
+        <div>
+          <div class="kicker">THE CRITIQUE LOOP THAT RE-ARCHITECTED OUR STUDIO</div>
+          <h1 class="display-xl">
+            From <em>B− Clutter</em><br />
+            to A+ Editorial<br />
+            Restraint.
+          </h1>
+          <p class="sub-lead">
+            We took a real design critique of our Watch (B−) &amp; Architecture (B) heroes, stripped every templated AI card and orphan word, consolidated 38 skills, and built 7 A+ Flagship Websites inside the Chalkboard Slate Agent OS.
+          </p>
+          <div style="display:flex; gap:16px; margin-top:32px; flex-wrap:wrap;">
+            <span class="badge-grade">WATCH HERO: B− → A+</span>
+            <span class="badge-grade">ARCHITECTURE HERO: B → A+</span>
+            <span class="badge-grade" style="color:#58A6FF; border-color:rgba(88,166,255,0.45); background:rgba(88,166,255,0.14);">7 FLAGSHIP SITES + PROMPTS</span>
+          </div>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr; gap:22px;">
+          <div class="hero-frame" style="height:390px;">
+            <img id="s1-img-a" src="" alt="Aetherion Watch" />
+            <div class="hero-frame-scrim">
+              <div style="display:flex; justify-content:space-between;">
+                <span class="badge-grade">01 · AETHERION GENÈVE (A+)</span>
+                <span style="font-family:'JetBrains Mono'; font-size:14px; color:#E9D5B5;">ZERO ORPHAN WORDS · 1 CTA</span>
+              </div>
+              <div>
+                <div style="font-family:'Instrument Serif'; font-size:48px; line-height:1.03; color:#FFF;">
+                  German silver, shaped<br /><em>by morning light.</em>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="hero-frame" style="height:390px;">
+            <img id="s1-img-b" src="" alt="Kurokawa Architecture" />
+            <div class="hero-frame-scrim">
+              <div style="display:flex; justify-content:space-between;">
+                <span class="badge-grade">02 · KUROKAWA &amp; VANE (A+)</span>
+                <span style="font-family:'JetBrains Mono'; font-size:14px; color:#D4A373;">3-PILL SWITCHER · NO JARGON</span>
+              </div>
+              <div>
+                <div style="font-family:'Cormorant Garamond'; font-size:48px; line-height:1.03; color:#FFF;">
+                  Carved from silence<br /><em>and volcanic stone.</em>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCENE 2 (7.5s - 16.0s): THE MINIMALIST HERO RESTRAINT LAW -->
+    <section id="scene-2" class="scene">
+      <div>
+        <div class="kicker">CODIFIED INTO HEROFORGE-MASTER-STUDIO/SKILL.MD (38 SKILLS CONSOLIDATED)</div>
+        <h2 class="display-xl" style="font-size:74px;">
+          The Minimalist Hero <em>Restraint Law</em>
+        </h2>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:24px; margin-top:24px;">
+        <div class="card-slate">
+          <div class="kicker">LAW 01 · ELEMENT CAP</div>
+          <h3 style="font-size:28px; margin-bottom:12px;">Strictly 5 Hero Elements</h3>
+          <p style="font-size:19px; color:#B4BDC8; line-height:1.55;">
+            1 Floating Pill Nav, 1 Unboxed Eyebrow Label, 1 Two-Line Headline, 1 Short Sentence (&le;38ch), and 1 Primary CTA. Deleted the 4-box stat card from the Watch hero.
+          </p>
+        </div>
+        <div class="card-slate">
+          <div class="kicker">LAW 02 · INTENTIONAL WRAPPING</div>
+          <h3 style="font-size:28px; margin-bottom:12px;">Zero Orphan Headline Words</h3>
+          <p style="font-size:19px; color:#B4BDC8; line-height:1.55;">
+            Fixed awkward wrapping where “light.” was stranded alone on a 3rd line. Locked balanced 2-line breaks across Desktop (1440px) and Mobile (390px).
+          </p>
+        </div>
+        <div class="card-slate">
+          <div class="kicker">LAW 03 · COLOR ISOLATION</div>
+          <h3 style="font-size:28px; margin-bottom:12px;">Workspace vs. Site Palette</h3>
+          <p style="font-size:19px; color:#B4BDC8; line-height:1.55;">
+            Mineral Light Blue (#58A6FF) stays strictly inside the Chalkboard Slate Agent OS. Showcase sites use authentic travertine, basalt, and brass tokens.
+          </p>
+        </div>
+      </div>
+      <div class="card-slate" style="display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <span class="kicker">BEFORE VS. AFTER NAV LABELS</span>
+          <div style="font-size:22px; margin-top:6px;">
+            <span style="color:#F85149; text-decoration:line-through; margin-right:24px;">“Practice Bento · Lithic Archive · Switch Residence Plate”</span>
+            <span style="color:#3FB950; font-weight:600;">→ “Projects · Studio · Materials · [Inquire]”</span>
+          </div>
+        </div>
+        <span class="badge-grade">100/100 DESLOPIFY AUDIT</span>
+      </div>
+    </section>
+
+    <!-- SCENE 3 (16.0s - 24.5s): SITE 01 AETHERION GENEVE -->
+    <section id="scene-3" class="scene">
+      <div class="hero-frame" style="height:840px;">
+        <img id="s3-img" src="" alt="Aetherion Hero" />
+        <div class="hero-frame-scrim">
+          <div class="mock-pill-nav">
+            <strong style="letter-spacing:0.18em;">AETHERION</strong>
+            <span>Movement</span>
+            <span>Craft</span>
+            <span>Specifications</span>
+            <span class="mock-cta">Inquire</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:flex-end;">
+            <div style="max-width:680px;">
+              <div style="font-family:'JetBrains Mono'; font-size:15px; letter-spacing:0.16em; color:#E9D5B5; margin-bottom:14px;">
+                CALIBRE 01 · GENEVA
+              </div>
+              <div style="font-family:'Instrument Serif'; font-size:78px; line-height:1.03; color:#FFF; margin-bottom:18px;">
+                German silver, shaped<br /><em style="color:#F3DFC1;">by morning light.</em>
+              </div>
+              <p style="font-size:21px; line-height:1.55; color:rgba(252,250,246,0.88); max-width:520px; margin-bottom:26px;">
+                Thirty-eight manual-wind chronographs finished and regulated by hand each year in our Rue du Rhône workshop.
+              </p>
+              <span class="mock-cta" style="padding:14px 30px; font-size:17px;">Explore the Movement</span>
+            </div>
+            <div style="font-family:'JetBrains Mono'; font-size:15px; letter-spacing:0.1em; color:rgba(252,250,246,0.82); border-bottom:1px solid rgba(252,250,246,0.3); padding-bottom:6px;">
+              312 PARTS · 96H RESERVE · RAW MAILLECHORT
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCENE 4 (24.5s - 33.0s): SITE 02 KUROKAWA & VANE -->
+    <section id="scene-4" class="scene">
+      <div class="hero-frame" style="height:840px;">
+        <img id="s4-img" src="" alt="Kurokawa Hero" />
+        <div class="hero-frame-scrim">
+          <div class="mock-pill-nav">
+            <strong style="letter-spacing:0.18em;">KUROKAWA &amp; VANE</strong>
+            <span>Projects</span>
+            <span>Studio</span>
+            <span>Materials</span>
+            <span class="mock-cta">Inquire</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:flex-end;">
+            <div style="max-width:680px;">
+              <div style="font-family:'JetBrains Mono'; font-size:15px; letter-spacing:0.16em; color:#D4A373; margin-bottom:14px;">
+                01 / GRINDAVÍK, ICELAND (2025)
+              </div>
+              <div style="font-family:'Cormorant Garamond'; font-size:80px; line-height:1.03; color:#FFF; margin-bottom:18px;">
+                Carved from silence<br /><em style="color:#EFE6D5;">and volcanic stone.</em>
+              </div>
+              <p style="font-size:21px; line-height:1.55; color:rgba(252,250,246,0.88); max-width:520px; margin-bottom:26px;">
+                Cantilevered above the North Atlantic surf, raw basalt walls channel geothermal spring vapor into still bathing courts.
+              </p>
+              <span class="mock-cta" style="padding:14px 30px; font-size:17px;">View Project</span>
+            </div>
+            <div class="mock-pill-nav" style="padding:6px;">
+              <span class="mock-cta">01 Reykjanes</span>
+              <span style="padding:6px 14px;">02 Naoshima</span>
+              <span style="padding:6px 14px;">03 Atacama</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCENE 5 (33.0s - 46.0s): SITES 03-07 RAPID SHOWCASE + REPLICATION PROMPTS -->
+    <section id="scene-5" class="scene">
+      <div class="grid-2">
+        <div class="hero-frame" style="height:820px;">
+          <img id="s5-img" src="" alt="Dynamic Flagship Site" />
+          <div class="hero-frame-scrim">
+            <div class="mock-pill-nav">
+              <strong id="s5-nav-brand" style="letter-spacing:0.16em;">VALKYR ORBITAL</strong>
+              <span id="s5-nav-1">Propulsion</span>
+              <span id="s5-nav-2">Telemetry</span>
+              <span id="s5-nav-3">Heritage</span>
+              <span class="mock-cta">Inquire</span>
+            </div>
+            <div>
+              <div id="s5-eyebrow" style="font-family:'JetBrains Mono'; font-size:15px; letter-spacing:0.16em; color:#E09F5A; margin-bottom:12px;">
+                03 / HELIOS-9 CISLUNAR THRUSTER
+              </div>
+              <div id="s5-headline" style="font-family:'Cormorant Garamond'; font-size:70px; line-height:1.04; color:#FFF; margin-bottom:16px;">
+                Silent thrust across<br /><em>the deep orbital dark.</em>
+              </div>
+              <p id="s5-lead" style="font-size:20px; color:rgba(252,250,246,0.88); max-width:480px; margin-bottom:22px;">
+                Magnetically shielded xenon thrusters engineered for ten-year cislunar stationkeeping.
+              </p>
+              <span id="s5-cta" class="mock-cta" style="padding:12px 26px; font-size:16px;">Inspect Telemetry</span>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:20px;">
+          <div class="kicker">5 NEW A+ FLAGSHIP SITES + MASTER REPLICATION PROMPTS</div>
+          <h2 class="display-xl" style="font-size:58px;" id="s5-right-title">
+            03 · Valkyr Orbital
+          </h2>
+          <div class="card-slate">
+            <div class="kicker">COPYABLE MASTER REPLICATION PROMPT ON MAIN PAGE</div>
+            <pre id="s5-prompt-box" style="font-family:'JetBrains Mono'; font-size:15px; line-height:1.55; color:#E6EDF3; white-space:pre-wrap; margin-top:10px;"></pre>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <span class="hud-pill" id="pill-s3">03 Valkyr Orbital</span>
+            <span class="hud-pill" id="pill-s4">04 Sora &amp; Klang</span>
+            <span class="hud-pill" id="pill-s5">05 Atelier Vespers</span>
+            <span class="hud-pill" id="pill-s6">06 Veloce Morphos</span>
+            <span class="hud-pill" id="pill-s7">07 Solaris Lensworks</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCENE 6 (46.0s - 54.0s): CHALKBOARD SLATE & STONE AGENT OS -->
+    <section id="scene-6" class="scene">
+      <div>
+        <div class="kicker">CHALKBOARD SLATE &amp; STONE + MINERAL LIGHT BLUE (#58A6FF) WORKSPACE</div>
+        <h2 class="display-xl" style="font-size:68px;">
+          7 Pill-Bar Tabs + <em>Live Side-View Canvas</em>
+        </h2>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:20px;">
+        <div class="card-slate" style="border-color:#58A6FF;">
+          <div class="kicker">TAB 01 · HEROFORGE</div>
+          <h3 style="font-size:24px; margin-bottom:8px;">7 Flagship Sites + Prompts</h3>
+          <p style="font-size:17px; color:#B4BDC8; line-height:1.5;">Interactive Side-View Canvas previewing all 7 sites across Desktop, Tablet &amp; Mobile with 1-click prompt replication.</p>
+        </div>
+        <div class="card-slate">
+          <div class="kicker">TAB 02 · OBSIDIAN VAULT</div>
+          <h3 style="font-size:24px; margin-bottom:8px;">Knowledge Graph + Deep Link</h3>
+          <p style="font-size:17px; color:#B4BDC8; line-height:1.5;">Connected to /heroforge-v1/obsidian-vault with interactive SVG node graph and obsidian:// protocol launcher.</p>
+        </div>
+        <div class="card-slate">
+          <div class="kicker">TAB 03 &amp; 04 · CLI CHATS</div>
+          <h3 style="font-size:24px; margin-bottom:8px;">Hermes &amp; Codex CLI Consoles</h3>
+          <p style="font-size:17px; color:#B4BDC8; line-height:1.5;">Autonomous Hermes critique loops and OpenAI Codex CLI terminal execution &amp; fallback hero image generation.</p>
+        </div>
+        <div class="card-slate">
+          <div class="kicker">TAB 05, 06, 07 · STUDIO TOOLS</div>
+          <h3 style="font-size:24px; margin-bottom:8px;">OpenDesign, Vault &amp; /Brag</h3>
+          <p style="font-size:17px; color:#B4BDC8; line-height:1.5;">Live Minimalist Hero Restraint grader, searchable 27-prompt vault, and embedded 60-second Hyperframes video studio.</p>
+        </div>
+      </div>
+      <div class="card-slate" style="display:flex; justify-content:space-between; align-items:center;">
+        <div style="font-family:'JetBrains Mono'; font-size:18px; color:#58A6FF;">
+          $ hermes dispatch --workflow heroforge-a-plus-loop --sites 7 --skills 38 --obsidian-sync
+        </div>
+        <span class="badge-grade">DEPLOYED TO GITHUB &amp; VERCEL</span>
+      </div>
+    </section>
+
+    <!-- SCENE 7 (54.0s - 60.0s): RESOLUTION LOCKUP -->
+    <section id="scene-7" class="scene">
+      <div style="margin:auto; text-align:center; max-width:1280px;">
+        <div class="kicker" style="font-size:18px;">HEROFORGE V1 · AUTONOMOUS CREATIVE WEBSITE STUDIO</div>
+        <h2 class="display-xl" style="font-size:96px; margin:16px 0 24px;">
+          Seven Flagship Worlds.<br />
+          <em>One Minimalist Law.</em>
+        </h2>
+        <p style="font-size:26px; color:#B4BDC8; max-width:900px; margin:0 auto 40px; line-height:1.5;">
+          01 Aetherion Genève · 02 Kurokawa &amp; Vane · 03 Valkyr Orbital · 04 Sora &amp; Klang · 05 Atelier Vespers · 06 Veloce Morphos · 07 Solaris Lensworks
+        </p>
+        <div style="display:inline-flex; gap:18px; flex-wrap:wrap; justify-content:center;">
+          <span class="badge-grade" style="font-size:18px; padding:12px 26px;">7/7 A+ HERO RESTRAINT</span>
+          <span class="badge-grade" style="font-size:18px; padding:12px 26px;">38 CONSOLIDATED SKILLS</span>
+          <span class="badge-grade" style="font-size:18px; padding:12px 26px; color:#58A6FF; border-color:#58A6FF; background:rgba(88,166,255,0.15);">CLICKTEIG11-BYTE · VERCEL LIVE</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="hud-progress-track">
+      <div id="progress-fill" class="hud-progress-fill"></div>
+    </div>
+  </div>
+
+  <script>
+    window.__IMAGES = window.__IMAGES || {};
+    const S5_DATA = [
+      {
+        key: 's3',
+        brand: 'VALKYR ORBITAL',
+        nav: ['Propulsion', 'Telemetry', 'Heritage'],
+        eyebrow: '03 / HELIOS-9 CISLUNAR THRUSTER',
+        h1: 'Silent thrust across<br /><em>the deep orbital dark.</em>',
+        lead: 'Magnetically shielded xenon thrusters engineered for ten-year cislunar stationkeeping.',
+        cta: 'Inspect Telemetry',
+        rightTitle: '03 · Valkyr Orbital (Aerospace & Propulsion)',
+        prompt: 'Build an A+ aerospace propulsion site for "Valkyr Orbital — Helios-9".\n- Floating Pill Nav: Propulsion · Telemetry · Heritage · [Inquire]\n- 2-Line Headline: "Silent thrust across / the deep orbital dark."\n- 1 Primary CTA ("Inspect Telemetry") · 0 Orphan Words · Vacuum Obsidian (#080A0E)'
+      },
+      {
+        key: 's4',
+        brand: 'SORA & KLANG',
+        nav: ['Acoustics', 'Enclosure', 'Specifications'],
+        eyebrow: '04 / REFERENCE 01 ACOUSTIC MONOLITH',
+        h1: 'Pure room presence,<br /><em>milled from solid oak.</em>',
+        lead: 'Phase-coherent beryllium drivers housed in kiln-dried Scandinavian oak and aluminum.',
+        cta: 'Book Listening Room',
+        rightTitle: '04 · Sora & Klang (Acoustic Architecture)',
+        prompt: 'Build an A+ acoustic hardware flagship site for "Sora & Klang — Reference 01".\n- Floating Pill Nav: Acoustics · Enclosure · Specifications · [Listen]\n- 2-Line Headline: "Pure room presence, / milled from solid oak."\n- 1 Primary CTA ("Book Listening Room") · Zero-Diffraction Baffle'
+      },
+      {
+        key: 's5',
+        brand: 'ATELIER VESPERS',
+        nav: ['Formulations', 'Distillery', 'Botanicals'],
+        eyebrow: '05 / DISTILLATION NO. 09 · KISO HINOKI',
+        h1: 'Wild-harvested resin,<br /><em>steeped in quiet glass.</em>',
+        lead: 'Cold-pressed Japanese cypress bark and Somalian myrrh macerated for ninety days in amber glass.',
+        cta: 'Explore Formulation',
+        rightTitle: '05 · Atelier Vespers (Botanical Apothecary)',
+        prompt: 'Build an A+ botanical apothecary showcase for "Atelier Vespers — No. 09".\n- Floating Pill Nav: Formulations · Distillery · Botanicals · [Acquire]\n- 2-Line Headline: "Wild-harvested resin, / steeped in quiet glass."\n- 1 Primary CTA ("Explore Formulation") · Unbranded Amber Dropper Photo'
+      },
+      {
+        key: 's6',
+        brand: 'VELOCE MORPHOS',
+        nav: ['Aerodynamics', 'Chassis', 'Commission'],
+        eyebrow: '06 / TIPO 04 COACHBUILT CARBON GT',
+        h1: 'Sculpted by air,<br /><em>built for the pass.</em>',
+        lead: 'An active ground-effect carbon monocoque weighing 1,140 kilograms dry with a naturally aspirated V12.',
+        cta: 'Explore Aerodynamics',
+        rightTitle: '06 · Veloce Morphos (Coachbuilt Hyper-GT)',
+        prompt: 'Build an A+ bespoke automotive showcase for "Veloce Morphos — Tipo 04 GT".\n- Floating Pill Nav: Aerodynamics · Chassis · Commission · [Inquire]\n- 2-Line Headline: "Sculpted by air, / built for the pass."\n- 1 Primary CTA ("Explore Aerodynamics") · 1,140 kg Dry Carbon Tub'
+      },
+      {
+        key: 's7',
+        brand: 'SOLARIS WETZLAR',
+        nav: ['Optics', 'Coatings', 'MTF'],
+        eyebrow: '07 / APO-SUMMITAR 50MM T1.3',
+        h1: 'Glass ground to capture<br /><em>the unseen half-stop.</em>',
+        lead: 'Twelve lanthanum glass elements hand-collimated for zero focus breathing across full-frame sensors.',
+        cta: 'Inspect Optical Formula',
+        rightTitle: '07 · Solaris Lensworks (Cinema Prime Optics)',
+        prompt: 'Build an A+ precision optical engineering site for "Solaris Lensworks — 50mm T1.3".\n- Floating Pill Nav: Optics · Coatings · MTF · [Acquire]\n- 2-Line Headline: "Glass ground to capture / the unseen half-stop."\n- 1 Primary CTA ("Inspect Optical Formula") · 15-Blade Titanium Iris'
+      }
+    ];
+
+    function formatTime(sec) {
+      const s = Math.floor(sec);
+      const mm = String(Math.floor(s / 60)).padStart(2, '0');
+      const ss = String(s % 60).padStart(2, '0');
+      return mm + ':' + ss + ' / 01:00';
+    }
+
+    window.__setRenderTime = function(t) {
+      const clamped = Math.max(0, Math.min(60, t));
+      document.getElementById('progress-fill').style.width = ((clamped / 60) * 100).toFixed(2) + '%';
+      document.getElementById('hud-timecode').textContent = formatTime(clamped);
+
+      const scenes = [
+        { id: 'scene-1', start: 0, end: 7.5, label: '01 / POSTER HOOK · B− TO A+ RESTRAINT' },
+        { id: 'scene-2', start: 7.5, end: 16.0, label: '02 / MINIMALIST HERO RESTRAINT LAW' },
+        { id: 'scene-3', start: 16.0, end: 24.5, label: '03 / SITE 01 · AETHERION GENÈVE (A+)' },
+        { id: 'scene-4', start: 24.5, end: 33.0, label: '04 / SITE 02 · KUROKAWA & VANE (A+)' },
+        { id: 'scene-5', start: 33.0, end: 46.0, label: '05 / SITES 03–07 · 5 NEW FLAGSHIPS + PROMPTS' },
+        { id: 'scene-6', start: 46.0, end: 54.0, label: '06 / CHALKBOARD SLATE AGENT OS (7 TABS)' },
+        { id: 'scene-7', start: 54.0, end: 60.1, label: '07 / HEROFORGE V1 · 7 SITES · 38 SKILLS' }
+      ];
+
+      for (const sc of scenes) {
+        const el = document.getElementById(sc.id);
+        if (clamped >= sc.start && clamped < sc.end) {
+          el.classList.add('active');
+          document.getElementById('hud-scene-label').textContent = sc.label;
+        } else {
+          el.classList.remove('active');
+        }
+      }
+
+      if (clamped >= 33.0 && clamped < 46.0) {
+        const subIdx = Math.min(4, Math.floor((clamped - 33.0) / 2.6));
+        const item = S5_DATA[subIdx];
+        if (window.__IMAGES[item.key]) {
+          document.getElementById('s5-img').src = window.__IMAGES[item.key];
+        }
+        document.getElementById('s5-nav-brand').textContent = item.brand;
+        document.getElementById('s5-nav-1').textContent = item.nav[0];
+        document.getElementById('s5-nav-2').textContent = item.nav[1];
+        document.getElementById('s5-nav-3').textContent = item.nav[2];
+        document.getElementById('s5-eyebrow').textContent = item.eyebrow;
+        document.getElementById('s5-headline').innerHTML = item.h1;
+        document.getElementById('s5-lead').textContent = item.lead;
+        document.getElementById('s5-cta').textContent = item.cta;
+        document.getElementById('s5-right-title').textContent = item.rightTitle;
+        document.getElementById('s5-prompt-box').textContent = item.prompt;
+
+        ['s3', 's4', 's5', 's6', 's7'].forEach((k) => {
+          const pill = document.getElementById('pill-' + k);
+          if (pill) {
+            pill.style.borderColor = k === item.key ? '#58A6FF' : 'rgba(255,255,255,0.14)';
+            pill.style.color = k === item.key ? '#58A6FF' : '#F5F7FA';
+          }
+        });
+      }
+    };
+  </script>
+</body>
+</html>

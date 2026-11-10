@@ -1,0 +1,58 @@
+{
+  "verifiedAt": "2026-11-10T04:02:27.702Z",
+  "allPassed": false,
+  "totalChecks": 10,
+  "passedChecks": 7,
+  "checks": [
+    {
+      "name": "Skill Adapter (.agents/skills)",
+      "passed": false,
+      "detail": "38/36 skills installed with SKILL.md"
+    },
+    {
+      "name": "Skill Adapter (.claude/skills)",
+      "passed": false,
+      "detail": "38/36 skills installed with SKILL.md"
+    },
+    {
+      "name": "Skill Adapter (.codex/skills)",
+      "passed": false,
+      "detail": "38/36 skills installed with SKILL.md"
+    },
+    {
+      "name": "skills-manifest.json completeness",
+      "passed": true,
+      "detail": "36/36 skills documented (9 third-party + 27 original)"
+    },
+    {
+      "name": "20-Idea Autonomous Catalog",
+      "passed": true,
+      "detail": "20/20 ranked concepts in data/ideas-catalog.json"
+    },
+    {
+      "name": "Generated Reference Plates on Disk",
+      "passed": true,
+      "detail": "13/13 high-res reference PNGs verified"
+    },
+    {
+      "name": "Playwright Multi-Viewport QA Screenshots",
+      "passed": true,
+      "detail": "28/28 PNG captures verified across qa/ and apps/gallery/public/qa/"
+    },
+    {
+      "name": "Portable Studio Artifacts & Starter Template",
+      "passed": true,
+      "detail": "All 14 required portable files present"
+    },
+    {
+      "name": "Zero Leaked API Keys",
+      "passed": true,
+      "detail": "0 hardcoded secrets found"
+    },
+    {
+      "name": "Deslopify Zero-Slop Audit",
+      "passed": true,
+      "detail": "PASSED_ZERO_SLOP (0 violations)"
+    }
+  ]
+}
