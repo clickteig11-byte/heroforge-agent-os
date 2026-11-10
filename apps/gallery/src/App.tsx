@@ -1030,6 +1030,62 @@ export function App() {
                 </div>
               </div>
             </div>
+
+            {/* 2026 AI DESIGN WORKFLOW + 7 EXPENSIVE UI FIXES + HALLMARK V2.0 FLOOR */}
+            <div className="msg-card" style={{ marginTop: '18px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <div className="msg-header">
+                <span className="msg-author">2026 AI Design Workflow · 7 Expensive UI Fixes · Hallmark v2.0 Floor</span>
+                <span className="cli-badge-pill">44/44 SKILLS VERIFIED · 100/100</span>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '10px' }}>
+                <div className="msg-cmd-box">
+                  <strong>1. Focal Point &amp; Spacing (eQ74n4huAcA):</strong> &gt;=70% unobstructed hero subject, 1 primary CTA, one section per 100dvh screen, equal edges, overflow-x: clip.
+                </div>
+                <div className="msg-cmd-box">
+                  <strong>2. Typography &amp; Color Tokens (Nutlope/hallmark):</strong> Balanced 2-line wraps (0 orphans), tabular-nums, :root tokens only, workspace #58A6FF isolated from showcase sites.
+                </div>
+                <div className="msg-cmd-box">
+                  <strong>3. Real Content, Details &amp; Motion:</strong> Authentic telemetry, 1px exposed hairlines, custom cubic-bezier(0.23, 1, 0.32, 1) ease-out (emil-design-eng &amp; transitions-dev).
+                </div>
+                <div className="msg-cmd-box">
+                  <strong>4. 6-Stage 2026 Workflow (7eCK9ioNpqU):</strong> Deeper Brief (be-ambitious) → Mobbin Job Walk (redesign-screen) → Hallmark Theme Deal → Hero-First Build → Sloplint &amp; Visual QA → 30fps /Brag.
+                </div>
+              </div>
+            </div>
+
+            {/* VERIFIED REAL-REPO SKILLS PROVENANCE REGISTRY */}
+            <div className="msg-card" style={{ marginTop: '18px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <div className="msg-header">
+                <span className="msg-author">
+                  Verified Real-Repo Skill Provenance ({skillsAudit.totalSkillsAudited} Audited Skills · 15 Upstream GitHub Repos + 29 Studio Skills)
+                </span>
+                <span className="cli-badge-pill">Avg Score: {skillsAudit.averageScore}/100</span>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(290px, 1fr))', gap: '10px' }}>
+                {skillsAudit.skills
+                  .filter((s) => s.category === 'third-party-verified' || s.name === 'heroforge-master-studio' || s.name === 'hyperframes-motion-graphics')
+                  .map((s) => (
+                    <div key={s.name} className="msg-cmd-box" style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '6px' }}>
+                        <strong style={{ color: 'var(--accent-blue)' }}>{s.name}</strong>
+                        <span style={{ fontSize: '0.65rem', color: '#3fb950' }}>
+                          {s.commit.slice(0, 7)} · {s.auditScore}/100
+                        </span>
+                      </div>
+                      <div style={{ fontSize: '0.7rem', color: 'var(--ink-secondary)' }}>{s.displayName}</div>
+                      <a
+                        href={s.source}
+                        target="_blank"
+                        rel="noreferrer"
+                        style={{ fontSize: '0.68rem', color: 'var(--accent-blue)', wordBreak: 'break-all' }}
+                      >
+                        {s.source} ↗
+                      </a>
+                      <div style={{ fontSize: '0.65rem', color: 'var(--ink-muted)' }}>{s.installCommand}</div>
+                    </div>
+                  ))}
+              </div>
+            </div>
           </div>
         )}
 

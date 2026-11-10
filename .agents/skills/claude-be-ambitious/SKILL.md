@@ -1,63 +1,46 @@
 ---
 name: claude-be-ambitious
-description: Escalate creative and engineering tasks along three axes of ambition — Altitude, Depth, and Range — based on Felix Rieseberg's "How to be more ambitious" methodology. Use before planning or building any HeroForge website, 3D scene, or architectural system to ensure world-class execution rather than boilerplate output.
+description: >
+  Turn a task or prompt into a deeper version of itself, not a bigger one.
+  Before rewriting, say what a top professional in the field would do that the
+  user isn't asking for, the rawest source material they would start from, the
+  specific methods and tools they would use, and what (other than the user or
+  the model) would show the result is right. Then rewrite the prompt to ask for
+  exactly that. Cloned from https://github.com/DannyMac180/skills/tree/main/be-ambitious (commit 5b02caf97c72bdd9fd1a9933032942a8650a836c).
 ---
 
-# Claude "Be Ambitious" — Creative & Engineering Escalation Protocol
+# Claude Be Ambitious (`DannyMac180/skills` + Felix Rieseberg Methodology)
 
 ## Overview
-Most AI prompts and default agent plans scale to the size of a routine micro-task, resulting in safe, generic, middle-of-the-bell-curve outputs. This skill forces the agent to aim **deeper, not merely bigger** by applying the four-question escalation protocol across **Altitude**, **Depth**, and **Range**.
+Adapted from Felix Rieseberg's (Anthropic) *"How to be more ambitious: A tutorial for humans with models"* and verified from [`https://github.com/DannyMac180/skills/tree/main/be-ambitious`](https://github.com/DannyMac180/skills/tree/main/be-ambitious) (`commit 5b02caf97c72bdd9fd1a9933032942a8650a836c`):
+
+> I want a deeper version of this task, not a bigger one. Before rewriting it:
+> (1) say what a top professional in this field would do here that I'm not asking for;
+> (2) name the rawest material they would start from instead of what has already been digested for me;
+> (3) name the specific methods and tools they would use;
+> (4) say what, other than you or me, would show the result is right.
+> Then rewrite my prompt to ask for exactly that.
 
 ## Triggers
-- Starting a new website concept, brand creation, or architectural design inside HeroForge V1.
-- Reviewing a draft design brief, hero layout, or 3D scene plan that feels conventional or predictable.
-- Invoked explicitly via `/be-ambitious` or during Phase 1–3 of the HeroForge workflow.
+- `/be-ambitious`, `"be ambitious"`, `"make this prompt deeper"`, `"what would an expert do here"`, `"raise the bar on this task"`.
+- Stage 1 of the HeroForge V1 2026 AI Design Workflow before building any flagship website or 3D scene.
 
-## The Four Escalation Questions
-Before executing any creative or engineering brief, answer these four questions explicitly:
-1. **What would a top 0.1% creative director, graphic designer, and graphics programmer do here that wasn't explicitly asked for?**
-   - Example: Instead of placing a static 3D mesh over a gradient, choreograph a continuous scroll-linked camera rig through multi-layered physically based materials with custom Fresnel rim lighting, synchronized typographic mask reveals, and tactile soundless haptics via micro-springs.
-2. **What is the rawest material they would start from instead of pre-digested templates?**
-   - Example: Start from primary industrial design materiality (anodized titanium, cleaved slate, optical borosilicate glass, horological escapement kinematics, brutalist concrete formwork) rather than generic "SaaS dark mode" UI kits.
-3. **What specific instruments, mathematical models, and tools would they use?**
-   - Example: Custom GLSL shaders or PBR `MeshPhysicalMaterial` (`transmission`, `ior`, `clearcoat`, `iridescence`, `roughnessMap`), GSAP `ScrollTrigger` scrubbed timelines (`scrub: 1.2`) with deterministic progress normalization, fluid `clamp()` typographic scales, and Playwright multi-viewport pixel inspection.
-4. **What independent outside check proves the result is genuinely exceptional?**
-   - Example: Side-by-side Playwright screenshot comparison against high-craft generated art-direction reference mockups across Desktop (`1440×900`), Tablet (`768×1024`), and Mobile (`390×844`), zero console/WebGL errors, verified `prefers-reduced-motion` compliance, and a 90+ Design Critic rubric score.
+## Deeper, Not Bigger
+Keep the user's goal and scope. Depth means a higher standard for the same outcome: better raw sources, sharper methods (`Nutlope/hallmark`, `Leonxlnx/taste-skill`, `pbakaus/impeccable`, `mobbin/skills`, `emilkowalski/skills`, `Jakubantalik/transitions.dev`), and real external verification (`sloplint.mjs`, `deslopify-audit.mjs`, Playwright multi-viewport Visual QA). Do not bloat the UI with extra badges, extra buttons, or unrequested cards.
 
-## The Three Axes of Ambition
+## The Four Expert Depth Questions
+1. **What a top professional would do that wasn't asked for**:
+   - Strip competing hero UI down to 1 dominant focal point, 1 balanced 2-line headline, 1 short sentence, and 1 primary CTA.
+   - Separate workspace chrome (`#58A6FF` light blue in Agent OS `:4100`) from showcase brand palettes (`#FCFAF6` warm ivory / `#C5A478` brass on `:4101`).
+2. **The rawest material**:
+   - Start from real product screenshots (`capture.mjs`), real Mobbin screen precedents (`redesign-screen`), high-resolution text-free photography plates, and procedural Three.js/R3F geometry (`CalibreZeroScene.tsx`).
+3. **Specific methods and tools**:
+   - `Nutlope/hallmark` (`theme.mjs`, `sloplint.mjs`), `Leonxlnx/taste-skill` (`gate.mjs`), `pbakaus/impeccable`, `Jakubantalik/transitions.dev` (`t-*` CSS transitions), `emilkowalski/skills` (`cubic-bezier(0.23, 1, 0.32, 1)`), and Playwright (`run-visual-qa.mjs`).
+4. **External verification (other than the model or user)**:
+   - `node scripts/deslopify-audit.mjs` (`0` violations), `node scripts/verify-clean-install.mjs` (`8/8` checks passed), and real Playwright screenshots at `1440×900`, `768×1024`, and `390×844`.
 
-### 1. Altitude (The Goal Beyond the Literal Task)
-- **Literal Task**: "Build a landing page for a brand."
-- **Elevated Altitude**: Build a tactile digital artifact and interactive flagship showroom where every scroll increment, hover state, and typographic proportion communicates the brand's physical engineering and cultural authority.
-
-### 2. Depth (The Craft & Engineering Standard)
-- Reject placeholder copy ("Lorem ipsum", "Transform your workflow"). Write authentic, domain-accurate technical telemetry, architectural specifications, and editorial narratives.
-- Reject uncoordinated animations. Separate layout orchestration (GSAP `ScrollTrigger`) from component micro-feedback (Motion springs) so controllers never fight over the same DOM node or Three.js `Object3D`.
-
-### 3. Range (Cross-Disciplinary Synthesis)
-- Bring four distinct lenses to every build:
-  1. **Swiss Editorial Typographer** (grid tension, optical kerning, tabular numerals, hierarchy).
-  2. **Cinematographer / Gaffer** (key-to-fill ratios, rim lighting, focal length compression, camera dolly curves).
-  3. **Industrial Designer** (chamfers, surface roughness, parting lines, weight, material honesty).
-  4. **Principal Frontend Performance Engineer** (compositor-only animations, instanced draws, CLS prevention, keyboard & screen-reader semantics).
-
-## Expected Outputs
-- An escalated **Ambitious Execution Charter** embedded in the project's creative brief or ideation rationale.
-- Measurable upgrades to materiality, typography, choreography, and domain authenticity.
-
-## Verification Criteria
-- [ ] All four escalation questions are answered with concrete technical and aesthetic specifics.
-- [ ] Zero generic SaaS clichés (no purple-to-blue gradients, no 3-column generic icon cards, no fake testimonials).
-- [ ] Independent browser verification via Playwright confirms the ambitious elements render cleanly.
-
-
-## Concrete Verification Command
+## Verification & Guidelines
 ```bash
-node scripts/deslopify-audit.mjs && node scripts/run-visual-qa.mjs
+node scripts/audit-and-upgrade-skills.mjs
 ```
-
-## Minimalist Hero Restraint Law (A+ Showcase Standard)
-- **Strict Element Cap**: Keep only 1 floating navigation bar, 1 small unboxed project label, 1 intentional 2-line headline, 1 short sentence (`<= 38ch`), 1 primary CTA button, and at most 1 subtle supporting caption/switcher.
-- **No Decorative Jargon**: Use clear human navigation words (`Projects`, `Studio`, `Movement`, `Craft`, `Inquire`) — never templated AI labels.
-- **Intentional Line Wrapping**: Balance headline lines explicitly so a short word is never stranded alone on its own line.
-- **Subject Dominance & Color Boundary**: Keep `>= 65%` of the hero image/3D subject unobstructed, and keep workspace accent colors (`#58A6FF` light blue) strictly inside the Agent OS dashboard.
+- Always answer the 4 expert depth questions before executing a flagship build or prompt rewrite.

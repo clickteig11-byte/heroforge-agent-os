@@ -18,7 +18,7 @@ console.log('===================================================================
 console.log(' HeroForge V1 — Clean-Install & Portable Studio Verification Suite');
 console.log('======================================================================');
 
-// 1. Verify all 36 skills across .agents/skills, .claude/skills, and .codex/skills
+// 1. Verify all 44 skills across .agents/skills, .claude/skills, and .codex/skills
 const ADAPTERS = ['.agents/skills', '.claude/skills', '.codex/skills'];
 for (const adapter of ADAPTERS) {
   const dir = path.join(ROOT, adapter);
@@ -30,20 +30,26 @@ for (const adapter of ADAPTERS) {
     : [];
   recordCheck(
     `Skill Adapter (${adapter})`,
-    skillFolders.length >= 36,
-    `${skillFolders.length}/38 skills installed with SKILL.md`
+    skillFolders.length >= 44,
+    `${skillFolders.length}/44 skills installed with SKILL.md`
   );
 }
 
-// 2. Verify skills-manifest.json has all skills
+// 2. Verify skills-manifest.json has all 44 skills and real GitHub repository URLs
 const manifestPath = path.join(ROOT, 'skills-manifest.json');
 const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
-const totalInManifest =
-  (manifest.thirdPartyVerifiedSkills?.length || 0) + (manifest.originalHeroForgeSkills?.length || 0);
+const allManifestSkills = [
+  ...(manifest.thirdPartyVerifiedSkills || []),
+  ...(manifest.originalHeroForgeSkills || [])
+];
+const totalInManifest = allManifestSkills.length;
+const allRealRepos = allManifestSkills.every(
+  (s) => typeof s.source === 'string' && s.source.startsWith('https://github.com/') && typeof s.commit === 'string' && s.commit.length >= 7
+);
 recordCheck(
-  'skills-manifest.json completeness',
-  totalInManifest >= 36,
-  `${totalInManifest} skills documented (${manifest.thirdPartyVerifiedSkills?.length} third-party + ${manifest.originalHeroForgeSkills?.length} original)`
+  'skills-manifest.json completeness & Real GitHub Repo Provenance',
+  totalInManifest >= 44 && allRealRepos,
+  `${totalInManifest} skills documented (${manifest.thirdPartyVerifiedSkills?.length} third-party + ${manifest.originalHeroForgeSkills?.length} studio) — Real GitHub URLs & Commits: ${allRealRepos ? 'VERIFIED' : 'MISSING'}`
 );
 
 // 3. Verify data/ideas-catalog.json has 20 ideas
@@ -100,6 +106,7 @@ recordCheck(
 
 // 6. Verify portable studio files exist
 const PORTABLE_FILES = [
+  'WORKFLOW.md',
   'AGENTS.md',
   'CLAUDE.md',
   'README.md',

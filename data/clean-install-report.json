@@ -1,5 +1,5 @@
 {
-  "verifiedAt": "2026-11-10T04:04:17.230Z",
+  "verifiedAt": "2026-11-10T23:53:26.884Z",
   "allPassed": true,
   "totalChecks": 10,
   "passedChecks": 10,
@@ -7,22 +7,22 @@
     {
       "name": "Skill Adapter (.agents/skills)",
       "passed": true,
-      "detail": "38/38 skills installed with SKILL.md"
+      "detail": "44/44 skills installed with SKILL.md"
     },
     {
       "name": "Skill Adapter (.claude/skills)",
       "passed": true,
-      "detail": "38/38 skills installed with SKILL.md"
+      "detail": "44/44 skills installed with SKILL.md"
     },
     {
       "name": "Skill Adapter (.codex/skills)",
       "passed": true,
-      "detail": "38/38 skills installed with SKILL.md"
+      "detail": "44/44 skills installed with SKILL.md"
     },
     {
-      "name": "skills-manifest.json completeness",
+      "name": "skills-manifest.json completeness & Real GitHub Repo Provenance",
       "passed": true,
-      "detail": "36 skills documented (9 third-party + 27 original)"
+      "detail": "44 skills documented (15 third-party + 29 studio) — Real GitHub URLs & Commits: VERIFIED"
     },
     {
       "name": "20-Idea Autonomous Catalog",
@@ -42,7 +42,7 @@
     {
       "name": "Portable Studio Artifacts & Starter Template",
       "passed": true,
-      "detail": "All 14 required portable files present"
+      "detail": "All 15 required portable files present"
     },
     {
       "name": "Zero Leaked API Keys",

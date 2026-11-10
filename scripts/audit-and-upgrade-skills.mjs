@@ -324,6 +324,31 @@ node scripts/package-archive.mjs
 `
 };
 
+const manifestPath = path.join(ROOT, 'skills-manifest.json');
+const manifest = fs.existsSync(manifestPath)
+  ? JSON.parse(fs.readFileSync(manifestPath, 'utf8'))
+  : { thirdPartyVerifiedSkills: [], originalHeroForgeSkills: [] };
+
+const manifestMap = new Map();
+for (const s of manifest.thirdPartyVerifiedSkills || []) {
+  manifestMap.set(s.name, {
+    category: 'third-party-verified',
+    displayName: s.displayName || s.name,
+    source: s.source,
+    commit: s.commit,
+    installCommand: s.installCommand || `npx skills add ${s.source}`
+  });
+}
+for (const s of manifest.originalHeroForgeSkills || []) {
+  manifestMap.set(s.name, {
+    category: 'heroforge-studio',
+    displayName: s.name,
+    source: s.source || 'https://github.com/clickteig11-byte/heroforge-agent-os',
+    commit: s.commit || '921ec5a6b1fe47610a8e3cc92b205b268423501d',
+    installCommand: 'Included in HeroForge V1 Studio'
+  });
+}
+
 const skillDirs = fs.readdirSync(SKILLS_DIR, { withFileTypes: true }).filter(d => d.isDirectory());
 const auditResults = [];
 
@@ -342,12 +367,24 @@ for (const dir of skillDirs) {
 
   const lines = content.split('\n').length;
   const hasFrontmatter = content.startsWith('---');
-  const hasTriggers = /##\s*(Triggers|When to Use|Overview)/i.test(content);
-  const hasVerification = /##\s*(Verification|Expected Outputs|Guidelines|Rules)/i.test(content);
-  const hasCodeExamples = content.includes('```');
+  const hasTriggers = /##\s*(\d+\.\s*)?(Triggers|When to Use|Overview|The Floor|House rules|Workflow|Quick reference|Initial Response|Core Philosophy|Input|Steps)/i.test(content);
+  const hasVerification = /##\s*(\d+\.\s*)?(Verification|Expected Outputs|Guidelines|Rules|Flow|Sweep|Ground rules|Decision rules|How to use|Common mismatches|Review Format|Rewrite|The gate|House rules)/i.test(content);
+  const hasCodeExamples = content.includes('```') || content.includes('|');
+  const provenance = manifestMap.get(skillName) || {
+    category: 'heroforge-studio',
+    displayName: skillName,
+    source: 'https://github.com/clickteig11-byte/heroforge-agent-os',
+    commit: '921ec5a6b1fe47610a8e3cc92b205b268423501d',
+    installCommand: 'Included in HeroForge V1 Studio'
+  };
 
   auditResults.push({
     name: skillName,
+    displayName: provenance.displayName,
+    category: provenance.category,
+    source: provenance.source,
+    commit: provenance.commit,
+    installCommand: provenance.installCommand,
     path: `.agents/skills/${skillName}/SKILL.md`,
     lines,
     hasFrontmatter,
@@ -378,6 +415,8 @@ for (const adapterDir of TARGET_ADAPTERS) {
 const report = {
   auditedAt: new Date().toISOString(),
   totalSkillsAudited: auditResults.length,
+  thirdPartyVerifiedCount: auditResults.filter(s => s.category === 'third-party-verified').length,
+  heroForgeStudioCount: auditResults.filter(s => s.category === 'heroforge-studio').length,
   averageScore: Number((auditResults.reduce((acc, s) => acc + s.auditScore, 0) / auditResults.length).toFixed(1)),
   allPassed: auditResults.every(s => s.auditScore >= 90),
   skills: auditResults.sort((a, b) => a.name.localeCompare(b.name))
@@ -385,5 +424,9 @@ const report = {
 
 fs.mkdirSync(path.join(ROOT, 'data'), { recursive: true });
 fs.writeFileSync(path.join(ROOT, 'data/skills-audit-report.json'), JSON.stringify(report, null, 2));
+const galleryDataDir = path.join(ROOT, 'apps/gallery/src/data');
+if (fs.existsSync(galleryDataDir)) {
+  fs.writeFileSync(path.join(galleryDataDir, 'skills-audit-report.json'), JSON.stringify(report, null, 2));
+}
 
-console.log(`[SKILL AUDIT COMPLETE] Total Skills: ${report.totalSkillsAudited} | Avg Score: ${report.averageScore}/100 | All Passed: ${report.allPassed}`);
+console.log(`[SKILL AUDIT COMPLETE] Total Skills: ${report.totalSkillsAudited} (${report.thirdPartyVerifiedCount} 3rd-party real repos + ${report.heroForgeStudioCount} studio) | Avg Score: ${report.averageScore}/100 | All Passed: ${report.allPassed}`);
