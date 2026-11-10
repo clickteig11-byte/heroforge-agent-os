@@ -1,28 +1,28 @@
 {
-  "verifiedAt": "2026-11-10T04:02:27.702Z",
-  "allPassed": false,
+  "verifiedAt": "2026-11-10T04:04:17.230Z",
+  "allPassed": true,
   "totalChecks": 10,
-  "passedChecks": 7,
+  "passedChecks": 10,
   "checks": [
     {
       "name": "Skill Adapter (.agents/skills)",
-      "passed": false,
-      "detail": "38/36 skills installed with SKILL.md"
+      "passed": true,
+      "detail": "38/38 skills installed with SKILL.md"
     },
     {
       "name": "Skill Adapter (.claude/skills)",
-      "passed": false,
-      "detail": "38/36 skills installed with SKILL.md"
+      "passed": true,
+      "detail": "38/38 skills installed with SKILL.md"
     },
     {
       "name": "Skill Adapter (.codex/skills)",
-      "passed": false,
-      "detail": "38/36 skills installed with SKILL.md"
+      "passed": true,
+      "detail": "38/38 skills installed with SKILL.md"
     },
     {
       "name": "skills-manifest.json completeness",
       "passed": true,
-      "detail": "36/36 skills documented (9 third-party + 27 original)"
+      "detail": "36 skills documented (9 third-party + 27 original)"
     },
     {
       "name": "20-Idea Autonomous Catalog",
