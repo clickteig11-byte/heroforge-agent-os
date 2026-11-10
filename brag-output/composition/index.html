@@ -2,597 +2,1169 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>HeroForge V1 — 60s Hyperframes /Brag Launch Video</title>
+  <title>HeroForge V1 — Light-Mode Editorial Motion Graphics (60s @ 30fps)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
       width: 1920px;
       height: 1080px;
       overflow: hidden;
-      background: #101215;
-      color: #F5F7FA;
-      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
-      -webkit-font-smoothing: antialiased;
+      background: #F6F4EF;
     }
-    .stage {
-      position: relative;
+    canvas {
+      display: block;
       width: 1920px;
       height: 1080px;
-      overflow: hidden;
-      background: radial-gradient(circle at 18% 18%, #1B222C 0%, #101215 65%);
-    }
-    /* Persistent Top HUD Bar */
-    .hud-top {
-      position: absolute;
-      top: 36px;
-      left: 56px;
-      right: 56px;
-      z-index: 50;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      pointer-events: none;
-    }
-    .hud-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 14px;
-      background: rgba(18, 20, 24, 0.82);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      border-radius: 9999px;
-      padding: 10px 22px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 15px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      box-shadow: 0 12px 32px rgba(0,0,0,0.35);
-    }
-    .dot-blue {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: #58A6FF;
-      box-shadow: 0 0 12px #58A6FF;
-    }
-    .dot-green {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: #3FB950;
-      box-shadow: 0 0 12px #3FB950;
-    }
-    /* Bottom Progress Bar */
-    .hud-progress-track {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 8px;
-      background: rgba(255,255,255,0.08);
-      z-index: 60;
-    }
-    .hud-progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #58A6FF, #3FB950);
-      width: 0%;
-    }
-    .scene {
-      position: absolute;
-      inset: 0;
-      padding: 118px 64px 72px;
-      display: none;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .scene.active {
-      display: flex;
-    }
-    .kicker {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 16px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: #58A6FF;
-      margin-bottom: 14px;
-    }
-    .display-xl {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 86px;
-      font-weight: 400;
-      line-height: 1.02;
-      letter-spacing: -0.02em;
-      color: #FFFFFF;
-    }
-    .display-xl em {
-      font-style: italic;
-      color: #E8D5B7;
-    }
-    .sub-lead {
-      font-size: 24px;
-      line-height: 1.5;
-      color: #B4BDC8;
-      max-width: 820px;
-      margin-top: 18px;
-    }
-    .grid-2 {
-      display: grid;
-      grid-template-columns: 1.05fr 1fr;
-      gap: 40px;
-      align-items: center;
-      height: 100%;
-    }
-    .card-slate {
-      background: rgba(24, 28, 34, 0.9);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 24px;
-      padding: 32px;
-      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
-    }
-    .hero-frame {
-      position: relative;
-      width: 100%;
-      height: 760px;
-      border-radius: 28px;
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
-    }
-    .hero-frame img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .hero-frame-scrim {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(90deg, rgba(12,12,12,0.76) 0%, rgba(12,12,12,0.22) 52%, rgba(12,12,12,0.05) 100%),
-                  linear-gradient(180deg, rgba(12,12,12,0.2) 0%, rgba(12,12,12,0.72) 100%);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 36px 44px;
-    }
-    .mock-pill-nav {
-      align-self: center;
-      display: inline-flex;
-      align-items: center;
-      gap: 28px;
-      background: rgba(18, 16, 14, 0.76);
-      border: 1px solid rgba(252, 250, 246, 0.2);
-      border-radius: 9999px;
-      padding: 10px 14px 10px 26px;
-      font-size: 15px;
-      color: #FCFAF6;
-    }
-    .mock-cta {
-      background: #FCFAF6;
-      color: #161514;
-      border-radius: 9999px;
-      padding: 8px 20px;
-      font-weight: 600;
-      font-size: 14px;
-    }
-    .badge-grade {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: rgba(63, 185, 80, 0.18);
-      border: 1px solid rgba(63, 185, 80, 0.5);
-      color: #3FB950;
-      padding: 8px 18px;
-      border-radius: 9999px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 16px;
-      font-weight: 700;
     }
   </style>
 </head>
 <body>
-  <div class="stage">
-    <!-- Persistent Top HUD -->
-    <div class="hud-top">
-      <div class="hud-pill">
-        <span class="dot-blue"></span>
-        <span>HEROFORGE V1 · AUTONOMOUS CREATIVE STUDIO &amp; AGENT OS</span>
-      </div>
-      <div class="hud-pill">
-        <span class="dot-green"></span>
-        <span id="hud-scene-label">01 / POSTER HOOK · B− TO A+ RESTRAINT</span>
-        <span id="hud-timecode" style="color:#58A6FF; margin-left:10px;">00:00 / 01:00</span>
-      </div>
-    </div>
-
-    <!-- SCENE 1 (0.0s - 7.5s): POSTER FRAME & HOOK -->
-    <section id="scene-1" class="scene active">
-      <div class="grid-2">
-        <div>
-          <div class="kicker">THE CRITIQUE LOOP THAT RE-ARCHITECTED OUR STUDIO</div>
-          <h1 class="display-xl">
-            From <em>B− Clutter</em><br />
-            to A+ Editorial<br />
-            Restraint.
-          </h1>
-          <p class="sub-lead">
-            We took a real design critique of our Watch (B−) &amp; Architecture (B) heroes, stripped every templated AI card and orphan word, consolidated 38 skills, and built 7 A+ Flagship Websites inside the Chalkboard Slate Agent OS.
-          </p>
-          <div style="display:flex; gap:16px; margin-top:32px; flex-wrap:wrap;">
-            <span class="badge-grade">WATCH HERO: B− → A+</span>
-            <span class="badge-grade">ARCHITECTURE HERO: B → A+</span>
-            <span class="badge-grade" style="color:#58A6FF; border-color:rgba(88,166,255,0.45); background:rgba(88,166,255,0.14);">7 FLAGSHIP SITES + PROMPTS</span>
-          </div>
-        </div>
-        <div style="display:grid; grid-template-columns:1fr; gap:22px;">
-          <div class="hero-frame" style="height:390px;">
-            <img id="s1-img-a" src="" alt="Aetherion Watch" />
-            <div class="hero-frame-scrim">
-              <div style="display:flex; justify-content:space-between;">
-                <span class="badge-grade">01 · AETHERION GENÈVE (A+)</span>
-                <span style="font-family:'JetBrains Mono'; font-size:14px; color:#E9D5B5;">ZERO ORPHAN WORDS · 1 CTA</span>
-              </div>
-              <div>
-                <div style="font-family:'Instrument Serif'; font-size:48px; line-height:1.03; color:#FFF;">
-                  German silver, shaped<br /><em>by morning light.</em>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="hero-frame" style="height:390px;">
-            <img id="s1-img-b" src="" alt="Kurokawa Architecture" />
-            <div class="hero-frame-scrim">
-              <div style="display:flex; justify-content:space-between;">
-                <span class="badge-grade">02 · KUROKAWA &amp; VANE (A+)</span>
-                <span style="font-family:'JetBrains Mono'; font-size:14px; color:#D4A373;">3-PILL SWITCHER · NO JARGON</span>
-              </div>
-              <div>
-                <div style="font-family:'Cormorant Garamond'; font-size:48px; line-height:1.03; color:#FFF;">
-                  Carved from silence<br /><em>and volcanic stone.</em>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SCENE 2 (7.5s - 16.0s): THE MINIMALIST HERO RESTRAINT LAW -->
-    <section id="scene-2" class="scene">
-      <div>
-        <div class="kicker">CODIFIED INTO HEROFORGE-MASTER-STUDIO/SKILL.MD (38 SKILLS CONSOLIDATED)</div>
-        <h2 class="display-xl" style="font-size:74px;">
-          The Minimalist Hero <em>Restraint Law</em>
-        </h2>
-      </div>
-      <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:24px; margin-top:24px;">
-        <div class="card-slate">
-          <div class="kicker">LAW 01 · ELEMENT CAP</div>
-          <h3 style="font-size:28px; margin-bottom:12px;">Strictly 5 Hero Elements</h3>
-          <p style="font-size:19px; color:#B4BDC8; line-height:1.55;">
-            1 Floating Pill Nav, 1 Unboxed Eyebrow Label, 1 Two-Line Headline, 1 Short Sentence (&le;38ch), and 1 Primary CTA. Deleted the 4-box stat card from the Watch hero.
-          </p>
-        </div>
-        <div class="card-slate">
-          <div class="kicker">LAW 02 · INTENTIONAL WRAPPING</div>
-          <h3 style="font-size:28px; margin-bottom:12px;">Zero Orphan Headline Words</h3>
-          <p style="font-size:19px; color:#B4BDC8; line-height:1.55;">
-            Fixed awkward wrapping where “light.” was stranded alone on a 3rd line. Locked balanced 2-line breaks across Desktop (1440px) and Mobile (390px).
-          </p>
-        </div>
-        <div class="card-slate">
-          <div class="kicker">LAW 03 · COLOR ISOLATION</div>
-          <h3 style="font-size:28px; margin-bottom:12px;">Workspace vs. Site Palette</h3>
-          <p style="font-size:19px; color:#B4BDC8; line-height:1.55;">
-            Mineral Light Blue (#58A6FF) stays strictly inside the Chalkboard Slate Agent OS. Showcase sites use authentic travertine, basalt, and brass tokens.
-          </p>
-        </div>
-      </div>
-      <div class="card-slate" style="display:flex; justify-content:space-between; align-items:center;">
-        <div>
-          <span class="kicker">BEFORE VS. AFTER NAV LABELS</span>
-          <div style="font-size:22px; margin-top:6px;">
-            <span style="color:#F85149; text-decoration:line-through; margin-right:24px;">“Practice Bento · Lithic Archive · Switch Residence Plate”</span>
-            <span style="color:#3FB950; font-weight:600;">→ “Projects · Studio · Materials · [Inquire]”</span>
-          </div>
-        </div>
-        <span class="badge-grade">100/100 DESLOPIFY AUDIT</span>
-      </div>
-    </section>
-
-    <!-- SCENE 3 (16.0s - 24.5s): SITE 01 AETHERION GENEVE -->
-    <section id="scene-3" class="scene">
-      <div class="hero-frame" style="height:840px;">
-        <img id="s3-img" src="" alt="Aetherion Hero" />
-        <div class="hero-frame-scrim">
-          <div class="mock-pill-nav">
-            <strong style="letter-spacing:0.18em;">AETHERION</strong>
-            <span>Movement</span>
-            <span>Craft</span>
-            <span>Specifications</span>
-            <span class="mock-cta">Inquire</span>
-          </div>
-          <div style="display:flex; justify-content:space-between; align-items:flex-end;">
-            <div style="max-width:680px;">
-              <div style="font-family:'JetBrains Mono'; font-size:15px; letter-spacing:0.16em; color:#E9D5B5; margin-bottom:14px;">
-                CALIBRE 01 · GENEVA
-              </div>
-              <div style="font-family:'Instrument Serif'; font-size:78px; line-height:1.03; color:#FFF; margin-bottom:18px;">
-                German silver, shaped<br /><em style="color:#F3DFC1;">by morning light.</em>
-              </div>
-              <p style="font-size:21px; line-height:1.55; color:rgba(252,250,246,0.88); max-width:520px; margin-bottom:26px;">
-                Thirty-eight manual-wind chronographs finished and regulated by hand each year in our Rue du Rhône workshop.
-              </p>
-              <span class="mock-cta" style="padding:14px 30px; font-size:17px;">Explore the Movement</span>
-            </div>
-            <div style="font-family:'JetBrains Mono'; font-size:15px; letter-spacing:0.1em; color:rgba(252,250,246,0.82); border-bottom:1px solid rgba(252,250,246,0.3); padding-bottom:6px;">
-              312 PARTS · 96H RESERVE · RAW MAILLECHORT
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SCENE 4 (24.5s - 33.0s): SITE 02 KUROKAWA & VANE -->
-    <section id="scene-4" class="scene">
-      <div class="hero-frame" style="height:840px;">
-        <img id="s4-img" src="" alt="Kurokawa Hero" />
-        <div class="hero-frame-scrim">
-          <div class="mock-pill-nav">
-            <strong style="letter-spacing:0.18em;">KUROKAWA &amp; VANE</strong>
-            <span>Projects</span>
-            <span>Studio</span>
-            <span>Materials</span>
-            <span class="mock-cta">Inquire</span>
-          </div>
-          <div style="display:flex; justify-content:space-between; align-items:flex-end;">
-            <div style="max-width:680px;">
-              <div style="font-family:'JetBrains Mono'; font-size:15px; letter-spacing:0.16em; color:#D4A373; margin-bottom:14px;">
-                01 / GRINDAVÍK, ICELAND (2025)
-              </div>
-              <div style="font-family:'Cormorant Garamond'; font-size:80px; line-height:1.03; color:#FFF; margin-bottom:18px;">
-                Carved from silence<br /><em style="color:#EFE6D5;">and volcanic stone.</em>
-              </div>
-              <p style="font-size:21px; line-height:1.55; color:rgba(252,250,246,0.88); max-width:520px; margin-bottom:26px;">
-                Cantilevered above the North Atlantic surf, raw basalt walls channel geothermal spring vapor into still bathing courts.
-              </p>
-              <span class="mock-cta" style="padding:14px 30px; font-size:17px;">View Project</span>
-            </div>
-            <div class="mock-pill-nav" style="padding:6px;">
-              <span class="mock-cta">01 Reykjanes</span>
-              <span style="padding:6px 14px;">02 Naoshima</span>
-              <span style="padding:6px 14px;">03 Atacama</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SCENE 5 (33.0s - 46.0s): SITES 03-07 RAPID SHOWCASE + REPLICATION PROMPTS -->
-    <section id="scene-5" class="scene">
-      <div class="grid-2">
-        <div class="hero-frame" style="height:820px;">
-          <img id="s5-img" src="" alt="Dynamic Flagship Site" />
-          <div class="hero-frame-scrim">
-            <div class="mock-pill-nav">
-              <strong id="s5-nav-brand" style="letter-spacing:0.16em;">VALKYR ORBITAL</strong>
-              <span id="s5-nav-1">Propulsion</span>
-              <span id="s5-nav-2">Telemetry</span>
-              <span id="s5-nav-3">Heritage</span>
-              <span class="mock-cta">Inquire</span>
-            </div>
-            <div>
-              <div id="s5-eyebrow" style="font-family:'JetBrains Mono'; font-size:15px; letter-spacing:0.16em; color:#E09F5A; margin-bottom:12px;">
-                03 / HELIOS-9 CISLUNAR THRUSTER
-              </div>
-              <div id="s5-headline" style="font-family:'Cormorant Garamond'; font-size:70px; line-height:1.04; color:#FFF; margin-bottom:16px;">
-                Silent thrust across<br /><em>the deep orbital dark.</em>
-              </div>
-              <p id="s5-lead" style="font-size:20px; color:rgba(252,250,246,0.88); max-width:480px; margin-bottom:22px;">
-                Magnetically shielded xenon thrusters engineered for ten-year cislunar stationkeeping.
-              </p>
-              <span id="s5-cta" class="mock-cta" style="padding:12px 26px; font-size:16px;">Inspect Telemetry</span>
-            </div>
-          </div>
-        </div>
-        <div style="display:flex; flex-direction:column; gap:20px;">
-          <div class="kicker">5 NEW A+ FLAGSHIP SITES + MASTER REPLICATION PROMPTS</div>
-          <h2 class="display-xl" style="font-size:58px;" id="s5-right-title">
-            03 · Valkyr Orbital
-          </h2>
-          <div class="card-slate">
-            <div class="kicker">COPYABLE MASTER REPLICATION PROMPT ON MAIN PAGE</div>
-            <pre id="s5-prompt-box" style="font-family:'JetBrains Mono'; font-size:15px; line-height:1.55; color:#E6EDF3; white-space:pre-wrap; margin-top:10px;"></pre>
-          </div>
-          <div style="display:flex; gap:10px; flex-wrap:wrap;">
-            <span class="hud-pill" id="pill-s3">03 Valkyr Orbital</span>
-            <span class="hud-pill" id="pill-s4">04 Sora &amp; Klang</span>
-            <span class="hud-pill" id="pill-s5">05 Atelier Vespers</span>
-            <span class="hud-pill" id="pill-s6">06 Veloce Morphos</span>
-            <span class="hud-pill" id="pill-s7">07 Solaris Lensworks</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SCENE 6 (46.0s - 54.0s): CHALKBOARD SLATE & STONE AGENT OS -->
-    <section id="scene-6" class="scene">
-      <div>
-        <div class="kicker">CHALKBOARD SLATE &amp; STONE + MINERAL LIGHT BLUE (#58A6FF) WORKSPACE</div>
-        <h2 class="display-xl" style="font-size:68px;">
-          7 Pill-Bar Tabs + <em>Live Side-View Canvas</em>
-        </h2>
-      </div>
-      <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:20px;">
-        <div class="card-slate" style="border-color:#58A6FF;">
-          <div class="kicker">TAB 01 · HEROFORGE</div>
-          <h3 style="font-size:24px; margin-bottom:8px;">7 Flagship Sites + Prompts</h3>
-          <p style="font-size:17px; color:#B4BDC8; line-height:1.5;">Interactive Side-View Canvas previewing all 7 sites across Desktop, Tablet &amp; Mobile with 1-click prompt replication.</p>
-        </div>
-        <div class="card-slate">
-          <div class="kicker">TAB 02 · OBSIDIAN VAULT</div>
-          <h3 style="font-size:24px; margin-bottom:8px;">Knowledge Graph + Deep Link</h3>
-          <p style="font-size:17px; color:#B4BDC8; line-height:1.5;">Connected to /heroforge-v1/obsidian-vault with interactive SVG node graph and obsidian:// protocol launcher.</p>
-        </div>
-        <div class="card-slate">
-          <div class="kicker">TAB 03 &amp; 04 · CLI CHATS</div>
-          <h3 style="font-size:24px; margin-bottom:8px;">Hermes &amp; Codex CLI Consoles</h3>
-          <p style="font-size:17px; color:#B4BDC8; line-height:1.5;">Autonomous Hermes critique loops and OpenAI Codex CLI terminal execution &amp; fallback hero image generation.</p>
-        </div>
-        <div class="card-slate">
-          <div class="kicker">TAB 05, 06, 07 · STUDIO TOOLS</div>
-          <h3 style="font-size:24px; margin-bottom:8px;">OpenDesign, Vault &amp; /Brag</h3>
-          <p style="font-size:17px; color:#B4BDC8; line-height:1.5;">Live Minimalist Hero Restraint grader, searchable 27-prompt vault, and embedded 60-second Hyperframes video studio.</p>
-        </div>
-      </div>
-      <div class="card-slate" style="display:flex; justify-content:space-between; align-items:center;">
-        <div style="font-family:'JetBrains Mono'; font-size:18px; color:#58A6FF;">
-          $ hermes dispatch --workflow heroforge-a-plus-loop --sites 7 --skills 38 --obsidian-sync
-        </div>
-        <span class="badge-grade">DEPLOYED TO GITHUB &amp; VERCEL</span>
-      </div>
-    </section>
-
-    <!-- SCENE 7 (54.0s - 60.0s): RESOLUTION LOCKUP -->
-    <section id="scene-7" class="scene">
-      <div style="margin:auto; text-align:center; max-width:1280px;">
-        <div class="kicker" style="font-size:18px;">HEROFORGE V1 · AUTONOMOUS CREATIVE WEBSITE STUDIO</div>
-        <h2 class="display-xl" style="font-size:96px; margin:16px 0 24px;">
-          Seven Flagship Worlds.<br />
-          <em>One Minimalist Law.</em>
-        </h2>
-        <p style="font-size:26px; color:#B4BDC8; max-width:900px; margin:0 auto 40px; line-height:1.5;">
-          01 Aetherion Genève · 02 Kurokawa &amp; Vane · 03 Valkyr Orbital · 04 Sora &amp; Klang · 05 Atelier Vespers · 06 Veloce Morphos · 07 Solaris Lensworks
-        </p>
-        <div style="display:inline-flex; gap:18px; flex-wrap:wrap; justify-content:center;">
-          <span class="badge-grade" style="font-size:18px; padding:12px 26px;">7/7 A+ HERO RESTRAINT</span>
-          <span class="badge-grade" style="font-size:18px; padding:12px 26px;">38 CONSOLIDATED SKILLS</span>
-          <span class="badge-grade" style="font-size:18px; padding:12px 26px; color:#58A6FF; border-color:#58A6FF; background:rgba(88,166,255,0.15);">CLICKTEIG11-BYTE · VERCEL LIVE</span>
-        </div>
-      </div>
-    </section>
-
-    <div class="hud-progress-track">
-      <div id="progress-fill" class="hud-progress-fill"></div>
-    </div>
-  </div>
+  <canvas id="motion-stage" width="1920" height="1080"></canvas>
 
   <script>
-    window.__IMAGES = window.__IMAGES || {};
-    const S5_DATA = [
-      {
-        key: 's3',
-        brand: 'VALKYR ORBITAL',
-        nav: ['Propulsion', 'Telemetry', 'Heritage'],
-        eyebrow: '03 / HELIOS-9 CISLUNAR THRUSTER',
-        h1: 'Silent thrust across<br /><em>the deep orbital dark.</em>',
-        lead: 'Magnetically shielded xenon thrusters engineered for ten-year cislunar stationkeeping.',
-        cta: 'Inspect Telemetry',
-        rightTitle: '03 · Valkyr Orbital (Aerospace & Propulsion)',
-        prompt: 'Build an A+ aerospace propulsion site for "Valkyr Orbital — Helios-9".\n- Floating Pill Nav: Propulsion · Telemetry · Heritage · [Inquire]\n- 2-Line Headline: "Silent thrust across / the deep orbital dark."\n- 1 Primary CTA ("Inspect Telemetry") · 0 Orphan Words · Vacuum Obsidian (#080A0E)'
-      },
-      {
-        key: 's4',
-        brand: 'SORA & KLANG',
-        nav: ['Acoustics', 'Enclosure', 'Specifications'],
-        eyebrow: '04 / REFERENCE 01 ACOUSTIC MONOLITH',
-        h1: 'Pure room presence,<br /><em>milled from solid oak.</em>',
-        lead: 'Phase-coherent beryllium drivers housed in kiln-dried Scandinavian oak and aluminum.',
-        cta: 'Book Listening Room',
-        rightTitle: '04 · Sora & Klang (Acoustic Architecture)',
-        prompt: 'Build an A+ acoustic hardware flagship site for "Sora & Klang — Reference 01".\n- Floating Pill Nav: Acoustics · Enclosure · Specifications · [Listen]\n- 2-Line Headline: "Pure room presence, / milled from solid oak."\n- 1 Primary CTA ("Book Listening Room") · Zero-Diffraction Baffle'
-      },
-      {
-        key: 's5',
-        brand: 'ATELIER VESPERS',
-        nav: ['Formulations', 'Distillery', 'Botanicals'],
-        eyebrow: '05 / DISTILLATION NO. 09 · KISO HINOKI',
-        h1: 'Wild-harvested resin,<br /><em>steeped in quiet glass.</em>',
-        lead: 'Cold-pressed Japanese cypress bark and Somalian myrrh macerated for ninety days in amber glass.',
-        cta: 'Explore Formulation',
-        rightTitle: '05 · Atelier Vespers (Botanical Apothecary)',
-        prompt: 'Build an A+ botanical apothecary showcase for "Atelier Vespers — No. 09".\n- Floating Pill Nav: Formulations · Distillery · Botanicals · [Acquire]\n- 2-Line Headline: "Wild-harvested resin, / steeped in quiet glass."\n- 1 Primary CTA ("Explore Formulation") · Unbranded Amber Dropper Photo'
-      },
-      {
-        key: 's6',
-        brand: 'VELOCE MORPHOS',
-        nav: ['Aerodynamics', 'Chassis', 'Commission'],
-        eyebrow: '06 / TIPO 04 COACHBUILT CARBON GT',
-        h1: 'Sculpted by air,<br /><em>built for the pass.</em>',
-        lead: 'An active ground-effect carbon monocoque weighing 1,140 kilograms dry with a naturally aspirated V12.',
-        cta: 'Explore Aerodynamics',
-        rightTitle: '06 · Veloce Morphos (Coachbuilt Hyper-GT)',
-        prompt: 'Build an A+ bespoke automotive showcase for "Veloce Morphos — Tipo 04 GT".\n- Floating Pill Nav: Aerodynamics · Chassis · Commission · [Inquire]\n- 2-Line Headline: "Sculpted by air, / built for the pass."\n- 1 Primary CTA ("Explore Aerodynamics") · 1,140 kg Dry Carbon Tub'
-      },
-      {
-        key: 's7',
-        brand: 'SOLARIS WETZLAR',
-        nav: ['Optics', 'Coatings', 'MTF'],
-        eyebrow: '07 / APO-SUMMITAR 50MM T1.3',
-        h1: 'Glass ground to capture<br /><em>the unseen half-stop.</em>',
-        lead: 'Twelve lanthanum glass elements hand-collimated for zero focus breathing across full-frame sensors.',
-        cta: 'Inspect Optical Formula',
-        rightTitle: '07 · Solaris Lensworks (Cinema Prime Optics)',
-        prompt: 'Build an A+ precision optical engineering site for "Solaris Lensworks — 50mm T1.3".\n- Floating Pill Nav: Optics · Coatings · MTF · [Acquire]\n- 2-Line Headline: "Glass ground to capture / the unseen half-stop."\n- 1 Primary CTA ("Inspect Optical Formula") · 15-Blade Titanium Iris'
-      }
-    ];
+    const canvas = document.getElementById('motion-stage');
+    const ctx = canvas.getContext('2d', { alpha: false });
 
-    function formatTime(sec) {
-      const s = Math.floor(sec);
-      const mm = String(Math.floor(s / 60)).padStart(2, '0');
-      const ss = String(s % 60).padStart(2, '0');
-      return mm + ':' + ss + ' / 01:00';
+    // Preloaded Image Registry
+    window.__LOADED_IMAGES = {};
+    window.__loadImages = async function(imgMap) {
+      const entries = Object.entries(imgMap);
+      await Promise.all(entries.map(([key, src]) => new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => { window.__LOADED_IMAGES[key] = img; resolve(); };
+        img.onerror = () => resolve();
+        img.src = src;
+      })));
+      await document.fonts.ready;
+    };
+
+    // Math & Easing Helpers for 30fps Motion Graphics
+    const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+    const norm = (v, a, b) => clamp((v - a) / (b - a), 0, 1);
+    const lerp = (a, b, t) => a + (b - a) * t;
+    const easeOutExpo = (x) => (x === 1 ? 1 : 1 - Math.pow(2, -10 * x));
+    const easeOutCubic = (x) => 1 - Math.pow(1 - x, 3);
+    const easeInOutCubic = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+    const easeOutBack = (x) => {
+      const c1 = 1.70158;
+      const c3 = c1 + 1;
+      return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2);
+    };
+    const spring = (x) => {
+      const c = clamp(x, 0, 1);
+      return 1 - Math.exp(-6.5 * c) * Math.cos(9.5 * c);
+    };
+
+    // Rounded Rectangle Helper
+    function roundRect(x, y, w, h, r) {
+      const rad = Math.min(r, w / 2, h / 2);
+      ctx.beginPath();
+      ctx.moveTo(x + rad, y);
+      ctx.arcTo(x + w, y, x + w, y + h, rad);
+      ctx.arcTo(x + w, y + h, x, y + h, rad);
+      ctx.arcTo(x, y + h, x, y, rad);
+      ctx.arcTo(x, y, x + w, y, rad);
+      ctx.closePath();
     }
 
-    window.__setRenderTime = function(t) {
-      const clamped = Math.max(0, Math.min(60, t));
-      document.getElementById('progress-fill').style.width = ((clamped / 60) * 100).toFixed(2) + '%';
-      document.getElementById('hud-timecode').textContent = formatTime(clamped);
+    // Draw Image with Cover & Parallax Zoom/Pan
+    function drawCoverImage(imgKey, x, y, w, h, radius, zoom = 1.0, panX = 0, panY = 0) {
+      ctx.save();
+      roundRect(x, y, w, h, radius);
+      ctx.clip();
+      const img = window.__LOADED_IMAGES[imgKey];
+      if (img && img.width > 0) {
+        const scale = Math.max(w / img.width, h / img.height) * zoom;
+        const dw = img.width * scale;
+        const dh = img.height * scale;
+        const dx = x + (w - dw) * 0.5 + panX;
+        const dy = y + (h - dh) * 0.5 + panY;
+        ctx.drawImage(img, dx, dy, dw, dh);
+      } else {
+        ctx.fillStyle = '#E5E0D5';
+        ctx.fillRect(x, y, w, h);
+      }
+      ctx.restore();
+    }
 
-      const scenes = [
-        { id: 'scene-1', start: 0, end: 7.5, label: '01 / POSTER HOOK · B− TO A+ RESTRAINT' },
-        { id: 'scene-2', start: 7.5, end: 16.0, label: '02 / MINIMALIST HERO RESTRAINT LAW' },
-        { id: 'scene-3', start: 16.0, end: 24.5, label: '03 / SITE 01 · AETHERION GENÈVE (A+)' },
-        { id: 'scene-4', start: 24.5, end: 33.0, label: '04 / SITE 02 · KUROKAWA & VANE (A+)' },
-        { id: 'scene-5', start: 33.0, end: 46.0, label: '05 / SITES 03–07 · 5 NEW FLAGSHIPS + PROMPTS' },
-        { id: 'scene-6', start: 46.0, end: 54.0, label: '06 / CHALKBOARD SLATE AGENT OS (7 TABS)' },
-        { id: 'scene-7', start: 54.0, end: 60.1, label: '07 / HEROFORGE V1 · 7 SITES · 38 SKILLS' }
-      ];
+    // Draw Pill Badge
+    function drawPill(x, y, text, bg, fg, border, fontSize = 14, padX = 18, padY = 9) {
+      ctx.save();
+      ctx.font = `600 ${fontSize}px "JetBrains Mono", monospace`;
+      const tw = ctx.measureText(text).width;
+      const w = tw + padX * 2;
+      const h = fontSize + padY * 2;
+      roundRect(x, y, w, h, h / 2);
+      ctx.fillStyle = bg;
+      ctx.fill();
+      if (border) {
+        ctx.strokeStyle = border;
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+      }
+      ctx.fillStyle = fg;
+      ctx.textBaseline = 'middle';
+      ctx.fillText(text, x + padX, y + h / 2 + 1);
+      ctx.restore();
+      return w;
+    }
 
-      for (const sc of scenes) {
-        const el = document.getElementById(sc.id);
-        if (clamped >= sc.start && clamped < sc.end) {
-          el.classList.add('active');
-          document.getElementById('hud-scene-label').textContent = sc.label;
-        } else {
-          el.classList.remove('active');
-        }
+    // Masked Kinetic Text Line Reveal
+    function drawKineticLine(text, x, y, font, color, progress, slideDist = 56) {
+      const p = easeOutExpo(clamp(progress, 0, 1));
+      if (p <= 0.001) return;
+      ctx.save();
+      ctx.font = font;
+      const metrics = ctx.measureText(text);
+      const h = 115;
+      ctx.beginPath();
+      ctx.rect(x - 20, y - h + 18, metrics.width + 80, h + 20);
+      ctx.clip();
+      ctx.globalAlpha = clamp(progress * 1.8, 0, 1);
+      ctx.fillStyle = color;
+      ctx.fillText(text, x, y + (1 - p) * slideDist);
+      ctx.restore();
+    }
+
+    // Draw Custom Animated Cursor + Click Ripple
+    function drawCursorAndRipple(cx, cy, clickProgress = 0, label = '') {
+      ctx.save();
+      if (clickProgress > 0 && clickProgress < 1) {
+        const r = lerp(6, 54, easeOutCubic(clickProgress));
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(9, 105, 218, ${1 - clickProgress})`;
+        ctx.lineWidth = 2.5;
+        ctx.stroke();
+      }
+      ctx.translate(cx, cy);
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.lineTo(0, 26);
+      ctx.lineTo(7, 20);
+      ctx.lineTo(13, 31);
+      ctx.lineTo(18, 28);
+      ctx.lineTo(12, 17);
+      ctx.lineTo(21, 17);
+      ctx.closePath();
+      ctx.fillStyle = '#141413';
+      ctx.fill();
+      ctx.strokeStyle = '#FFFFFF';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      if (label) {
+        ctx.font = '600 12px "JetBrains Mono", monospace';
+        roundRect(22, 14, ctx.measureText(label).width + 24, 28, 14);
+        ctx.fillStyle = '#0969DA';
+        ctx.fill();
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillText(label, 34, 32);
+      }
+      ctx.restore();
+    }
+
+    // Draw Swiss Architectural Grid & Animated Crosshairs (Light Mode Foundation)
+    function drawSwissLightBackground(t) {
+      // Warm Museum Paper Base
+      const grad = ctx.createLinearGradient(0, 0, 1920, 1080);
+      grad.addColorStop(0, '#F8F6F1');
+      grad.addColorStop(0.5, '#F4F1EA');
+      grad.addColorStop(1, '#EFECE4');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 1920, 1080);
+
+      // Soft Moving Ambient Sunlight Gradient Orbs (Light Mode Depth)
+      const orb1X = 400 + Math.sin(t * 0.35) * 180;
+      const orb1Y = 260 + Math.cos(t * 0.25) * 90;
+      const rad1 = ctx.createRadialGradient(orb1X, orb1Y, 20, orb1X, orb1Y, 640);
+      rad1.addColorStop(0, 'rgba(212, 163, 115, 0.14)');
+      rad1.addColorStop(1, 'rgba(212, 163, 115, 0)');
+      ctx.fillStyle = rad1;
+      ctx.fillRect(0, 0, 1920, 1080);
+
+      const orb2X = 1480 + Math.cos(t * 0.3) * 160;
+      const orb2Y = 740 + Math.sin(t * 0.4) * 110;
+      const rad2 = ctx.createRadialGradient(orb2X, orb2Y, 20, orb2X, orb2Y, 620);
+      rad2.addColorStop(0, 'rgba(9, 105, 218, 0.08)');
+      rad2.addColorStop(1, 'rgba(9, 105, 218, 0)');
+      ctx.fillStyle = rad2;
+      ctx.fillRect(0, 0, 1920, 1080);
+
+      // Subtle Scrolling Swiss Structural Grid Lines
+      ctx.save();
+      const driftX = (t * 18) % 160;
+      ctx.strokeStyle = 'rgba(20, 20, 19, 0.045)';
+      ctx.lineWidth = 1;
+      for (let x = -160 + driftX; x < 1920; x += 160) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, 1080);
+        ctx.stroke();
+      }
+      for (let y = 120; y < 1080; y += 160) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(1920, y);
+        ctx.stroke();
       }
 
-      if (clamped >= 33.0 && clamped < 46.0) {
-        const subIdx = Math.min(4, Math.floor((clamped - 33.0) / 2.6));
-        const item = S5_DATA[subIdx];
-        if (window.__IMAGES[item.key]) {
-          document.getElementById('s5-img').src = window.__IMAGES[item.key];
+      // Rotating Precision Crosshairs at Key Grid Intersections
+      ctx.strokeStyle = 'rgba(20, 20, 19, 0.16)';
+      for (let gx = 160; gx <= 1760; gx += 320) {
+        for (let gy = 120; gy <= 960; gy += 320) {
+          ctx.save();
+          ctx.translate(gx, gy);
+          ctx.rotate(t * 0.45);
+          ctx.beginPath();
+          ctx.moveTo(-6, 0);
+          ctx.lineTo(6, 0);
+          ctx.moveTo(0, -6);
+          ctx.lineTo(0, 6);
+          ctx.stroke();
+          ctx.restore();
         }
-        document.getElementById('s5-nav-brand').textContent = item.brand;
-        document.getElementById('s5-nav-1').textContent = item.nav[0];
-        document.getElementById('s5-nav-2').textContent = item.nav[1];
-        document.getElementById('s5-nav-3').textContent = item.nav[2];
-        document.getElementById('s5-eyebrow').textContent = item.eyebrow;
-        document.getElementById('s5-headline').innerHTML = item.h1;
-        document.getElementById('s5-lead').textContent = item.lead;
-        document.getElementById('s5-cta').textContent = item.cta;
-        document.getElementById('s5-right-title').textContent = item.rightTitle;
-        document.getElementById('s5-prompt-box').textContent = item.prompt;
+      }
+      ctx.restore();
+    }
 
-        ['s3', 's4', 's5', 's6', 's7'].forEach((k) => {
-          const pill = document.getElementById('pill-' + k);
-          if (pill) {
-            pill.style.borderColor = k === item.key ? '#58A6FF' : 'rgba(255,255,255,0.14)';
-            pill.style.color = k === item.key ? '#58A6FF' : '#F5F7FA';
+    // Draw Top & Bottom Editorial Framing Chrome
+    function drawEditorialHUD(t, actLabel) {
+      ctx.save();
+      // Top Pill Bar in Light Mode
+      roundRect(56, 28, 620, 44, 22);
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.88)';
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(20, 20, 19, 0.12)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      // Pulsing Cobalt Status Dot
+      const pulse = 0.5 + 0.5 * Math.sin(t * 5);
+      ctx.beginPath();
+      ctx.arc(82, 50, 5 + pulse * 1.5, 0, Math.PI * 2);
+      ctx.fillStyle = '#0969DA';
+      ctx.fill();
+
+      ctx.font = '700 13px "JetBrains Mono", monospace';
+      ctx.fillStyle = '#141413';
+      ctx.fillText('HEROFORGE V1 · AUTONOMOUS CREATIVE STUDIO & AGENT OS', 100, 55);
+
+      // Right Telemetry Pill
+      roundRect(1260, 28, 604, 44, 22);
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.88)';
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(20, 20, 19, 0.12)';
+      ctx.stroke();
+
+      ctx.font = '600 13px "JetBrains Mono", monospace';
+      ctx.fillStyle = '#57534E';
+      ctx.fillText(actLabel, 1284, 55);
+
+      const sec = Math.floor(t);
+      const ms = Math.floor((t % 1) * 30);
+      const tc = `${String(Math.floor(sec / 60)).padStart(2, '0')}:${String(sec % 60).padStart(2, '0')}:${String(ms).padStart(2, '0')}`;
+      ctx.fillStyle = '#0969DA';
+      ctx.fillText(tc, 1764, 55);
+
+      // Bottom Timeline Scrubber Track
+      ctx.fillStyle = 'rgba(20, 20, 19, 0.08)';
+      ctx.fillRect(56, 1052, 1808, 6);
+      const progW = clamp(t / 60.0, 0, 1) * 1808;
+      const barGrad = ctx.createLinearGradient(56, 0, 56 + progW, 0);
+      barGrad.addColorStop(0, '#0969DA');
+      barGrad.addColorStop(0.5, '#A66E38');
+      barGrad.addColorStop(1, '#15803D');
+      ctx.fillStyle = barGrad;
+      ctx.fillRect(56, 1052, progW, 6);
+
+      // Continuous High-Speed Light-Mode Kinetic Ticker Ribbon (Moves 160px every second!)
+      ctx.save();
+      roundRect(56, 1004, 1808, 36, 18);
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(20, 20, 19, 0.1)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+      ctx.clip();
+
+      const tickerText = '01 AETHERION GENÈVE (B− → A+)   ·   02 KUROKAWA & VANE (B → A+)   ·   03 VALKYR ORBITAL (A+)   ·   04 SORA & KLANG (A+)   ·   05 ATELIER VESPERS (A+)   ·   06 VELOCE MORPHOS (A+)   ·   07 SOLARIS LENSWORKS (A+)   ·   38 CONSOLIDATED SKILLS   ·   HERMES & CODEX CLI   ·   OBSIDIAN VAULT   ·   ';
+      ctx.font = '700 12px "JetBrains Mono", monospace';
+      ctx.fillStyle = '#141413';
+      const tw = ctx.measureText(tickerText).width;
+      const tickerOffset = -((t * 175) % tw);
+      ctx.fillText(tickerText, 72 + tickerOffset, 1026);
+      ctx.fillText(tickerText, 72 + tickerOffset + tw, 1026);
+      ctx.restore();
+
+      // Chapter Tick Marks on Scrubber
+      const chapters = [0, 8, 17, 26, 35, 47, 54.5, 60];
+      chapters.forEach((ch) => {
+        const cx = 56 + (ch / 60) * 1808;
+        ctx.fillStyle = t >= ch ? '#141413' : 'rgba(20, 20, 19, 0.25)';
+        ctx.fillRect(cx - 1, 1048, 2, 14);
+      });
+      ctx.restore();
+    }
+
+    // Draw a Full Mini A+ Hero Card with Live Parallax & Callouts
+    function drawShowcaseHeroCard(x, y, w, h, cfg, t, localT) {
+      ctx.save();
+      roundRect(x + 4, y + 12, w, h, 24);
+      ctx.fillStyle = 'rgba(20, 20, 19, 0.08)';
+      ctx.fill();
+      roundRect(x, y, w, h, 24);
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fill();
+
+      // Inner Photo with Continuous Smooth Ken Burns Zoom & Pan Every Second
+      const zoom = 1.04 + 0.08 * Math.sin(t * 0.95) + (localT * 0.012);
+      const panX = Math.cos(t * 1.15) * 28;
+      const panY = Math.sin(t * 0.9) * 16;
+      drawCoverImage(cfg.imgKey, x + 10, y + 10, w - 20, h - 20, 18, zoom, panX, panY);
+
+      // Subtle Editorial Scrim at Bottom-Left so Typography Pops
+      ctx.save();
+      roundRect(x + 10, y + 10, w - 20, h - 20, 18);
+      ctx.clip();
+      const scrim = ctx.createLinearGradient(x, y + h * 0.25, x, y + h);
+      scrim.addColorStop(0, 'rgba(15, 14, 13, 0.05)');
+      scrim.addColorStop(1, 'rgba(15, 14, 13, 0.76)');
+      ctx.fillStyle = scrim;
+      ctx.fillRect(x + 10, y + 10, w - 20, h - 20);
+
+      // Top Floating Pill Navbar inside Hero Card
+      const navW = Math.min(w - 80, 520);
+      const navX = x + (w - navW) / 2;
+      const navY = y + 28 + (1 - spring(norm(localT, 0.05, 0.6))) * -30;
+      roundRect(navX, navY, navW, 42, 21);
+      ctx.fillStyle = 'rgba(20, 19, 18, 0.76)';
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.22)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      ctx.font = '700 12px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = '#FCFAF6';
+      ctx.fillText(cfg.navBrand, navX + 20, navY + 25);
+
+      ctx.font = '500 12px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = 'rgba(252, 250, 246, 0.82)';
+      const links = cfg.navLinks || ['Movement', 'Craft', 'Specifications'];
+      links.forEach((l, i) => {
+        ctx.fillText(l, navX + 150 + i * 86, navY + 25);
+      });
+
+      roundRect(navX + navW - 88, navY + 6, 80, 30, 15);
+      ctx.fillStyle = '#FCFAF6';
+      ctx.fill();
+      ctx.font = '600 11px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = '#171513';
+      ctx.fillText(cfg.navCta || 'Inquire', navX + navW - 66, navY + 25);
+
+      // Bottom-Left Restrained Editorial Stack
+      const baseX = x + 44;
+      const baseY = y + h - 42;
+
+      // 1. Small Quiet Eyebrow
+      ctx.font = '600 12px "JetBrains Mono", monospace';
+      ctx.fillStyle = cfg.accent || '#E9D5B5';
+      ctx.fillText(cfg.eyebrow, baseX, baseY - 178);
+
+      // 2. Intentional 2-Line Balanced Headline
+      ctx.font = '400 52px "Cormorant Garamond", Georgia, serif';
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillText(cfg.line1, baseX, baseY - 122);
+      ctx.font = 'italic 400 52px "Cormorant Garamond", Georgia, serif';
+      ctx.fillStyle = '#F5E6CE';
+      ctx.fillText(cfg.line2, baseX, baseY - 68);
+
+      // 3. Single Primary CTA Pill
+      roundRect(baseX, baseY - 40, 196, 40, 20);
+      ctx.fillStyle = '#FCFAF6';
+      ctx.fill();
+      ctx.font = '600 13px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = '#171513';
+      ctx.fillText(cfg.cta, baseX + 24, baseY - 15);
+
+      // 4. Right Quiet Caption
+      if (cfg.caption) {
+        ctx.font = '500 11px "JetBrains Mono", monospace';
+        ctx.fillStyle = 'rgba(252, 250, 246, 0.82)';
+        const cw = ctx.measureText(cfg.caption).width;
+        ctx.fillText(cfg.caption, x + w - cw - 44, baseY - 14);
+      }
+
+      ctx.restore();
+      ctx.strokeStyle = 'rgba(20, 20, 19, 0.14)';
+      ctx.lineWidth = 1.5;
+      roundRect(x, y, w, h, 24);
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    // =========================================================================
+    // MASTER 60-SECOND (1,800 FRAME) LIGHT-MODE MOTION GRAPHICS RENDERER
+    // =========================================================================
+    window.__setRenderTime = function(rawT) {
+      const t = clamp(rawT, 0, 60.0);
+      drawSwissLightBackground(t);
+
+      // -----------------------------------------------------------------------
+      // ACT 1 (0.0s -> 8.0s): POSTER FRAME & KINETIC EDITORIAL HOOK
+      // Note: Frame 0 (t = 0.0) is baked at full visibility for the Poster Frame!
+      // -----------------------------------------------------------------------
+      if (t < 8.5) {
+        const exitP = norm(t, 7.2, 8.5);
+        const offsetX = -easeInOutCubic(exitP) * 1960;
+        ctx.save();
+        ctx.translate(offsetX, 0);
+
+        drawEditorialHUD(t, 'ACT 01 / DESIGN RESTRAINT, ENGINEERED (B− → A+)');
+
+        // Left Editorial Typography Column (Visible at t=0 for Poster, with kinetic motion accents)
+        const introBoost = t === 0 ? 1 : clamp(0.85 + 0.15 * spring(norm(t, 0, 0.9)), 0, 1);
+        drawPill(72, 126, 'HEROFORGE V1 · LIGHT-MODE EDITORIAL MOTION FILM', '#FFFFFF', '#0969DA', 'rgba(9,105,218,0.3)', 13, 18, 8);
+
+        drawKineticLine('From Template', 72, 250, '600 92px "Cormorant Garamond", serif', '#141413', introBoost, 30);
+        drawKineticLine('Clutter to A+', 72, 344, 'italic 600 92px "Cormorant Garamond", serif', '#A66E38', introBoost, 30);
+        drawKineticLine('Restraint.', 72, 438, '600 92px "Cormorant Garamond", serif', '#141413', introBoost, 30);
+
+        ctx.font = '400 22px "Plus Jakarta Sans", sans-serif';
+        ctx.fillStyle = '#44403C';
+        ctx.fillText('We took a real B / B− critique on our Watch & Architecture heroes,', 72, 502);
+        ctx.fillText('stripped competing cards & orphan words, consolidated 38 skills,', 72, 534);
+        ctx.fillText('and built 7 A+ Flagship Websites + our Slate & Limestone Agent OS.', 72, 566);
+
+        // Animated Live Score Counter Cards in Light Mode
+        const scoreCount = t === 0 ? 99.4 : lerp(78.0, 99.4, easeOutCubic(norm(t, 0.4, 3.2)));
+        const cards = [
+          { label: 'WATCH HERO GRADE', before: 'B−', after: 'A+', metric: `${scoreCount.toFixed(1)} pts`, color: '#15803D' },
+          { label: 'ARCHITECTURE GRADE', before: 'B', after: 'A+', metric: '2-Line Lock', color: '#0969DA' },
+          { label: 'FLAGSHIP SITES BUILT', before: '2', after: '7', metric: '7 Full Prompts', color: '#A66E38' },
+        ];
+        cards.forEach((c, idx) => {
+          const cx = 72 + idx * 246;
+          const cy = 616 + Math.sin(t * 2.2 + idx) * 4;
+          roundRect(cx, cy, 230, 134, 18);
+          ctx.fillStyle = '#FFFFFF';
+          ctx.fill();
+          ctx.strokeStyle = 'rgba(20, 20, 19, 0.12)';
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+
+          ctx.font = '600 11px "JetBrains Mono", monospace';
+          ctx.fillStyle = '#78716C';
+          ctx.fillText(c.label, cx + 20, cy + 32);
+
+          ctx.font = '700 36px "Plus Jakarta Sans", sans-serif';
+          ctx.fillStyle = c.color;
+          ctx.fillText(`${c.before} → ${c.after}`, cx + 20, cy + 78);
+
+          ctx.font = '600 13px "JetBrains Mono", monospace';
+          ctx.fillStyle = '#141413';
+          ctx.fillText(c.metric, cx + 20, cy + 110);
+        });
+
+        // Right-Hand Floating Dual Hero Showcase Plates with Continuous Dynamic Motion Every Second
+        const card1X = 860 + Math.cos(t * 1.4) * 14;
+        const card1Y = 104 + Math.sin(t * 2.1) * 16;
+        const card2X = 860 - Math.cos(t * 1.4) * 14;
+        const card2Y = 534 + Math.cos(t * 2.1) * 16;
+        drawShowcaseHeroCard(card1X, card1Y, 988, 404, {
+          imgKey: 's1',
+          navBrand: 'AETHERION',
+          navLinks: ['Movement', 'Craft', 'Specifications'],
+          navCta: 'Inquire',
+          eyebrow: '01 · CALIBRE 01 · GENEVA (WATCH HERO: B− → A+)',
+          line1: 'German silver, shaped',
+          line2: 'by morning light.',
+          cta: 'Explore the Movement',
+          caption: '312 PARTS · 96H RESERVE',
+          accent: '#E9D5B5',
+        }, t, t + 1);
+
+        drawShowcaseHeroCard(card2X, card2Y, 988, 404, {
+          imgKey: 's2',
+          navBrand: 'KUROKAWA & VANE',
+          navLinks: ['Projects', 'Studio', 'Materials'],
+          navCta: 'Inquire',
+          eyebrow: '02 · REYKJANES PAVILION (ARCHITECTURE HERO: B → A+)',
+          line1: 'Carved from silence',
+          line2: 'and volcanic stone.',
+          cta: 'View Project',
+          caption: '01 REYKJANES · 02 NAOSHIMA · 03 ATACAMA',
+          accent: '#D4A373',
+        }, t + 2, t + 1);
+
+        // Choreographed Cursor Gliding Across Act 1 Cards
+        const c1X = lerp(920, 1580, 0.5 + 0.5 * Math.sin(t * 1.3));
+        const c1Y = lerp(260, 740, 0.5 + 0.5 * Math.cos(t * 1.7));
+        drawCursorAndRipple(c1X, c1Y, (t * 1.4) % 1, 'Verify A+ Hero Restraint');
+
+        ctx.restore();
+      }
+
+      // -----------------------------------------------------------------------
+      // ACT 2 (7.2s -> 17.5s): INTERACTIVE "DE-SLOP SURGERY" (CRITIQUE FIX IN MOTION)
+      // Shows the exact B/B- flaws being surgically redlined & fixed in real time!
+      // -----------------------------------------------------------------------
+      if (t >= 7.2 && t < 17.5) {
+        const enterP = norm(t, 7.2, 8.5);
+        const exitP = norm(t, 16.2, 17.5);
+        const localT = t - 8.0;
+        const posX = (1 - easeInOutCubic(enterP)) * 1960 - easeInOutCubic(exitP) * 1960;
+
+        ctx.save();
+        ctx.translate(posX, 0);
+        drawEditorialHUD(t, 'ACT 02 / THE MINIMALIST HERO RESTRAINT SURGERY');
+
+        drawPill(72, 110, 'LIVE CRITIQUE TRANSFORMATION · STRIPPING AI TEMPLATE CLUTTER', '#FFFFFF', '#A66E38', 'rgba(166,110,56,0.35)', 13, 18, 8);
+        drawKineticLine('How We Turned a B− Template', 72, 206, '600 68px "Cormorant Garamond", serif', '#141413', norm(localT, -0.3, 0.6), 40);
+        drawKineticLine('into an A+ Minimalist Showcase.', 72, 278, 'italic 600 68px "Cormorant Garamond", serif', '#0969DA', norm(localT, 0.0, 0.9), 40);
+
+        // 4 Animated Surgery Cards Showing Real-Time Redline & Fix
+        const rules = [
+          {
+            num: 'FIX 01 · HEADLINE WRAPPING',
+            title: 'Eliminate Stranded Orphan Words',
+            bad: 'German silver, shaped by morning / [light.]  ← Orphaned on Line 3',
+            good: 'Line 1: German silver, shaped  |  Line 2: by morning light.',
+            status: '2-LINE LOCK VERIFIED',
+          },
+          {
+            num: 'FIX 02 · INTERFACE JARGON',
+            title: 'Replace Decorative AI Labels with Human Words',
+            bad: '“Practice Bento” · “Lithic Archive” · “Switch Residence Plate”',
+            good: '“Projects” · “Studio” · “Materials” · “[Inquire]”',
+            status: 'CLEAR NAVIGATION',
+          },
+          {
+            num: 'FIX 03 · COMPETING UI CARDS',
+            title: 'One Primary CTA + Unobstructed Subject (≥74%)',
+            bad: 'Floating 4-Box Stat Card + 2 Competing Buttons Blocking Watch',
+            good: '1 Primary CTA (“Explore the Movement”) + 1 Quiet Caption',
+            status: 'CLUTTER REMOVED',
+          },
+          {
+            num: 'FIX 04 · COLOR BOUNDARY',
+            title: 'Isolate Workspace Blue (#58A6FF) from Showcase Sites',
+            bad: 'Cyan / Light-Blue Workspace Buttons Leaking onto Watch Hero',
+            good: 'Museum Ivory (#FCFAF6) & Champagne Brass (#C5A478) Only',
+            status: '0% COLOR BLEED',
+          },
+        ];
+
+        rules.forEach((r, idx) => {
+          const col = idx % 2;
+          const row = Math.floor(idx / 2);
+          const cardP = spring(norm(localT, 0.3 + idx * 0.45, 1.3 + idx * 0.45));
+          const cx = 72 + col * 900;
+          const cy = 330 + row * 324 + (1 - cardP) * 60;
+
+          ctx.save();
+          roundRect(cx + 3, cy + 8, 868, 296, 22);
+          ctx.fillStyle = 'rgba(20, 20, 19, 0.06)';
+          ctx.fill();
+          roundRect(cx, cy, 868, 296, 22);
+          ctx.fillStyle = '#FFFFFF';
+          ctx.fill();
+          ctx.strokeStyle = 'rgba(20, 20, 19, 0.12)';
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+
+          // Header row
+          ctx.font = '700 13px "JetBrains Mono", monospace';
+          ctx.fillStyle = '#0969DA';
+          ctx.fillText(r.num, cx + 28, cy + 40);
+
+          drawPill(cx + 620, cy + 20, r.status, 'rgba(21, 128, 61, 0.1)', '#15803D', 'rgba(21, 128, 61, 0.3)', 12, 14, 6);
+
+          ctx.font = '700 28px "Plus Jakarta Sans", sans-serif';
+          ctx.fillStyle = '#141413';
+          ctx.fillText(r.title, cx + 28, cy + 84);
+
+          // Redlined "Before" Box with Animated Strike-Through Line
+          roundRect(cx + 28, cy + 108, 812, 68, 12);
+          ctx.fillStyle = '#FEF2F2';
+          ctx.fill();
+          ctx.strokeStyle = '#FECACA';
+          ctx.stroke();
+
+          ctx.font = '500 16px "JetBrains Mono", monospace';
+          ctx.fillStyle = '#B91C1C';
+          ctx.fillText('✗ BEFORE: ' + r.bad, cx + 46, cy + 148);
+
+          const strikeP = easeInOutCubic(norm(localT, 1.0 + idx * 0.4, 1.8 + idx * 0.4));
+          if (strikeP > 0) {
+            ctx.beginPath();
+            ctx.moveTo(cx + 46, cy + 143);
+            ctx.lineTo(cx + 46 + 750 * strikeP, cy + 143);
+            ctx.strokeStyle = '#DC2626';
+            ctx.lineWidth = 2.5;
+            ctx.stroke();
+          }
+
+          // Verified "After (A+)" Box
+          const afterP = easeOutCubic(norm(localT, 1.3 + idx * 0.4, 2.2 + idx * 0.4));
+          ctx.globalAlpha = clamp(afterP, 0.15, 1);
+          roundRect(cx + 28, cy + 194, 812, 74, 12);
+          ctx.fillStyle = '#F0FDF4';
+          ctx.fill();
+          ctx.strokeStyle = '#86EFAC';
+          ctx.stroke();
+
+          ctx.font = '600 16px "JetBrains Mono", monospace';
+          ctx.fillStyle = '#15803D';
+          ctx.fillText('✓ A+ SPEC: ' + r.good, cx + 46, cy + 237);
+          ctx.restore();
+        });
+
+        // Choreographed Cursor Redlining the Cards
+        const curX = lerp(480, 1420, easeInOutCubic(norm(localT, 0.5, 6.5)));
+        const curY = lerp(460, 780, 0.5 + 0.5 * Math.sin(localT * 1.4));
+        drawCursorAndRipple(curX, curY, (localT * 1.2) % 1, 'heroforge-master-studio');
+
+        ctx.restore();
+      }
+
+      // -----------------------------------------------------------------------
+      // ACT 3 (16.2s -> 26.5s): FLAGSHIP 01 — AETHERION GENÈVE (WATCH HERO A+)
+      // Light-Mode Architectural Drafting Board with Animated Vector Callouts
+      // -----------------------------------------------------------------------
+      if (t >= 16.2 && t < 26.5) {
+        const enterP = norm(t, 16.2, 17.5);
+        const exitP = norm(t, 25.2, 26.5);
+        const localT = t - 17.0;
+        const posY = (1 - easeInOutCubic(enterP)) * 1080 - easeInOutCubic(exitP) * 1080;
+
+        ctx.save();
+        ctx.translate(0, posY);
+        drawEditorialHUD(t, 'ACT 03 / SITE 01: AETHERION GENÈVE — CALIBRE 01 (GRADE A+)');
+
+        // Left Light-Mode Anatomy & Vector Callout Column
+        drawPill(72, 114, 'FLAGSHIP 01 OF 07 · HAUTE HORLOGERIE & 3D MOVEMENT VITRINE', '#FFFFFF', '#A66E38', 'rgba(166,110,56,0.35)', 12, 16, 8);
+        drawKineticLine('Aetherion Genève', 72, 210, '600 74px "Cormorant Garamond", serif', '#141413', norm(localT, 0, 0.7), 40);
+        drawKineticLine('Calibre 01 Vitrine.', 72, 282, 'italic 600 74px "Cormorant Garamond", serif', '#A66E38', norm(localT, 0.15, 0.85), 40);
+
+        const callouts = [
+          { tag: '01 · FLOATING PILL NAV', desc: 'AETHERION  |  Movement · Craft · Specifications  |  [Inquire]', targetY: 162 },
+          { tag: '02 · INTENTIONAL 2-LINE WRAP', desc: '“German silver, shaped / by morning light.” (0 orphan words)', targetY: 690 },
+          { tag: '03 · 74% UNOBSTRUCTED SUBJECT', desc: ' Deleted 4-stat box so the sunlit watch movement commands focus', targetY: 460 },
+          { tag: '04 · 1 PRIMARY CTA + QUIET SPEC', desc: 'Explore the Movement  +  312 PARTS · 96H RESERVE', targetY: 855 },
+        ];
+
+        callouts.forEach((c, idx) => {
+          const cp = spring(norm(localT, 0.4 + idx * 0.45, 1.3 + idx * 0.45));
+          const bx = 72;
+          const by = 334 + idx * 146;
+          roundRect(bx, by, 580, 124, 18);
+          ctx.fillStyle = '#FFFFFF';
+          ctx.fill();
+          ctx.strokeStyle = 'rgba(20, 20, 19, 0.12)';
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+
+          ctx.font = '700 12px "JetBrains Mono", monospace';
+          ctx.fillStyle = '#A66E38';
+          ctx.fillText(c.tag, bx + 24, by + 38);
+
+          ctx.font = '600 18px "Plus Jakarta Sans", sans-serif';
+          ctx.fillStyle = '#141413';
+          ctx.fillText(c.desc, bx + 24, by + 76);
+
+          // Self-Drawing Animated Vector Bezier Leader Line from Callout to Live Hero Card!
+          const lineP = easeOutCubic(norm(localT, 0.8 + idx * 0.45, 1.7 + idx * 0.45));
+          if (lineP > 0) {
+            const startX = bx + 580;
+            const startY = by + 62;
+            const endX = lerp(startX, 740, lineP);
+            const endY = lerp(startY, c.targetY, lineP);
+            ctx.beginPath();
+            ctx.moveTo(startX, startY);
+            ctx.bezierCurveTo(startX + 45, startY, endX - 45, endY, endX, endY);
+            ctx.strokeStyle = '#0969DA';
+            ctx.lineWidth = 2;
+            ctx.setLineDash([6, 4]);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            ctx.beginPath();
+            ctx.arc(endX, endY, 6, 0, Math.PI * 2);
+            ctx.fillStyle = '#0969DA';
+            ctx.fill();
           }
         });
+
+        // Right-Hand Full A+ Watch Hero Frame
+        drawShowcaseHeroCard(720, 114, 1136, 810, {
+          imgKey: 's1',
+          navBrand: 'AETHERION',
+          navLinks: ['Movement', 'Craft', 'Specifications'],
+          navCta: 'Inquire',
+          eyebrow: 'CALIBRE 01 · GENEVA',
+          line1: 'German silver, shaped',
+          line2: 'by morning light.',
+          cta: 'Explore the Movement',
+          caption: '312 PARTS · 96H RESERVE · RAW MAILLECHORT',
+          accent: '#E9D5B5',
+        }, t, localT);
+
+        // Animated Mechanical Escapement Gear Ring Overlay in Top-Right Corner of Card
+        ctx.save();
+        ctx.translate(1736, 224);
+        ctx.rotate(t * 0.8);
+        ctx.strokeStyle = 'rgba(233, 213, 181, 0.55)';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(0, 0, 56, 0, Math.PI * 2);
+        ctx.stroke();
+        for (let g = 0; g < 12; g++) {
+          const ang = (g / 12) * Math.PI * 2;
+          ctx.beginPath();
+          ctx.moveTo(Math.cos(ang) * 48, Math.sin(ang) * 48);
+          ctx.lineTo(Math.cos(ang) * 64, Math.sin(ang) * 64);
+          ctx.stroke();
+        }
+        ctx.restore();
+
+        ctx.restore();
+      }
+
+      // -----------------------------------------------------------------------
+      // ACT 4 (25.2s -> 35.5s): FLAGSHIP 02 — KUROKAWA & VANE (INTERACTIVE PLATE SWITCHING!)
+      // Cursor clicks through 01 Reykjanes -> 02 Naoshima -> 03 Atacama live!
+      // -----------------------------------------------------------------------
+      if (t >= 25.2 && t < 35.5) {
+        const enterP = norm(t, 25.2, 26.5);
+        const exitP = norm(t, 34.2, 35.5);
+        const localT = t - 26.0;
+        const posX = (1 - easeInOutCubic(enterP)) * 1960 - easeInOutCubic(exitP) * 1960;
+
+        ctx.save();
+        ctx.translate(posX, 0);
+        drawEditorialHUD(t, 'ACT 04 / SITE 02: KUROKAWA & VANE — LIVE PLATE SWITCHER (GRADE A+)');
+
+        const plates = [
+          {
+            imgKey: 's2',
+            pill: '01 Reykjanes',
+            eyebrow: '01 / GRINDAVÍK, ICELAND (2025)',
+            line1: 'Carved from silence',
+            line2: 'and volcanic stone.',
+            desc: 'Cantilevered basalt walls channel geothermal spring vapor into still North Atlantic bathing courts.',
+          },
+          {
+            imgKey: 's2_naoshima',
+            pill: '02 Naoshima',
+            eyebrow: '02 / NAOSHIMA, SETO INLAND SEA (2025)',
+            line1: 'Tidal resonance in',
+            line2: 'charred cedar walls.',
+            desc: 'Subterranean acoustic chambers cast against Hinoki timber frame the Seto Inland Sea horizon.',
+          },
+          {
+            imgKey: 's2_atacama',
+            pill: '03 Atacama',
+            eyebrow: '03 / SAN PEDRO DE ATACAMA, CHILE (2024)',
+            line1: 'Rammed desert earth',
+            line2: 'under astral light.',
+            desc: 'Compacted iron-oxide earth walls stabilize thirty-five-degree desert swings at 3,200 meters.',
+          },
+        ];
+
+        const activeIdx = localT < 3.0 ? 0 : localT < 6.0 ? 1 : 2;
+        const activePlate = plates[activeIdx];
+
+        drawShowcaseHeroCard(64, 110, 1160, 820, {
+          imgKey: activePlate.imgKey,
+          navBrand: 'KUROKAWA & VANE',
+          navLinks: ['Projects', 'Studio', 'Materials'],
+          navCta: 'Inquire',
+          eyebrow: activePlate.eyebrow,
+          line1: activePlate.line1,
+          line2: activePlate.line2,
+          cta: 'View Project',
+          caption: '01 REYKJANES · 02 NAOSHIMA · 03 ATACAMA',
+          accent: '#D4A373',
+        }, t, localT);
+
+        // Right-Hand Architectural Monograph Control Sheet in Light Mode
+        const rx = 1264;
+        drawPill(rx, 114, 'FLAGSHIP 02 OF 07 · MONOLITHIC ARCHITECTURE', '#FFFFFF', '#0969DA', 'rgba(9,105,218,0.3)', 12, 16, 8);
+        drawKineticLine('Kurokawa & Vane', rx, 206, '600 68px "Cormorant Garamond", serif', '#141413', norm(localT, 0, 0.7), 36);
+        drawKineticLine('Monograph IV.', rx, 276, 'italic 600 68px "Cormorant Garamond", serif', '#A66E38', norm(localT, 0.15, 0.85), 36);
+
+        ctx.font = '400 19px "Plus Jakarta Sans", sans-serif';
+        ctx.fillStyle = '#44403C';
+        ctx.fillText('Replaced the bulky right-hand selector card with', rx, 332);
+        ctx.fillText('a compact 3-pill residence switcher:', rx, 360);
+
+        plates.forEach((p, idx) => {
+          const py = 400 + idx * 150;
+          const isAct = idx === activeIdx;
+          roundRect(rx, py, 590, 130, 18);
+          ctx.fillStyle = isAct ? '#141413' : '#FFFFFF';
+          ctx.fill();
+          ctx.strokeStyle = isAct ? '#0969DA' : 'rgba(20,20,19,0.12)';
+          ctx.lineWidth = isAct ? 2.5 : 1.5;
+          ctx.stroke();
+
+          ctx.font = '700 13px "JetBrains Mono", monospace';
+          ctx.fillStyle = isAct ? '#58A6FF' : '#A66E38';
+          ctx.fillText(p.eyebrow, rx + 24, py + 36);
+
+          ctx.font = '600 24px "Cormorant Garamond", serif';
+          ctx.fillStyle = isAct ? '#FFFFFF' : '#141413';
+          ctx.fillText(`${p.line1} ${p.line2}`, rx + 24, py + 72);
+
+          ctx.font = '400 14px "Plus Jakarta Sans", sans-serif';
+          ctx.fillStyle = isAct ? '#D6D3CD' : '#57534E';
+          ctx.fillText(p.desc.slice(0, 66) + '...', rx + 24, py + 104);
+        });
+
+        // Cursor Clicking the 3 Residence Switcher Cards
+        const targetCursorY = 465 + activeIdx * 150;
+        drawCursorAndRipple(1740, targetCursorY, (localT % 3.0) / 1.2, `Switch: ${activePlate.pill}`);
+
+        ctx.restore();
+      }
+
+      // -----------------------------------------------------------------------
+      // ACT 5 (34.2s -> 47.5s): SITES 03–07 CONTINUOUS KINETIC RIBBON + REPLICATION PROMPTS
+      // Smooth continuous horizontal glide across all 5 new Flagship Websites!
+      // -----------------------------------------------------------------------
+      if (t >= 34.2 && t < 47.5) {
+        const enterP = norm(t, 34.2, 35.5);
+        const exitP = norm(t, 46.2, 47.5);
+        const localT = t - 35.0;
+        const posY = (1 - easeInOutCubic(enterP)) * 1080 - easeInOutCubic(exitP) * 1080;
+
+        ctx.save();
+        ctx.translate(0, posY);
+        drawEditorialHUD(t, 'ACT 05 / 5 NEW A+ FLAGSHIP SITES + MASTER REPLICATION PROMPTS');
+
+        drawPill(72, 104, 'SITES 03 THROUGH 07 · ALL WITH 1-CLICK REPLICATION PROMPTS ON MAIN PAGE', '#FFFFFF', '#0969DA', 'rgba(9,105,218,0.3)', 12, 16, 8);
+        drawKineticLine('Five New Worlds. Copy the Exact Prompt.', 72, 192, '600 64px "Cormorant Garamond", serif', '#141413', norm(localT, 0, 0.7), 32);
+
+        const fiveSites = [
+          {
+            idx: '03',
+            brand: 'Valkyr Orbital',
+            cat: 'Aerospace & Hall-Effect Propulsion',
+            imgKey: 's3',
+            navBrand: 'VALKYR ORBITAL',
+            navLinks: ['Propulsion', 'Telemetry', 'Heritage'],
+            eyebrow: 'HELIOS-9 · CISLUNAR THRUSTER',
+            line1: 'Silent thrust across',
+            line2: 'the deep orbital dark.',
+            cta: 'Inspect Telemetry',
+            prompt: 'Build an A+ aerospace propulsion site for "Valkyr Orbital — Helios-9".\n• Floating Pill Nav: Propulsion · Telemetry · Heritage · [Inquire]\n• 2-Line Headline: "Silent thrust across / the deep orbital dark."\n• 1 Primary CTA ("Inspect Telemetry") · 0 Orphan Words · 1.4N Thrust',
+          },
+          {
+            idx: '04',
+            brand: 'Sora & Klang',
+            cat: 'Acoustic Industrial Design',
+            imgKey: 's4',
+            navBrand: 'SORA & KLANG',
+            navLinks: ['Acoustics', 'Enclosure', 'Specs'],
+            eyebrow: 'REFERENCE 01 · COPENHAGEN & KYOTO',
+            line1: 'Pure room presence,',
+            line2: 'milled from solid oak.',
+            cta: 'Book Listening Room',
+            prompt: 'Build an A+ acoustic hardware flagship site for "Sora & Klang — Reference 01".\n• Floating Pill Nav: Acoustics · Enclosure · Specifications · [Listen]\n• 2-Line Headline: "Pure room presence, / milled from solid oak."\n• 1 Primary CTA ("Book Listening Room") · Zero-Diffraction Baffle',
+          },
+          {
+            idx: '05',
+            brand: 'Atelier Vespers',
+            cat: 'Botanical Apothecary & Glassware',
+            imgKey: 's5',
+            navBrand: 'ATELIER VESPERS',
+            navLinks: ['Formulations', 'Distillery', 'Botanicals'],
+            eyebrow: 'DISTILLATION NO. 09 · KISO HINOKI',
+            line1: 'Wild-harvested resin,',
+            line2: 'steeped in quiet glass.',
+            cta: 'Explore Formulation',
+            prompt: 'Build an A+ botanical apothecary showcase for "Atelier Vespers — No. 09".\n• Floating Pill Nav: Formulations · Distillery · Botanicals · [Acquire]\n• 2-Line Headline: "Wild-harvested resin, / steeped in quiet glass."\n• 1 Primary CTA ("Explore Formulation") · Unbranded Amber Dropper',
+          },
+          {
+            idx: '06',
+            brand: 'Veloce Morphos',
+            cat: 'Coachbuilt Carbon Hyper-GT',
+            imgKey: 's6',
+            navBrand: 'VELOCE MORPHOS',
+            navLinks: ['Aerodynamics', 'Chassis', 'Commission'],
+            eyebrow: 'TIPO 04 GT · MODENA ATELIER',
+            line1: 'Sculpted by air,',
+            line2: 'built for the pass.',
+            cta: 'Explore Aerodynamics',
+            prompt: 'Build an A+ bespoke automotive showcase for "Veloce Morphos — Tipo 04 GT".\n• Floating Pill Nav: Aerodynamics · Chassis · Commission · [Inquire]\n• 2-Line Headline: "Sculpted by air, / built for the pass."\n• 1 Primary CTA ("Explore Aerodynamics") · 1,140 kg Carbon Monocoque',
+          },
+          {
+            idx: '07',
+            brand: 'Solaris Lensworks',
+            cat: 'Precision Cinema Prime Optics',
+            imgKey: 's7',
+            navBrand: 'SOLARIS WETZLAR',
+            navLinks: ['Optics', 'Coatings', 'MTF'],
+            eyebrow: 'APO-SUMMITAR 50MM T1.3 · WETZLAR',
+            line1: 'Glass ground to capture',
+            line2: 'the unseen half-stop.',
+            cta: 'Inspect Optical Formula',
+            prompt: 'Build an A+ precision optical engineering site for "Solaris Lensworks — 50mm T1.3".\n• Floating Pill Nav: Optics · Coatings · MTF · [Acquire]\n• 2-Line Headline: "Glass ground to capture / the unseen half-stop."\n• 1 Primary CTA ("Inspect Optical Formula") · 15-Blade Titanium Iris',
+          },
+        ];
+
+        // Smooth continuous floating index across the 5 sites (0 -> 4 over 11.5 seconds)
+        const floatIdx = clamp((localT / 11.2) * 4.4, 0, 4);
+        const activeIdx = Math.min(4, Math.floor(floatIdx + 0.35));
+        const activeSite = fiveSites[activeIdx];
+
+        // Continuous Horizontal Sliding Ribbon of Hero Cards (Top Half)
+        fiveSites.forEach((s, i) => {
+          const rel = i - floatIdx;
+          const cardX = 560 + rel * 780;
+          const scale = clamp(1 - Math.abs(rel) * 0.14, 0.78, 1);
+          const cardW = 720 * scale;
+          const cardH = 470 * scale;
+          const cardY = 224 + (470 - cardH) * 0.5;
+
+          if (cardX > -800 && cardX < 2000) {
+            ctx.save();
+            ctx.globalAlpha = clamp(1 - Math.abs(rel) * 0.45, 0.25, 1);
+            drawShowcaseHeroCard(cardX, cardY, cardW, cardH, {
+              imgKey: s.imgKey,
+              navBrand: s.navBrand,
+              navLinks: s.navLinks,
+              navCta: 'Inquire',
+              eyebrow: `${s.idx} · ${s.eyebrow}`,
+              line1: s.line1,
+              line2: s.line2,
+              cta: s.cta,
+              accent: '#E9D5B5',
+            }, t, localT);
+            ctx.restore();
+          }
+        });
+
+        // Bottom Light-Mode Master Replication Prompt Drawer (Typing out live!)
+        const drawerY = 724;
+        roundRect(72, drawerY, 1776, 286, 22);
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fill();
+        ctx.strokeStyle = '#0969DA';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        drawPill(104, drawerY + 24, `MASTER REPLICATION PROMPT · ${activeSite.idx} ${activeSite.brand.toUpperCase()}`, 'rgba(9,105,218,0.1)', '#0969DA', 'rgba(9,105,218,0.3)', 12, 16, 7);
+        drawPill(1540, drawerY + 24, '✓ COPY REPLICATION PROMPT', '#0969DA', '#FFFFFF', null, 12, 18, 8);
+
+        const promptLines = activeSite.prompt.split('\n');
+        promptLines.forEach((line, lIdx) => {
+          ctx.font = lIdx === 0 ? '700 20px "JetBrains Mono", monospace' : '500 18px "JetBrains Mono", monospace';
+          ctx.fillStyle = lIdx === 0 ? '#141413' : '#44403C';
+          ctx.fillText(line, 104, drawerY + 96 + lIdx * 42);
+        });
+
+        drawCursorAndRipple(1660, drawerY + 42, (localT * 1.5) % 1, 'Copied to Clipboard!');
+        ctx.restore();
+      }
+
+      // -----------------------------------------------------------------------
+      // ACT 6 (46.2s -> 54.8s): LIGHT-MODE AGENT OS (7 PILL TABS + OBSIDIAN GRAPH)
+      // -----------------------------------------------------------------------
+      if (t >= 46.2 && t < 54.8) {
+        const enterP = norm(t, 46.2, 47.5);
+        const exitP = norm(t, 53.6, 54.8);
+        const localT = t - 47.0;
+        const posX = (1 - easeInOutCubic(enterP)) * 1960 - easeInOutCubic(exitP) * 1960;
+
+        ctx.save();
+        ctx.translate(posX, 0);
+        drawEditorialHUD(t, 'ACT 06 / LIMESTONE & SLATE AGENT OS · 7 PILL-BAR WORKSPACE TABS');
+
+        // Light-Mode Agent OS Window Shell
+        roundRect(64, 100, 1792, 916, 26);
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(20, 20, 19, 0.14)';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+
+        // Top Floating Pill Bar inside Agent OS
+        const tabs = [
+          'HeroForge (7 Sites)',
+          'Obsidian Vault',
+          'Hermes Chat',
+          'Codex CLI Chat',
+          'OpenDesign (A+)',
+          'Prompt Vault (27)',
+          'Hyperframes /Brag',
+        ];
+        const highlightedTab = Math.floor((localT / 6.8) * tabs.length) % tabs.length;
+        let tx = 104;
+        tabs.forEach((tab, idx) => {
+          const isAct = idx === highlightedTab;
+          const w = drawPill(
+            tx,
+            124,
+            tab,
+            isAct ? '#0969DA' : '#F4F1EA',
+            isAct ? '#FFFFFF' : '#44403C',
+            isAct ? '#0969DA' : 'rgba(20,20,19,0.1)',
+            13,
+            18,
+            10
+          );
+          tx += w + 12;
+        });
+
+        // Left Column: Animated Interactive Obsidian Knowledge Vault Force Graph + CLI Consoles
+        roundRect(104, 194, 820, 420, 20);
+        ctx.fillStyle = '#F8F6F1';
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(20,20,19,0.1)';
+        ctx.stroke();
+
+        ctx.font = '700 13px "JetBrains Mono", monospace';
+        ctx.fillStyle = '#0969DA';
+        ctx.fillText('OBSIDIAN VAULT GRAPH (/heroforge-v1/obsidian-vault · obsidian://open)', 132, 232);
+
+        const nodes = [
+          { label: '00-HeroForge-MOC.md', x: 514, y: 404, r: 22, main: true },
+          { label: '01-Minimalist-Hero-Law.md', x: 260 + Math.sin(t * 1.5) * 14, y: 300 + Math.cos(t * 1.2) * 10, r: 15 },
+          { label: '02-Seven-Replication-Prompts.md', x: 740 + Math.cos(t * 1.4) * 14, y: 305 + Math.sin(t * 1.3) * 10, r: 15 },
+          { label: '03-Consolidated-38-Skills.md', x: 280 + Math.cos(t * 1.3) * 14, y: 520 + Math.sin(t * 1.5) * 10, r: 15 },
+          { label: '04-Hermes-Codex-CLI-Bridges.md', x: 730 + Math.sin(t * 1.6) * 14, y: 520 + Math.cos(t * 1.1) * 10, r: 15 },
+        ];
+
+        // Draw Animated Graph Edges
+        nodes.slice(1).forEach((n) => {
+          ctx.beginPath();
+          ctx.moveTo(nodes[0].x, nodes[0].y);
+          ctx.lineTo(n.x, n.y);
+          ctx.strokeStyle = 'rgba(9, 105, 218, 0.35)';
+          ctx.lineWidth = 2;
+          ctx.stroke();
+        });
+
+        nodes.forEach((n) => {
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+          ctx.fillStyle = n.main ? '#0969DA' : '#FFFFFF';
+          ctx.fill();
+          ctx.strokeStyle = '#0969DA';
+          ctx.lineWidth = 3;
+          ctx.stroke();
+
+          ctx.font = '600 13px "JetBrains Mono", monospace';
+          ctx.fillStyle = '#141413';
+          const lw = ctx.measureText(n.label).width;
+          ctx.fillText(n.label, n.x - lw / 2, n.y + n.r + 22);
+        });
+
+        // Bottom-Left: Hermes & Codex CLI Live Dispatch Box
+        roundRect(104, 636, 820, 344, 20);
+        ctx.fillStyle = '#F8F6F1';
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(20,20,19,0.1)';
+        ctx.stroke();
+
+        ctx.font = '700 13px "JetBrains Mono", monospace';
+        ctx.fillStyle = '#A66E38';
+        ctx.fillText('MULTI-ENGINE CLI CONSOLES · HERMES + CODEX CLI + OPENDESIGN GRADER', 132, 674);
+
+        const cliLogs = [
+          '$ hermes dispatch --workflow heroforge-a-plus-loop --sites 7 --skills 38',
+          '✓ [OpenDesign] Watch Hero (B− → A+) & Architecture Hero (B → A+) verified',
+          '$ codex exec -s danger-full-access "Synthesize high-res hero plates 03–07"',
+          '✓ [Skill Sync] 38 skills consolidated into heroforge-master-studio/SKILL.md',
+          '✓ [Deploy] Live on GitHub & Vercel (clickteig11-byte/heroforge-agent-os)',
+        ];
+        cliLogs.forEach((l, i) => {
+          ctx.font = '500 16px "JetBrains Mono", monospace';
+          ctx.fillStyle = l.startsWith('$') ? '#0969DA' : '#15803D';
+          ctx.fillText(l, 132, 722 + i * 46);
+        });
+
+        // Right-Hand Live Side-View Canvas Inside Agent OS
+        drawShowcaseHeroCard(956, 194, 864, 786, {
+          imgKey: 's1',
+          navBrand: 'AETHERION',
+          navLinks: ['Movement', 'Craft', 'Specifications'],
+          navCta: 'Inquire',
+          eyebrow: 'SIDE-VIEW LIVE CANVAS · COLOR ISOLATED FROM WORKSPACE',
+          line1: 'German silver, shaped',
+          line2: 'by morning light.',
+          cta: 'Explore the Movement',
+          caption: 'GRADE A+ · 0 ORPHANS · 1 CTA',
+          accent: '#E9D5B5',
+        }, t, localT);
+
+        ctx.restore();
+      }
+
+      // -----------------------------------------------------------------------
+      // ACT 7 (53.6s -> 60.0s): GRAND FINALE — 7-SITE LIGHT-MODE MOSAIC & LOCKUP
+      // -----------------------------------------------------------------------
+      if (t >= 53.6) {
+        const enterP = norm(t, 53.6, 54.9);
+        const localT = t - 54.5;
+        ctx.save();
+        ctx.globalAlpha = easeInOutCubic(enterP);
+
+        drawEditorialHUD(t, 'ACT 07 / HEROFORGE V1 · 7 FLAGSHIP WEBSITES · 38 SKILLS · GRADE A+');
+
+        // Center Kinetic Finale Lockup
+        drawPill(690, 108, 'HEROFORGE V1 · AUTONOMOUS CREATIVE STUDIO COMPLETE', '#FFFFFF', '#0969DA', 'rgba(9,105,218,0.35)', 13, 20, 8);
+        drawKineticLine('Seven Flagship Worlds.', 72, 214, '600 84px "Cormorant Garamond", serif', '#141413', norm(localT, -0.2, 0.6), 36);
+        drawKineticLine('One Minimalist Law.', 960, 214, 'italic 600 84px "Cormorant Garamond", serif', '#A66E38', norm(localT, 0.0, 0.8), 36);
+
+        // 7-Card Moving Light-Mode Mosaic Grid
+        const mosaic = [
+          { idx: '01', name: 'Aetherion Genève', sub: 'B− → A+ Watch Vitrine', img: 's1' },
+          { idx: '02', name: 'Kurokawa & Vane', sub: 'B → A+ Architecture', img: 's2' },
+          { idx: '03', name: 'Valkyr Orbital', sub: 'A+ Hall-Effect Propulsion', img: 's3' },
+          { idx: '04', name: 'Sora & Klang', sub: 'A+ Acoustic Monolith', img: 's4' },
+          { idx: '05', name: 'Atelier Vespers', sub: 'A+ Botanical Apothecary', img: 's5' },
+          { idx: '06', name: 'Veloce Morphos', sub: 'A+ Carbon Hyper-GT', img: 's6' },
+          { idx: '07', name: 'Solaris Lensworks', sub: 'A+ APO Cinema Optics', img: 's7' },
+        ];
+
+        mosaic.forEach((m, i) => {
+          const row = i < 4 ? 0 : 1;
+          const col = i < 4 ? i : i - 4;
+          const cardW = row === 0 ? 432 : 584;
+          const cardH = 330;
+          const cx = 72 + col * (cardW + 24);
+          const cy = 264 + row * 362 + Math.sin(t * 2 + i * 0.8) * 5;
+
+          roundRect(cx, cy, cardW, cardH, 20);
+          ctx.fillStyle = '#FFFFFF';
+          ctx.fill();
+          ctx.strokeStyle = 'rgba(20,20,19,0.12)';
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+
+          drawCoverImage(m.img, cx + 8, cy + 8, cardW - 16, cardH - 84, 14, 1.04 + 0.03 * Math.sin(t + i), 0, 0);
+
+          ctx.font = '700 12px "JetBrains Mono", monospace';
+          ctx.fillStyle = '#0969DA';
+          ctx.fillText(`${m.idx} · GRADE A+`, cx + 20, cy + cardH - 46);
+
+          ctx.font = '700 20px "Plus Jakarta Sans", sans-serif';
+          ctx.fillStyle = '#141413';
+          ctx.fillText(m.name, cx + 20, cy + cardH - 18);
+
+          ctx.font = '500 13px "Plus Jakarta Sans", sans-serif';
+          ctx.fillStyle = '#78716C';
+          const sw = ctx.measureText(m.sub).width;
+          ctx.fillText(m.sub, cx + cardW - sw - 20, cy + cardH - 20);
+        });
+
+        ctx.restore();
       }
     };
   </script>
