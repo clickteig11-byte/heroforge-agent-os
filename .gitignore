@@ -6,3 +6,5 @@ dist/
 brag-output/frames/
 .DS_Store
 *.log
+.vercel
+.env*
