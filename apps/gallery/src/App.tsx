@@ -7,6 +7,7 @@ import { FlagshipSiteView } from './components/FlagshipSiteView';
 type CliEngine = 'agy' | 'hermes' | 'codex' | 'opencode';
 type WorkspaceTab =
   | 'heroforge'
+  | 'skyward-hub'
   | 'obsidian'
   | 'hermes-chat'
   | 'codex-chat'
@@ -84,6 +85,11 @@ export function App() {
 
   // Prompt Vault filter state
   const [promptSearch, setPromptSearch] = useState<string>('');
+
+  // Kombai Overlay QA state
+  const [kombaiOverlayActive, setKombaiOverlayActive] = useState<boolean>(false);
+  const [kombaiOpacity, setKombaiOpacity] = useState<number>(55);
+  const [kombaiBlendMode, setKombaiBlendMode] = useState<'normal' | 'difference' | 'multiply'>('normal');
 
   // Composer state
   const [selectedCli, setSelectedCli] = useState<CliEngine>('hermes');
@@ -266,6 +272,21 @@ export function App() {
 
           <button
             type="button"
+            className={`sidebar-site-item ${activeTab === 'skyward-hub' ? 'active' : ''}`}
+            onClick={() => setActiveTab('skyward-hub')}
+          >
+            <div className="site-item-left">
+              <span className="status-led online" />
+              <div>
+                <div className="site-item-name">Skyward Design Hub</div>
+                <div className="site-item-meta">Top 10 Design Libraries &amp; Kombai</div>
+              </div>
+            </div>
+            <span className="port-pill" style={{ color: 'var(--accent-blue)', borderColor: 'var(--accent-blue)' }}>HUB</span>
+          </button>
+
+          <button
+            type="button"
             className={`sidebar-site-item ${activeTab === 'obsidian' ? 'active' : ''}`}
             onClick={() => setActiveTab('obsidian')}
           >
@@ -407,6 +428,13 @@ export function App() {
               onClick={() => setActiveTab('heroforge')}
             >
               HeroForge (7 Sites)
+            </button>
+            <button
+              type="button"
+              className={`pill-tab ${activeTab === 'skyward-hub' ? 'active' : ''}`}
+              onClick={() => setActiveTab('skyward-hub')}
+            >
+              Skyward Hub
             </button>
             <button
               type="button"
@@ -733,6 +761,189 @@ export function App() {
                   </article>
                 );
               })}
+            </div>
+          </div>
+        )}
+
+        {/* =====================================================================
+            TAB: SKYWARD DESIGN HUB (PREMIER UI LIBRARIES & KOMBAI OVERLAY STUDIO)
+            ===================================================================== */}
+        {activeTab === 'skyward-hub' && (
+          <div className="center-scroll-pane">
+            <div className="pane-header">
+              <div>
+                <h1 className="pane-title">Skyward Design Hub — Premier UI Libraries &amp; Kombai Studio</h1>
+                <p className="pane-subtitle">
+                  Curated intelligence index of the world's highest-craft design libraries, component benchmarks, and the Kombai
+                  Figma-to-code + Design Overlay workflow.
+                </p>
+              </div>
+              <button
+                type="button"
+                className="pill-btn primary"
+                onClick={() => {
+                  setKombaiOverlayActive(true);
+                  setCanvasOpen(true);
+                }}
+              >
+                Launch Kombai Overlay QA ↗
+              </button>
+            </div>
+
+            {/* TOP 10 CURATED DESIGN LIBRARIES */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '14px', marginBottom: '24px' }}>
+              {[
+                {
+                  name: 'Mobbin',
+                  category: 'Real Product Flows & Apps',
+                  url: 'https://mobbin.com',
+                  desc: '300,000+ real iOS, Android, and Web application screens. Benchmark real user journeys: onboarding, checkout, settings, and empty states.',
+                  badge: 'Essential Benchmark',
+                  color: 'var(--accent-blue)',
+                },
+                {
+                  name: 'Godly Website',
+                  category: 'Avant-Garde Aesthetics & Motion',
+                  url: 'https://godly.website',
+                  desc: 'Curated gallery of boundary-pushing web design, typography lockups, 3D WebGL scenes, and scroll-driven storytelling.',
+                  badge: 'Visual Craft',
+                  color: '#D84315',
+                },
+                {
+                  name: 'Refero Design',
+                  category: 'SaaS & Web App Flows',
+                  url: 'https://refero.design',
+                  desc: 'Thousands of real SaaS dashboard views, pricing tables, conversion funnels, and complex web application UI patterns.',
+                  badge: 'SaaS Architecture',
+                  color: '#3FB950',
+                },
+                {
+                  name: 'Kombai',
+                  category: 'AI Figma-to-Code & Design Overlay',
+                  url: 'https://kombai.com',
+                  desc: 'AI design engineer that parses Figma Auto Layout, component variants, and design tokens into clean React + Tailwind with zero boilerplate.',
+                  badge: 'AI Frontend Agent',
+                  color: '#C5A478',
+                },
+                {
+                  name: 'Page Flows',
+                  category: 'User Journey Video Archives',
+                  url: 'https://pageflows.com',
+                  desc: 'Screen recordings of end-to-end product interactions across desktop and mobile to study exact interaction timing and microcopy.',
+                  badge: 'Interaction Video',
+                  color: '#94A3B8',
+                },
+                {
+                  name: 'Lookup.design',
+                  category: 'Micro-Component States',
+                  url: 'https://lookup.design',
+                  desc: 'Search specifically by micro-component: modals, tooltips, segmented controls, table headers, and complex data-filtering inputs.',
+                  badge: 'Component States',
+                  color: '#79C0FF',
+                },
+                {
+                  name: 'Linear Design System',
+                  category: 'Keyboard-First Density',
+                  url: 'https://linear.app/design',
+                  desc: 'The industry benchmark for information density, subtle borders, high contrast ratios, and instantaneous zero-delay interactions.',
+                  badge: 'Design System',
+                  color: '#A5D6FF',
+                },
+                {
+                  name: 'Component Gallery',
+                  category: 'Real-World Design Systems',
+                  url: 'https://component.gallery',
+                  desc: 'Up-to-date collection of design system components from IBM Carbon, Shopify Polaris, GitHub Primer, and Atlassian.',
+                  badge: 'Token Reference',
+                  color: '#56D364',
+                },
+                {
+                  name: 'Bento Grids',
+                  category: 'Asymmetric Card Layouts',
+                  url: 'https://bentogrids.com',
+                  desc: 'Curated index of modern 12-column bento box spreads, metric hero cards, and architectural perimeter HUD layouts.',
+                  badge: 'Layout Anatomy',
+                  color: '#F0883E',
+                },
+                {
+                  name: 'Awwwards / Siteinspire',
+                  category: 'Editorial & Studio Work',
+                  url: 'https://www.awwwards.com',
+                  desc: 'Award-winning digital experiences, custom GLSL shaders, kinetic editorial type, and physical material simulations.',
+                  badge: 'Grand Prix Craft',
+                  color: '#D29922',
+                },
+              ].map((lib) => (
+                <div key={lib.name} className="idea-card" style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span className="idea-cat" style={{ color: lib.color }}>{lib.category}</span>
+                    <span className="cli-badge-pill" style={{ fontSize: '0.62rem' }}>{lib.badge}</span>
+                  </div>
+                  <h3 className="idea-name" style={{ fontSize: '1.1rem', margin: 0 }}>{lib.name}</h3>
+                  <p className="idea-summary" style={{ fontSize: '0.76rem', margin: 0, flex: 1 }}>{lib.desc}</p>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '6px' }}>
+                    <a
+                      href={lib.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="pill-btn primary"
+                      style={{ fontSize: '0.7rem', padding: '5px 12px', textDecoration: 'none' }}
+                    >
+                      Visit {lib.name} ↗
+                    </a>
+                    {lib.name === 'Kombai' && (
+                      <button
+                        type="button"
+                        className="pill-btn"
+                        style={{ fontSize: '0.7rem', padding: '5px 12px' }}
+                        onClick={() => {
+                          setKombaiOverlayActive(true);
+                          setCanvasOpen(true);
+                        }}
+                      >
+                        Toggle Overlay QA
+                      </button>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* KOMBAI DESIGN OVERLAY QA INSTRUCTION CARD */}
+            <div className="msg-card" style={{ padding: '18px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <div className="msg-header">
+                <span className="msg-author">Kombai Design Overlay Comparator — Zero-Regression QA Protocol</span>
+                <span className="cli-badge-pill">ACTIVE IN SIDE CANVAS</span>
+              </div>
+              <p style={{ fontSize: '0.8rem', color: 'var(--ink-secondary)', margin: 0 }}>
+                The Kombai Overlay renders the high-resolution Figma reference plate directly atop the live interactive React DOM in the Side-View Canvas.
+                Use the opacity slider to blend the original artwork with the code, switch to <code>difference</code> blend mode to highlight &lt;2px padding discrepancies, and verify typography alignment.
+              </p>
+              <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginTop: '6px' }}>
+                <button
+                  type="button"
+                  className="pill-btn primary"
+                  onClick={() => {
+                    setKombaiOverlayActive(true);
+                    setKombaiBlendMode('difference');
+                    setCanvasOpen(true);
+                  }}
+                >
+                  Inspect in Difference Blend Mode
+                </button>
+                <button
+                  type="button"
+                  className="pill-btn"
+                  onClick={() => {
+                    setKombaiOverlayActive(true);
+                    setKombaiBlendMode('normal');
+                    setKombaiOpacity(50);
+                    setCanvasOpen(true);
+                  }}
+                >
+                  50% Ghost Overlay
+                </button>
+              </div>
             </div>
           </div>
         )}
@@ -1391,6 +1602,15 @@ Introducing HeroForge V1:
                   {canvasRenderMode === 'iframe' ? 'Port Iframe' : 'Interactive'}
                 </button>
               )}
+              <button
+                type="button"
+                className={`pill-tab ${kombaiOverlayActive ? 'active' : ''}`}
+                onClick={() => setKombaiOverlayActive(!kombaiOverlayActive)}
+                title="Toggle Kombai Design Overlay QA Comparator"
+                style={{ color: kombaiOverlayActive ? 'var(--accent-blue)' : undefined }}
+              >
+                {kombaiOverlayActive ? '✦ Kombai Overlay ON' : 'Kombai Overlay'}
+              </button>
               <a
                 href={
                   isLocalhost && activeSite.externalPortUrl && canvasRenderMode === 'iframe'
@@ -1407,7 +1627,67 @@ Introducing HeroForge V1:
             </div>
           </div>
 
-          <div className="canvas-stage">
+          {/* KOMBAI INTERACTIVE OVERLAY CONTROLS BAR */}
+          {kombaiOverlayActive && (
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+                padding: '8px 14px',
+                background: 'rgba(20, 24, 30, 0.95)',
+                borderBottom: '1px solid var(--border-subtle)',
+                fontSize: '0.72rem',
+                fontFamily: 'var(--font-mono)',
+                color: 'var(--ink-secondary)',
+                flexWrap: 'wrap',
+              }}
+            >
+              <span style={{ color: 'var(--accent-blue)', fontWeight: 600 }}>✦ KOMBAI OVERLAY:</span>
+              <span>Opacity: {kombaiOpacity}%</span>
+              <input
+                type="range"
+                min={0}
+                max={100}
+                value={kombaiOpacity}
+                onChange={(e) => setKombaiOpacity(Number(e.target.value))}
+                style={{ width: '110px' }}
+                aria-label="Kombai Overlay Opacity"
+              />
+              <span style={{ marginLeft: '6px' }}>Blend:</span>
+              {(['normal', 'difference', 'multiply'] as const).map((m) => (
+                <button
+                  key={m}
+                  type="button"
+                  className={`pill-tab ${kombaiBlendMode === m ? 'active' : ''}`}
+                  style={{ padding: '2px 8px', fontSize: '0.65rem' }}
+                  onClick={() => setKombaiBlendMode(m)}
+                >
+                  {m}
+                </button>
+              ))}
+              <span style={{ color: 'var(--ink-muted)', marginLeft: 'auto' }}>
+                Comparing DOM against {activeSite.brand} Plate
+              </span>
+            </div>
+          )}
+
+          <div className="canvas-stage" style={{ position: 'relative' }}>
+            {kombaiOverlayActive && (
+              <div
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  pointerEvents: 'none',
+                  backgroundImage: `url(${activeSite.heroImage})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center top',
+                  opacity: kombaiOpacity / 100,
+                  mixBlendMode: kombaiBlendMode,
+                  zIndex: 70,
+                }}
+              />
+            )}
             <div
               className={`iframe-shell vp-${viewport}`}
               style={{ overflowY: 'auto', overflowX: 'hidden', background: activeSite.palette.bg }}

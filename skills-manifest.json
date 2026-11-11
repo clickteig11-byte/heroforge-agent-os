@@ -2,7 +2,7 @@
   "schemaVersion": "2.0.0",
   "studio": "HeroForge V1 — Autonomous Creative Website Studio (2026 AI Design Workflow & Hallmark Edition)",
   "generatedAt": "2026-11-10T23:45:00Z",
-  "totalSkills": 44,
+  "totalSkills": 45,
   "desktopAppPolicy": "App-Free Procedural 3D Mode Enabled — Standalone desktop applications (Blender, Spline) are NOT required. All 3D geometry, materials, and lighting rigs run 100% natively in code via Three.js, React Three Fiber, and Drei.",
   "referenceVideos": [
     {
@@ -572,6 +572,17 @@
       "license": "MIT",
       "status": "installed",
       "path": ".agents/skills/deep-creative-research/SKILL.md"
+    },
+    {
+      "id": 30,
+      "name": "kombai-design-overlay",
+      "source": "https://github.com/clickteig11-byte/heroforge-agent-os",
+      "commit": "921ec5a6b1fe47610a8e3cc92b205b268423501d",
+      "purpose": "Figma-to-code AI translation and pixel-accurate Design Overlay comparator with opacity slider and difference blend mode QA.",
+      "version": "1.0.0",
+      "license": "MIT",
+      "status": "installed",
+      "path": ".agents/skills/kombai-design-overlay/SKILL.md"
     }
   ]
 }

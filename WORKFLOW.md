@@ -44,7 +44,18 @@ Plus **29 HeroForge V1 Studio Skills** (`heroforge-master-studio`, `hyperframes-
   4. What independent browser check proves the result is right?
 - Generate or select a high-craft concept from the 20-Idea Autonomous Catalog (`data/ideas-catalog.json`).
 
-### Stage 2 — Real-Product Inspiration & Job Walk (`mobbin/redesign-screen` + `deep-creative-research`)
+### Stage 2 — Real-Product Inspiration, Skyward Hub & Job Walk (`mobbin/redesign-screen` + `deep-creative-research`)
+- Consult the **Skyward Design Hub** in the Agent OS (`:4100`) for the world's top 10 design libraries:
+  1. **Mobbin**: 300,000+ real iOS, Android, and Web application screens.
+  2. **Godly**: Kinetic web aesthetics, typography lockups, and 3D WebGL scenes.
+  3. **Refero**: SaaS dashboards, pricing tables, and desktop conversion funnels.
+  4. **Kombai**: AI frontend design engineering & Figma Auto Layout translation.
+  5. **Page Flows**: Video archives of user journeys.
+  6. **Lookup.design**: Micro-component states and edge cases.
+  7. **Linear & Stripe Design Systems**: Masterclass in information density, subtle borders, and craft.
+  8. **Component Gallery**: Real design tokens across 60+ enterprise systems.
+  9. **Bento Grids**: 12-column asymmetric layout spreads and architectural perimeter HUDs.
+  10. **Awwwards / Siteinspire**: Award-winning digital experiences.
 - Run the **Mobbin `redesign-screen` 6-Point Job Walk**:
   1. **The path leads**: Eye lands on the first step; one primary control finishes it; nothing off the path competes.
   2. **Every decision has its information beside it**, not a scroll or tap away.
