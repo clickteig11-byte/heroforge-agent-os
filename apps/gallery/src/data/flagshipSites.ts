@@ -605,7 +605,7 @@ Supporting Sections:
         },
       ],
       specs: [
-        { label: 'Concentration', value: '34% Extrait de Parfum', detail: 'Organic sugar-beet alcohol base, zero synthetic musks' },
+        { label: 'Concentration', value: '34% Extrait de Parfum', detail: 'Organic sugar-beet alcohol base, unadulterated botanical essences' },
         { label: 'Maceration Vessel', value: '50L Terracotta & Amber Glass', detail: 'Cellared at 13°C in Grasse' },
         { label: 'Harvest Batch', value: 'Autumn 2025 · 480 Flacons', detail: 'Hand-numbered and wax-sealed to order' },
         { label: 'Refill Program', value: 'Lifetime Apothecary Refill', detail: 'Return flacon to Paris, Tokyo, or New York flagship' },
@@ -1009,7 +1009,7 @@ Supporting Sections:
       headlineItalicWord: '',
       leadSentence: 'Organic mycorrhizal inoculation, native micro-clover cultivation, and zero-emission robotic cylinder mowing calibrated for alpine and temperate estates.',
       primaryCta: 'Request Soil Assay',
-      quietCaption: 'ZERO SYNTHETIC RUNOFF · 100% AUTONOMOUS FLEET · CERTIFIED AGRONOMISTS',
+      quietCaption: 'ZERO CHEMICAL RUNOFF · 100% AUTONOMOUS FLEET · CERTIFIED AGRONOMISTS',
     },
     sections: {
       sectionKicker: '01 / ECOLOGICAL METHODOLOGY',
@@ -1019,7 +1019,7 @@ Supporting Sections:
           index: '01',
           title: 'Mycorrhizal Soil Inoculation',
           metric: '10× Deeper Root Architecture',
-          summary: 'Fungal network colonization unlocks phosphorus and micronutrients without synthetic NPK chemical fertilizers.',
+          summary: 'Fungal network colonization unlocks phosphorus and micronutrients without manufactured NPK chemical fertilizers.',
         },
         {
           index: '02',
@@ -1035,7 +1035,7 @@ Supporting Sections:
         },
       ],
       specs: [
-        { label: 'Synthetic Chemical Input', value: '0.00 lbs / Acre', detail: 'Pure biological compost tea & kelp' },
+        { label: 'Chemical Input', value: '0.00 lbs / Acre', detail: 'Pure biological compost tea & kelp' },
         { label: 'Mower Sound Output', value: '< 52 dBA at 10m', detail: 'Silent, solar-charged robotic fleet' },
         { label: 'Carbon Soil Sequestration', value: '3.4 Tons CO₂e / Ha / Yr', detail: 'Continuous deep root turnover' },
         { label: 'Drought Dormancy Delay', value: '+24 Days vs Standard Turf', detail: 'Denser subsoil rhizosphere' },

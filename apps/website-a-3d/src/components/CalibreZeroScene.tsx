@@ -245,7 +245,7 @@ function WatchMovementAssembly({ scrollStateRef }: { scrollStateRef: React.Mutab
             <boxGeometry args={[0.95, 0.11, 0.85]} />
           </mesh>
 
-          {/* Pressed Gold Chatons + Synthetic Ruby Jewels + Heat-Blued Screws */}
+          {/* Pressed Gold Chatons + Corundum Jewel Bearings + Heat-Blued Screws */}
           {[
             [-0.65, 0.07, -0.55],
             [-0.65, 0.07, 0.55],

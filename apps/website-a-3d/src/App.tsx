@@ -361,7 +361,7 @@ export function App() {
                 Unplated bridges that develop a warm patina over decades.
               </h3>
               <p style={{ fontSize: '0.94rem', color: 'var(--ink-secondary)', lineHeight: 1.65 }}>
-                {currentFinishObj.desc} Pressed 18k gold chatons secure the synthetic ruby bearings while heat-blued
+                {currentFinishObj.desc} Pressed 18k gold chatons secure the corundum jewel bearings while heat-blued
                 screws provide clear visual indexing on the watchmaker&apos;s bench.
               </p>
             </div>
