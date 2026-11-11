@@ -82,35 +82,37 @@ export function App() {
   return (
     <div>
       {/* ====================================================================
-          MINIMAL FLOATING PILL NAVIGATION (SHORT, CLEAR LABELS)
+          ARCHITECTURAL EDGE NAVIGATION (ZERO PILL BARS)
           ==================================================================== */}
-      <div className="floating-pill-header">
-        <nav className="floating-pill-nav" aria-label="Primary Navigation">
-          <a href="#top" className="pill-brand">
+      <header className="arch-edge-header">
+        <div className="arch-brand-lockup">
+          <a href="#top" className="arch-brand">
             Kurokawa &amp; Vane
           </a>
-          <div className="pill-nav-links">
-            <a href="#works">Projects</a>
-            <a href="#studio">Studio</a>
-            <a href="#materials">Materials</a>
-          </div>
-          <button
-            type="button"
-            className="pill-cta-btn"
-            onClick={() => dialogRef.current?.showModal()}
-          >
-            Inquire
-          </button>
+          <span className="arch-coords">REYKJAVIK // KYOTO // ZURICH</span>
+        </div>
+
+        <nav className="arch-nav-links" aria-label="Primary Navigation">
+          <a href="#works">Monographs</a>
+          <a href="#studio">Studio</a>
+          <a href="#materials">Materiality</a>
         </nav>
-      </div>
+
+        <button
+          type="button"
+          className="arch-action-btn"
+          onClick={() => dialogRef.current?.showModal()}
+        >
+          Commission · Monograph IV
+        </button>
+      </header>
 
       {/* ====================================================================
-          REFINED FULL-BLEED ARCHITECTURE HERO:
-          - 1 small project label
-          - Intentional 2-line headline (never covers the glowing thermal pool)
-          - Concise 1-sentence paragraph
-          - 1 primary CTA
-          - 1 compact inline project switcher pill bar
+          REFINED ARCHITECTURAL HERO:
+          - Zero fake italic emphasis tropes
+          - Clash Display Swiss headline
+          - Clean architectural plate switcher
+          - Unobstructed geothermal architecture
           ==================================================================== */}
       <header id="top" className="hero-fullbleed">
         <div className="hero-bg-layer">
@@ -142,16 +144,14 @@ export function App() {
             </span>
             <h1 className="hero-display-title">
               {currentHero.headlineLine1}
-              <br />
-              <em>{currentHero.headlineLine2}</em>
+              <span className="hero-subline">{currentHero.headlineLine2}</span>
             </h1>
             <p className="hero-summary">{currentHero.summary}</p>
             <a
               href="#works"
-              className="pill-cta-btn"
-              style={{ padding: '0.78rem 1.65rem', fontSize: '0.8rem' }}
+              className="arch-primary-btn"
             >
-              View Project
+              View Monograph
             </a>
           </motion.div>
 
@@ -162,7 +162,7 @@ export function App() {
                 type="button"
                 role="tab"
                 aria-selected={idx === activeHeroIdx}
-                className={`project-switch-pill ${idx === activeHeroIdx ? 'active' : ''}`}
+                className={`arch-switch-plate ${idx === activeHeroIdx ? 'active' : ''}`}
                 onClick={() => setActiveHeroIdx(idx)}
               >
                 {work.shortName}

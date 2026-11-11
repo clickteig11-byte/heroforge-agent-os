@@ -59,87 +59,81 @@ export const FlagshipSiteView: React.FC<FlagshipSiteViewProps> = ({ site, isEmbe
         overflowX: 'hidden',
       }}
     >
-      {/* FLOATING PILL NAVIGATION (1 OF 5 RESTRAINED HERO ELEMENTS) */}
+      {/* ARCHITECTURAL EDGE HEADER (ZERO PILL BARS) */}
       <header
         style={{
-          position: 'sticky',
-          top: '18px',
+          position: isEmbedded ? 'sticky' : 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
           zIndex: 40,
           display: 'flex',
-          justifyContent: 'center',
-          padding: '0 20px',
-          marginBottom: '-64px',
-          pointerEvents: 'none',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '0 32px',
+          height: '56px',
+          background: 'rgba(12, 13, 16, 0.88)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
         }}
       >
-        <nav
-          aria-label={`${site.brand} Primary Navigation`}
+        <a
+          href="#top"
           style={{
-            pointerEvents: 'auto',
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '24px',
-            background: 'rgba(16, 15, 14, 0.72)',
-            backdropFilter: 'blur(16px)',
-            WebkitBackdropFilter: 'blur(16px)',
-            border: '1px solid rgba(252, 250, 246, 0.16)',
-            borderRadius: '9999px',
-            padding: '6px 8px 6px 20px',
-            boxShadow: '0 12px 32px rgba(0, 0, 0, 0.28)',
+            color: '#FFFFFF',
+            textDecoration: 'none',
+            fontSize: '0.84rem',
+            fontWeight: 800,
+            letterSpacing: '0.14em',
+            textTransform: 'uppercase',
+            whiteSpace: 'nowrap',
+            fontFamily: site.fontFamily.display,
           }}
         >
-          <a
-            href="#top"
-            style={{
-              color: site.palette.ink,
-              textDecoration: 'none',
-              fontSize: '0.74rem',
-              fontWeight: 700,
-              letterSpacing: '0.16em',
-              textTransform: 'uppercase',
-              whiteSpace: 'nowrap',
-            }}
-          >
-            {site.hero.navBrand}
-          </a>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }} className="flagship-nav-links">
-            {site.hero.navLinks.map((lbl, idx) => (
-              <a
-                key={lbl}
-                href={idx === 0 ? '#interactive-stage' : idx === 1 ? '#architecture' : '#specifications'}
-                style={{
-                  color: 'rgba(252, 250, 246, 0.82)',
-                  textDecoration: 'none',
-                  fontSize: '0.75rem',
-                  fontWeight: 500,
-                  padding: '6px 12px',
-                  borderRadius: '9999px',
-                }}
-              >
-                {lbl}
-              </a>
-            ))}
-          </div>
-          <button
-            type="button"
-            onClick={() => {
-              setSubmitted(false);
-              setInquireOpen(true);
-            }}
-            style={{
-              background: site.palette.ctaBg,
-              color: site.palette.ctaInk,
-              border: 'none',
-              borderRadius: '9999px',
-              padding: '7px 16px',
-              fontSize: '0.74rem',
-              fontWeight: 600,
-              cursor: 'pointer',
-            }}
-          >
-            {site.hero.navCta}
-          </button>
-        </nav>
+          {site.hero.navBrand}
+        </a>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }} className="flagship-nav-links">
+          {site.hero.navLinks.map((lbl, idx) => (
+            <a
+              key={lbl}
+              href={idx === 0 ? '#interactive-stage' : idx === 1 ? '#architecture' : '#specifications'}
+              style={{
+                color: 'rgba(255, 255, 255, 0.72)',
+                textDecoration: 'none',
+                fontSize: '0.72rem',
+                fontWeight: 600,
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase',
+              }}
+            >
+              {lbl}
+            </a>
+          ))}
+        </div>
+
+        <button
+          type="button"
+          onClick={() => {
+            setSubmitted(false);
+            setInquireOpen(true);
+          }}
+          style={{
+            background: site.palette.ctaBg,
+            color: site.palette.ctaInk,
+            border: `1px solid ${site.palette.ctaBg}`,
+            borderRadius: '0px',
+            padding: '7px 18px',
+            fontSize: '0.72rem',
+            fontWeight: 700,
+            letterSpacing: '0.08em',
+            textTransform: 'uppercase',
+            cursor: 'pointer',
+          }}
+        >
+          {site.hero.navCta}
+        </button>
       </header>
 
       {/* FULL-BLEED MINIMALIST A+ HERO */}
@@ -214,16 +208,19 @@ export const FlagshipSiteView: React.FC<FlagshipSiteViewProps> = ({ site, isEmbe
               style={{
                 fontFamily: site.fontFamily.display,
                 fontSize: isEmbedded ? 'clamp(2.1rem, 3.3vw, 3.25rem)' : 'clamp(2.35rem, 3.8vw, 3.85rem)',
-                fontWeight: 400,
-                lineHeight: 1.04,
-                letterSpacing: '-0.02em',
+                fontWeight: 700,
+                lineHeight: 1.02,
+                letterSpacing: '-0.03em',
+                textTransform: 'uppercase',
                 color: '#FFFFFF',
                 margin: '0 0 14px 0',
               }}
             >
               {currentLine1}
               <br />
-              <em style={{ fontStyle: 'italic', color: site.palette.ink }}>{currentLine2}</em>
+              <span style={{ display: 'block', color: site.palette.accent, fontWeight: 600, letterSpacing: '-0.02em', fontSize: '0.85em', marginTop: '4px' }}>
+                {currentLine2}
+              </span>
             </h1>
 
             <p
@@ -247,10 +244,12 @@ export const FlagshipSiteView: React.FC<FlagshipSiteViewProps> = ({ site, isEmbe
                 color: site.palette.ctaInk,
                 textDecoration: 'none',
                 padding: '12px 24px',
-                borderRadius: '9999px',
-                fontSize: '0.8rem',
-                fontWeight: 600,
-                letterSpacing: '0.02em',
+                borderRadius: '0px',
+                fontSize: '0.76rem',
+                fontWeight: 700,
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase',
+                border: `1px solid ${site.palette.ctaBg}`,
               }}
             >
               {site.hero.primaryCta}

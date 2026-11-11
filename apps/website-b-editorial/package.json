@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port 4102 --host 0.0.0.0",
-    "build": "tsc -b && vite build",
+    "build": "vite build",
     "preview": "vite preview --port 4102 --host 0.0.0.0"
   },
   "dependencies": {
@@ -14,5 +14,12 @@
     "motion": "12.4.7",
     "react": "18.3.1",
     "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.3",
+    "vite": "^6.1.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5"
   }
 }

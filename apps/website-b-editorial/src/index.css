@@ -1,16 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
-
 :root {
-  --stone-paper: #f5f2eb;
-  --stone-warm: #eae4d8;
-  --stone-card: #fcfaf6;
-  --ink-dark: #161514;
-  --ink-body: #4d4a44;
+  --stone-paper: #0c0d0e;
+  --stone-warm: #141619;
+  --stone-card: #1a1d21;
+  --ink-dark: #f5f2eb;
+  --ink-body: #c2bdb4;
   --ink-muted: #7e7970;
-  --accent-bronze: #9c7a54;
-  --border-soft: 1px solid rgba(22, 21, 20, 0.1);
-  --font-serif: 'Cormorant Garamond', Georgia, serif;
-  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --accent-bronze: #d8c7a6;
+  --accent-blue: #466b88;
+  --border-soft: 1px solid rgba(245, 242, 235, 0.1);
+  --font-display: 'Clash Display', 'Cabinet Grotesk', -apple-system, sans-serif;
+  --font-sans: 'Cabinet Grotesk', 'Plus Jakarta Sans', -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 }
 
@@ -37,93 +36,112 @@ body {
 }
 
 /* ==========================================================================
-   MINIMAL FLOATING PILL NAVIGATION (SHORT, CLEAR NAMES)
+   ARCHITECTURAL EDGE HEADER (PRECISION SWISS GRID)
    ========================================================================== */
-.floating-pill-header {
+.arch-edge-header {
   position: fixed;
-  top: 1.5rem;
+  top: 0;
   left: 0;
   right: 0;
-  z-index: 60;
+  height: 64px;
+  z-index: 80;
   display: flex;
-  justify-content: center;
-  padding: 0 1.5rem;
-  pointer-events: none;
-}
-
-.floating-pill-nav {
-  pointer-events: auto;
-  display: inline-flex;
   align-items: center;
-  gap: 2rem;
-  background: rgba(18, 18, 17, 0.66);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(252, 250, 246, 0.16);
-  border-radius: 9999px;
-  padding: 0.42rem 0.5rem 0.42rem 1.35rem;
-  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.2);
+  justify-content: space-between;
+  padding: 0 2.5rem;
+  background: rgba(12, 13, 14, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(245, 242, 235, 0.12);
 }
 
-.pill-brand {
-  color: #fcfaf6;
+.arch-brand-lockup {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.arch-brand {
+  color: #f5f2eb;
   text-decoration: none;
-  font-size: 0.78rem;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
   font-weight: 700;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  white-space: nowrap;
 }
 
-.pill-nav-links {
+.arch-coords {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--accent-bronze);
+  letter-spacing: 0.1em;
+  border-left: 1px solid rgba(245, 242, 235, 0.15);
+  padding-left: 1rem;
+}
+
+.arch-nav-links {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 2.25rem;
 }
 
-.pill-nav-links a {
-  color: rgba(252, 250, 246, 0.8);
+.arch-nav-links a {
+  color: rgba(245, 242, 235, 0.72);
   text-decoration: none;
-  font-size: 0.76rem;
-  font-weight: 500;
-  padding: 0.38rem 0.85rem;
-  border-radius: 9999px;
-  transition: color 0.18s ease, background-color 0.18s ease;
-  white-space: nowrap;
-}
-
-.pill-nav-links a:hover {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.pill-cta-btn {
-  appearance: none;
-  background: #fcfaf6;
-  color: #161514;
-  border: none;
-  border-radius: 9999px;
-  padding: 0.5rem 1.15rem;
   font-family: var(--font-sans);
-  font-size: 0.75rem;
+  font-size: 0.74rem;
   font-weight: 600;
-  letter-spacing: 0.02em;
-  cursor: pointer;
-  transition: transform 0.15s ease, background-color 0.15s ease;
-  white-space: nowrap;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 0.18s ease;
+  position: relative;
+  padding: 0.25rem 0;
 }
 
-.pill-cta-btn:hover {
-  background: #ffffff;
-  transform: translateY(-1px);
+.arch-nav-links a:hover {
+  color: #ffffff;
+}
+
+.arch-nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--accent-bronze);
+  transition: width 0.2s ease;
+}
+
+.arch-nav-links a:hover::after {
+  width: 100%;
+}
+
+.arch-action-btn {
+  appearance: none;
+  background: transparent;
+  color: var(--accent-bronze);
+  border: 1px solid rgba(216, 199, 166, 0.4);
+  border-radius: 0;
+  padding: 0.55rem 1.25rem;
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-decoration: none;
+}
+
+.arch-action-btn:hover {
+  background: var(--accent-bronze);
+  color: #0c0d0e;
 }
 
 /* ==========================================================================
-   RESTRAINED FULL-BLEED ARCHITECTURAL HERO (UNOBSTRUCTED PHOTOGRAPHY)
+   RESTRAINED FULL-BLEED ARCHITECTURAL HERO
    ========================================================================== */
 .hero-fullbleed {
   position: relative;
@@ -135,6 +153,7 @@ body {
   flex-direction: column;
   justify-content: flex-end;
   color: #fcfaf6;
+  padding-top: 64px;
 }
 
 .hero-bg-layer {
@@ -150,7 +169,6 @@ body {
   object-position: center;
 }
 
-/* Gentle lower-left gradient leaving the warm geothermal pavilion completely clear */
 .hero-scrim {
   position: absolute;
   inset: 0;
@@ -158,22 +176,22 @@ body {
   background:
     linear-gradient(
       90deg,
-      rgba(14, 15, 17, 0.62) 0%,
-      rgba(14, 15, 17, 0.2) 44%,
-      rgba(14, 15, 17, 0) 70%
+      rgba(10, 11, 13, 0.8) 0%,
+      rgba(10, 11, 13, 0.35) 45%,
+      rgba(10, 11, 13, 0.05) 75%
     ),
     linear-gradient(
       180deg,
-      rgba(14, 15, 17, 0.18) 0%,
-      rgba(14, 15, 17, 0) 42%,
-      rgba(14, 15, 17, 0.68) 100%
+      rgba(10, 11, 13, 0.3) 0%,
+      rgba(10, 11, 13, 0) 35%,
+      rgba(10, 11, 13, 0.85) 100%
     );
 }
 
 .hero-overlay-content {
   position: relative;
   z-index: 10;
-  max-width: 1380px;
+  max-width: 1400px;
   width: 100%;
   margin: 0 auto;
   padding: 0 3.5rem 3.5rem;
@@ -184,55 +202,108 @@ body {
 }
 
 .hero-copy-block {
-  max-width: 460px;
+  max-width: 580px;
 }
 
-/* One small project label — clean, unboxed */
 .hero-small-label {
-  display: block;
+  display: inline-block;
   font-family: var(--font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.16em;
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(252, 250, 246, 0.8);
-  margin-bottom: 0.85rem;
+  color: var(--accent-bronze);
+  margin-bottom: 0.75rem;
   font-variant-numeric: tabular-nums;
+  border-bottom: 1px solid rgba(216, 199, 166, 0.3);
+  padding-bottom: 0.25rem;
 }
 
-/* Intentional 2-line headline — compact so it never covers the architecture */
 .hero-display-title {
-  font-family: var(--font-serif);
-  font-size: clamp(2.75rem, 4.3vw, 4.25rem);
-  font-weight: 400;
-  line-height: 1.02;
-  letter-spacing: -0.02em;
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 4.2vw, 4.2rem);
+  font-weight: 700;
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
   color: #ffffff;
-  margin-bottom: 1rem;
+  margin-bottom: 1.15rem;
   text-wrap: balance;
 }
 
-.hero-display-title em {
-  font-style: italic;
-  color: #ebdcc7;
+.hero-subline {
+  display: block;
+  font-weight: 600;
+  color: var(--accent-bronze);
+  letter-spacing: -0.02em;
+  font-size: 0.78em;
+  margin-top: 0.2rem;
 }
 
-/* Concise 1-sentence paragraph with comfortable line length */
 .hero-summary {
-  font-size: 0.96rem;
-  line-height: 1.62;
-  color: rgba(252, 250, 246, 0.86);
-  max-width: 38ch;
-  margin-bottom: 1.65rem;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(245, 242, 235, 0.85);
+  max-width: 44ch;
+  margin-bottom: 1.85rem;
 }
 
-/* Minimal inline project selector on bottom-right (no bulky card or decorative title) */
+.arch-primary-btn {
+  appearance: none;
+  background: var(--accent-bronze);
+  color: #0c0d0e;
+  border: 1px solid var(--accent-bronze);
+  border-radius: 0;
+  padding: 0.85rem 1.85rem;
+  font-family: var(--font-sans);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+}
+
+.arch-primary-btn:hover {
+  background: #f5f2eb;
+  border-color: #f5f2eb;
+  color: #0c0d0e;
+}
+
+/* Minimal architectural plate switcher */
 .hero-minimal-switcher {
   display: flex;
   align-items: center;
-  gap: 0.35rem;
-  background: rgba(18, 18, 17, 0.58);
-  backdrop-filter: blur(14px);
-  border: 1px solid rgba(252, 250, 246, 0.16);
+  background: rgba(12, 13, 14, 0.8);
+  border: 1px solid rgba(245, 242, 235, 0.15);
+  padding: 0.25rem;
+}
+
+.arch-switch-plate {
+  appearance: none;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  color: rgba(245, 242, 235, 0.7);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.55rem 1rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.arch-switch-plate.active {
+  background: var(--accent-bronze);
+  color: #0c0d0e;
+  font-weight: 700;
+}
   border-radius: 9999px;
   padding: 0.32rem;
 }

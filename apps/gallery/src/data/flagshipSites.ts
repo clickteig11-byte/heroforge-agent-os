@@ -82,8 +82,8 @@ export const FLAGSHIP_SITES: FlagshipSiteSpec[] = [
     category: 'Haute Horlogerie · WebGL + Chiaroscuro Macro',
     grade: 'A+',
     beforeGrade: 'B− → A+',
-    portOrRoute: 'http://localhost:4101',
-    externalPortUrl: 'http://localhost:4101',
+    portOrRoute: 'https://aetherion-geneve.vercel.app',
+    externalPortUrl: 'https://aetherion-geneve.vercel.app',
     heroImage: '/references/website-a/atelier-hero-bg.jpg',
     palette: {
       bg: '#141210',
@@ -95,7 +95,7 @@ export const FLAGSHIP_SITES: FlagshipSiteSpec[] = [
       ctaInk: '#171513',
     },
     fontFamily: {
-      display: "'Instrument Serif', 'Cormorant Garamond', Georgia, serif",
+      display: "'Syne', 'Clash Display', sans-serif",
       sans: "'Plus Jakarta Sans', -apple-system, sans-serif",
       mono: "'JetBrains Mono', monospace",
     },
@@ -104,9 +104,9 @@ export const FLAGSHIP_SITES: FlagshipSiteSpec[] = [
       navLinks: ['Movement', 'Craft', 'Specifications'],
       navCta: 'Inquire',
       smallLabel: 'CALIBRE 01 · GENEVA',
-      headlineLine1: 'German silver, shaped',
-      headlineLine2: 'by morning light.',
-      headlineItalicWord: 'morning light.',
+      headlineLine1: 'GERMAN SILVER',
+      headlineLine2: 'SHAPED BY RAW LIGHT.',
+      headlineItalicWord: '',
       leadSentence:
         'Thirty-eight manual-wind chronographs finished and regulated by hand each year in our Rue du Rhône workshop.',
       primaryCta: 'Explore the Movement',
@@ -184,8 +184,8 @@ Minimalist Hero Restraint (Strict A+ Spec):
 - Floating pill navbar with natural 1-word labels: "AETHERION" | "Movement", "Craft", "Specifications" | "[Inquire]".
 - One unboxed uppercase project label: "CALIBRE 01 · GENEVA".
 - Intentional 2-line serif headline (Instrument Serif) with balanced wrapping so no word is orphaned on a third line:
-  Line 1: "German silver, shaped"
-  Line 2: "by morning light."
+  Line 1: "GERMAN SILVER"
+  Line 2: "SHAPED BY RAW LIGHT."
 - One concise supporting sentence (max 38ch): "Thirty-eight manual-wind chronographs finished and regulated by hand each year in our Rue du Rhône workshop."
 - Exactly ONE primary CTA pill ("Explore the Movement") and one quiet specification line ("312 PARTS · 96H RESERVE · RAW MAILLECHORT"). Remove any 4-box stat cards from the hero.
 Supporting Sections:
@@ -200,8 +200,8 @@ Supporting Sections:
     category: 'Monolithic Architecture · Full-Bleed Plates',
     grade: 'A+',
     beforeGrade: 'B → A+',
-    portOrRoute: 'http://localhost:4102',
-    externalPortUrl: 'http://localhost:4102',
+    portOrRoute: 'https://kurokawa-vane.vercel.app',
+    externalPortUrl: 'https://kurokawa-vane.vercel.app',
     heroImage: '/references/website-b/plate-reykjavik-basalt.jpg',
     palette: {
       bg: '#121314',
@@ -224,7 +224,7 @@ Supporting Sections:
       smallLabel: '01 / GRINDAVÍK, ICELAND (2025)',
       headlineLine1: 'Carved from silence',
       headlineLine2: 'and volcanic stone.',
-      headlineItalicWord: 'and volcanic stone.',
+      headlineItalicWord: '',
       leadSentence:
         'Cantilevered above the North Atlantic surf, raw basalt walls channel geothermal spring vapor into still bathing courts.',
       primaryCta: 'View Project',
@@ -318,7 +318,7 @@ Supporting Sections:
     title: 'Helios-9 — Magnetically Shielded Hall-Effect Propulsion',
     category: 'Aerospace & Orbital Propulsion · Deep Vacuum Telemetry',
     grade: 'A+',
-    portOrRoute: '/?site=valkyr-orbital',
+    portOrRoute: 'https://valkyr-orbital.vercel.app',
     heroImage: '/references/sites/site-3-valkyr.jpg',
     palette: {
       bg: '#080A0E',
@@ -341,7 +341,7 @@ Supporting Sections:
       smallLabel: 'HELIOS-9 · CISLUNAR FLIGHT QUALIFIED',
       headlineLine1: 'Silent thrust across',
       headlineLine2: 'the deep orbital dark.',
-      headlineItalicWord: 'deep orbital dark.',
+      headlineItalicWord: '',
       leadSentence:
         'Magnetically shielded xenon and krypton thrusters engineered for ten-year cislunar stationkeeping.',
       primaryCta: 'Inspect Telemetry',
@@ -433,7 +433,7 @@ Supporting Sections:
     title: 'Reference 01 — Coaxial Acoustic Monolith & Listening Room',
     category: 'Acoustic Industrial Design · Milled Oak & Beryllium',
     grade: 'A+',
-    portOrRoute: '/?site=sora-klang',
+    portOrRoute: 'https://sora-klang.vercel.app',
     heroImage: '/references/sites/site-4-sora.jpg',
     palette: {
       bg: '#111314',
@@ -456,7 +456,7 @@ Supporting Sections:
       smallLabel: 'REFERENCE 01 · COPENHAGEN & KYOTO',
       headlineLine1: 'Pure room presence,',
       headlineLine2: 'milled from solid oak.',
-      headlineItalicWord: 'milled from solid oak.',
+      headlineItalicWord: '',
       leadSentence:
         'Phase-coherent beryllium drivers housed in kiln-dried Scandinavian oak and bead-blasted aluminum.',
       primaryCta: 'Book Listening Room',
@@ -549,7 +549,7 @@ Supporting Sections:
     title: 'Distillation No. 09 — Wild Hinoki & Somalian Myrrh Apothecary',
     category: 'Botanical Apothecary · Sunlight & Amber Glassware',
     grade: 'A+',
-    portOrRoute: '/?site=atelier-vespers',
+    portOrRoute: 'https://atelier-vespers.vercel.app',
     heroImage: '/references/sites/site-5-vespers.jpg',
     palette: {
       bg: '#191410',
@@ -572,7 +572,7 @@ Supporting Sections:
       smallLabel: 'DISTILLATION NO. 09 · KISO VALLEY & GRASSE',
       headlineLine1: 'Wild-harvested resin,',
       headlineLine2: 'steeped in quiet glass.',
-      headlineItalicWord: 'steeped in quiet glass.',
+      headlineItalicWord: '',
       leadSentence:
         'Cold-pressed Japanese cypress bark and Somalian myrrh macerated for ninety days in UV-filtering amber glass.',
       primaryCta: 'Explore Formulation',
@@ -665,7 +665,7 @@ Supporting Sections:
     title: 'Tipo 04 — Coachbuilt Carbon GT & Active Ground-Effect Aero',
     category: 'Bespoke Automotive · Autoclave Carbon & Wind-Tunnel Telemetry',
     grade: 'A+',
-    portOrRoute: '/?site=veloce-morphos',
+    portOrRoute: 'https://veloce-morphos.vercel.app',
     heroImage: '/references/sites/site-6-veloce.jpg',
     palette: {
       bg: '#0B0D10',
@@ -688,7 +688,7 @@ Supporting Sections:
       smallLabel: 'TIPO 04 GT · MODENA ATELIER',
       headlineLine1: 'Sculpted by air,',
       headlineLine2: 'built for the pass.',
-      headlineItalicWord: 'built for the pass.',
+      headlineItalicWord: '',
       leadSentence:
         'An active ground-effect carbon monocoque weighing 1,140 kilograms dry with a naturally aspirated V12.',
       primaryCta: 'Explore Aerodynamics',
@@ -781,7 +781,7 @@ Supporting Sections:
     title: 'APO-Summitar 50mm T1.3 — Full-Frame Anamorphic & Prime Optics',
     category: 'Precision Cinema Optics · Lanthanum Glass & Multi-Coating',
     grade: 'A+',
-    portOrRoute: '/?site=solaris-lensworks',
+    portOrRoute: 'https://solaris-lensworks.vercel.app',
     heroImage: '/references/sites/site-7-solaris.jpg',
     palette: {
       bg: '#0C0D0F',
@@ -804,7 +804,7 @@ Supporting Sections:
       smallLabel: 'APO-SUMMITAR 50MM T1.3 · WETZLAR',
       headlineLine1: 'Glass ground to capture',
       headlineLine2: 'the unseen half-stop.',
-      headlineItalicWord: 'unseen half-stop.',
+      headlineItalicWord: '',
       leadSentence:
         'Twelve lanthanum glass elements hand-collimated for zero focus breathing across large-format cinema sensors.',
       primaryCta: 'Inspect Optical Formula',
@@ -937,7 +937,7 @@ export const OBSIDIAN_VAULT_NOTES: ObsidianNote[] = [
 - **Strict 5-Element Hero Cap**:
   1. Floating Pill Navbar with short, natural 1-word labels (\`Projects\`, \`Studio\`, \`Materials\`, \`Inquire\`).
   2. One quiet unboxed project label (\`CALIBRE 01 · GENEVA\`).
-  3. Intentional 2-line balanced headline with **zero orphan words** (\`German silver, shaped\` / \`by morning light.\`).
+  3. Intentional 2-line balanced headline with **zero orphan words** (\`GERMAN SILVER\` / \`SHAPED BY RAW LIGHT.\`).
   4. One concise supporting sentence (\`<= 38ch\`).
   5. Exactly **ONE primary CTA button** and at most **ONE subtle supporting caption/switcher**.
 - **Strict Color Isolation**:
@@ -957,11 +957,11 @@ export const OBSIDIAN_VAULT_NOTES: ObsidianNote[] = [
 Every flagship site in HeroForge V1 has a verified **A+ Master Replication Prompt**:
 1. **01 Aetherion Genève (\`:4101\`)** — Haute Horlogerie & 3D Movement Vitrine
 2. **02 Kurokawa & Vane (\`:4102\`)** — Monolithic Architecture & Basalt Pavilions
-3. **03 Valkyr Orbital (\`/?site=valkyr-orbital\`)** — Magnetically Shielded Hall-Effect Propulsion
-4. **04 Sora & Klang (\`/?site=sora-klang\`)** — Coaxial Acoustic Monolith & Listening Room
-5. **05 Atelier Vespers (\`/?site=atelier-vespers\`)** — Wild Hinoki & Somalian Myrrh Apothecary
-6. **06 Veloce Morphos (\`/?site=veloce-morphos\`)** — Coachbuilt Carbon GT & Active Ground-Effect Aero
-7. **07 Solaris Lensworks (\`/?site=solaris-lensworks\`)** — APO-Summitar 50mm T1.3 Cinema Optics`,
+3. **03 Valkyr Orbital (\`https://valkyr-orbital.vercel.app\`)** — Magnetically Shielded Hall-Effect Propulsion
+4. **04 Sora & Klang (\`https://sora-klang.vercel.app\`)** — Coaxial Acoustic Monolith & Listening Room
+5. **05 Atelier Vespers (\`https://atelier-vespers.vercel.app\`)** — Wild Hinoki & Somalian Myrrh Apothecary
+6. **06 Veloce Morphos (\`https://veloce-morphos.vercel.app\`)** — Coachbuilt Carbon GT & Active Ground-Effect Aero
+7. **07 Solaris Lensworks (\`https://solaris-lensworks.vercel.app\`)** — APO-Summitar 50mm T1.3 Cinema Optics`,
   },
   {
     id: '03-Consolidated-Skill-Architecture',

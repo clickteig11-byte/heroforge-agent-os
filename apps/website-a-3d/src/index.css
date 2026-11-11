@@ -1,17 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
-
 :root {
-  --bg-paper: #f5f2eb;
-  --bg-stone: #ebe6dc;
-  --bg-card: #fcfaf6;
-  --ink-primary: #171513;
-  --ink-secondary: #524e48;
-  --ink-muted: #827c73;
-  --accent-champagne: #c5a478;
-  --accent-brass: #9a7846;
-  --border-soft: 1px solid rgba(23, 21, 19, 0.1);
-  --font-serif: 'Cormorant Garamond', Georgia, serif;
-  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --bg-paper: #12100e;
+  --bg-stone: #1a1714;
+  --bg-card: #201c18;
+  --ink-primary: #f6f3ed;
+  --ink-secondary: #b5ada2;
+  --ink-muted: #7d756b;
+  --accent-champagne: #d4b28c;
+  --accent-brass: #b88e58;
+  --border-soft: 1px solid rgba(246, 243, 237, 0.1);
+  --font-display: 'Syne', 'Clash Display', -apple-system, sans-serif;
+  --font-sans: 'Cabinet Grotesk', 'Plus Jakarta Sans', -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 }
 
@@ -38,89 +36,108 @@ body {
 }
 
 /* ==========================================================================
-   MINIMAL FLOATING PILL NAVIGATION (SHORT, NATURAL LABELS)
+   ARCHITECTURAL EDGE NAVIGATION (PRECISION HOROLOGICAL FRAME)
    ========================================================================== */
-.floating-pill-header {
+.site-edge-header {
   position: fixed;
-  top: 1.5rem;
+  top: 0;
   left: 0;
   right: 0;
-  z-index: 60;
+  height: 64px;
+  z-index: 80;
   display: flex;
-  justify-content: center;
-  padding: 0 1.5rem;
-  pointer-events: none;
-}
-
-.floating-pill-nav {
-  pointer-events: auto;
-  display: inline-flex;
   align-items: center;
-  gap: 2rem;
-  background: rgba(23, 20, 17, 0.68);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(252, 250, 246, 0.16);
-  border-radius: 9999px;
-  padding: 0.42rem 0.5rem 0.42rem 1.35rem;
-  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.18);
+  justify-content: space-between;
+  padding: 0 2.5rem;
+  background: rgba(18, 16, 14, 0.82);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(246, 243, 237, 0.12);
 }
 
-.pill-brand {
-  color: #fcfaf6;
+.edge-brand-lockup {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.edge-brand {
+  color: #f6f3ed;
   text-decoration: none;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  white-space: nowrap;
 }
 
-.pill-nav-links {
+.edge-coords {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--accent-champagne);
+  letter-spacing: 0.1em;
+  border-left: 1px solid rgba(246, 243, 237, 0.15);
+  padding-left: 1rem;
+}
+
+.edge-nav-links {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 2.25rem;
 }
 
-.pill-nav-links a {
-  color: rgba(252, 250, 246, 0.8);
+.edge-nav-links a {
+  color: rgba(246, 243, 237, 0.72);
   text-decoration: none;
-  font-size: 0.76rem;
-  font-weight: 500;
-  padding: 0.38rem 0.85rem;
-  border-radius: 9999px;
-  transition: color 0.18s ease, background-color 0.18s ease;
-  white-space: nowrap;
-}
-
-.pill-nav-links a:hover {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.pill-cta-btn {
-  appearance: none;
-  background: #fcfaf6;
-  color: #171513;
-  border: none;
-  border-radius: 9999px;
-  padding: 0.5rem 1.15rem;
   font-family: var(--font-sans);
-  font-size: 0.75rem;
+  font-size: 0.74rem;
   font-weight: 600;
-  letter-spacing: 0.02em;
-  cursor: pointer;
-  transition: transform 0.15s ease, background-color 0.15s ease;
-  white-space: nowrap;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 0.18s ease;
+  position: relative;
+  padding: 0.25rem 0;
 }
 
-.pill-cta-btn:hover {
-  background: #ffffff;
-  transform: translateY(-1px);
+.edge-nav-links a:hover {
+  color: #ffffff;
+}
+
+.edge-nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--accent-champagne);
+  transition: width 0.2s ease;
+}
+
+.edge-nav-links a:hover::after {
+  width: 100%;
+}
+
+.edge-action-btn {
+  appearance: none;
+  background: #f6f3ed;
+  color: #12100e;
+  border: 1px solid rgba(246, 243, 237, 0.4);
+  border-radius: 0;
+  padding: 0.55rem 1.25rem;
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  text-decoration: none;
+}
+
+.edge-action-btn:hover {
+  background: var(--accent-champagne);
+  color: #12100e;
 }
 
 /* ==========================================================================
@@ -136,6 +153,7 @@ body {
   flex-direction: column;
   justify-content: flex-end;
   color: #fcfaf6;
+  padding-top: 64px;
 }
 
 .atelier-hero-photo {
@@ -148,7 +166,6 @@ body {
   z-index: 1;
 }
 
-/* Subtle bottom-left vignette that leaves the sunlit watch on the right completely bright */
 .atelier-hero-scrim {
   position: absolute;
   inset: 0;
@@ -156,22 +173,22 @@ body {
   background:
     linear-gradient(
       90deg,
-      rgba(18, 15, 11, 0.66) 0%,
-      rgba(18, 15, 11, 0.26) 42%,
-      rgba(18, 15, 11, 0) 72%
+      rgba(14, 12, 10, 0.78) 0%,
+      rgba(14, 12, 10, 0.35) 45%,
+      rgba(14, 12, 10, 0.05) 75%
     ),
     linear-gradient(
       180deg,
-      rgba(18, 15, 11, 0.18) 0%,
-      rgba(18, 15, 11, 0) 40%,
-      rgba(18, 15, 11, 0.62) 100%
+      rgba(14, 12, 10, 0.3) 0%,
+      rgba(14, 12, 10, 0) 35%,
+      rgba(14, 12, 10, 0.85) 100%
     );
 }
 
 .atelier-hero-body {
   position: relative;
   z-index: 10;
-  max-width: 1380px;
+  max-width: 1400px;
   width: 100%;
   margin: 0 auto;
   padding: 0 3.5rem 3.5rem;
@@ -182,54 +199,92 @@ body {
 }
 
 .hero-copy-stack {
-  max-width: 600px;
+  max-width: 620px;
 }
 
-/* One small, quiet project label — no box border, no decorative dot */
 .hero-small-label {
-  display: block;
+  display: inline-block;
   font-family: var(--font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.16em;
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: #e9d5b5;
-  margin-bottom: 0.85rem;
+  color: var(--accent-champagne);
+  margin-bottom: 0.75rem;
   font-variant-numeric: tabular-nums;
+  border-bottom: 1px solid rgba(212, 178, 140, 0.3);
+  padding-bottom: 0.25rem;
 }
 
-/* Balanced 2-line headline — zero orphan words */
 .atelier-hero-title {
-  font-family: var(--font-serif);
-  font-size: clamp(2.15rem, 3.6vw, 3.65rem);
-  font-weight: 400;
-  line-height: 1.04;
-  letter-spacing: -0.02em;
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 4.2vw, 4.2rem);
+  font-weight: 800;
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
   color: #ffffff;
-  margin-bottom: 1rem;
+  margin-bottom: 1.15rem;
   text-wrap: balance;
 }
 
-.atelier-hero-title em {
-  font-style: italic;
-  color: #f3dfc1;
+.hero-subline {
+  display: block;
+  font-weight: 700;
+  color: var(--accent-champagne);
+  letter-spacing: -0.02em;
+  font-size: 0.78em;
+  margin-top: 0.2rem;
 }
 
-/* Short, readable 1-sentence supporting copy */
 .atelier-hero-lead {
-  font-size: 0.96rem;
-  line-height: 1.62;
-  color: rgba(252, 250, 246, 0.86);
-  max-width: 38ch;
-  margin-bottom: 1.65rem;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(246, 243, 237, 0.85);
+  max-width: 44ch;
+  margin-bottom: 1.85rem;
 }
 
-/* Single subtle supporting element on bottom-right — no bulky card competing with the watch */
+.editorial-cta-btn {
+  appearance: none;
+  background: #f6f3ed;
+  color: #12100e;
+  border: 1px solid #f6f3ed;
+  border-radius: 0;
+  padding: 0.85rem 1.85rem;
+  font-family: var(--font-sans);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+}
+
+.editorial-cta-btn:hover {
+  background: var(--accent-champagne);
+  border-color: var(--accent-champagne);
+  color: #12100e;
+  transform: translateY(-1px);
+}
+
 .hero-quiet-caption {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
+  gap: 1.5rem;
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-champagne);
+  padding: 0.75rem 1.25rem;
+  background: rgba(18, 16, 14, 0.7);
+  border: 1px solid rgba(246, 243, 237, 0.12);
+}
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: rgba(252, 250, 246, 0.82);

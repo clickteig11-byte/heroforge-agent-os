@@ -136,35 +136,35 @@ export function App() {
   return (
     <div>
       {/* ====================================================================
-          MINIMAL FLOATING PILL NAVIGATION (CLEAR, HUMAN LABELS)
+          ARCHITECTURAL EDGE NAVIGATION (ZERO PILL BARS)
           ==================================================================== */}
-      <div className="floating-pill-header">
-        <nav className="floating-pill-nav" aria-label="Primary Navigation">
-          <a href="#top" className="pill-brand">
-            Aetherion
+      <header className="site-edge-header">
+        <div className="edge-brand-lockup">
+          <a href="#top" className="edge-brand">
+            Aetherion Genève
           </a>
-          <div className="pill-nav-links">
-            <a href="#examination">Movement</a>
-            <a href="#craft">Craft</a>
-            <a href="#specifications">Specifications</a>
-          </div>
-          <button
-            type="button"
-            className="pill-cta-btn"
-            onClick={() => dialogRef.current?.showModal()}
-          >
-            Inquire
-          </button>
+          <span className="edge-coords">CH-1204 · RUE DU RHÔNE</span>
+        </div>
+        <nav className="edge-nav-links" aria-label="Primary Navigation">
+          <a href="#examination">Architecture</a>
+          <a href="#craft">Craft</a>
+          <a href="#specifications">Specifications</a>
         </nav>
-      </div>
+        <button
+          type="button"
+          className="edge-action-btn"
+          onClick={() => dialogRef.current?.showModal()}
+        >
+          Inquire · Comm. 2026
+        </button>
+      </header>
 
       {/* ====================================================================
-          REFINED FULL-BLEED WATCH HERO:
-          - 1 small label
-          - Intentional 2-line headline (no orphan "light.")
-          - Short 1-sentence paragraph
-          - 1 primary CTA
-          - Watch movement on the right is 100% unobstructed
+          RESTRAINED ARCHITECTURAL HERO:
+          - No fake italic emphasis tropes
+          - Syne display typography
+          - Pure Swiss layout
+          - Unobstructed sunlit watch focal point
           ==================================================================== */}
       <header id="top" className="atelier-hero-fullbleed">
         <img
@@ -176,11 +176,10 @@ export function App() {
 
         <div className="atelier-hero-body">
           <div className="hero-copy-stack">
-            <span className="hero-small-label">Calibre 01 · Geneva</span>
+            <span className="hero-small-label">Calibre 01 · Geneva Horlogerie</span>
             <h1 className="atelier-hero-title">
-              German silver, shaped
-              <br />
-              by <em>morning light</em>.
+              German Silver
+              <span className="hero-subline">Shaped By Raw Light.</span>
             </h1>
             <p className="atelier-hero-lead">
               Thirty-eight manual-wind chronographs finished and regulated by hand each year in our Rue du Rhône
@@ -188,10 +187,9 @@ export function App() {
             </p>
             <a
               href="#examination"
-              className="pill-cta-btn"
-              style={{ padding: '0.78rem 1.65rem', fontSize: '0.8rem' }}
+              className="editorial-cta-btn"
             >
-              Explore the Movement
+              Explore Movement
             </a>
           </div>
 
