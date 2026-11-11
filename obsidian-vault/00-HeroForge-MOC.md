@@ -7,6 +7,7 @@ Welcome to the **HeroForge V1 Obsidian Knowledge Vault**. This vault documents o
 - [[02-Seven-Flagship-Replication-Prompts|02 — 7 Flagship Websites & Master Replication Prompts]]
 - [[03-Consolidated-Skill-Architecture|03 — Consolidated Skill Architecture & Hyperframes Motion]]
 - [[04-Agent-OS-CLI-Bridges|04 — Agent OS: Hermes, Codex CLI, OpenDesign & agy Workflows]]
+- [[05-Three-Loop-Architectural-Pipeline|05 — 3-Loop Anti-Slop Architectural Engineering & Reality Check Pipeline]]
 
 ---
 

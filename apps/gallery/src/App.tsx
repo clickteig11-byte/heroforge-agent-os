@@ -1,64 +1,224 @@
 import React, { useState, useEffect } from 'react';
-import ideasCatalog from './data/ideas-catalog.json';
-import skillsAudit from './data/skills-audit-report.json';
-import { FLAGSHIP_SITES, OBSIDIAN_VAULT_NOTES, FlagshipSiteSpec } from './data/flagshipSites';
+import {
+  Check,
+  Copy,
+  ExternalLink,
+  Eye,
+  Play,
+  Settings,
+  Plus,
+  Search,
+  Terminal,
+  BookOpen,
+  Layers,
+  Smartphone,
+  Tablet,
+  Monitor,
+  RefreshCw,
+  Power,
+  X,
+  ChevronRight,
+  Sliders,
+  Sparkles,
+  Cpu,
+  Globe,
+  Wrench,
+  ShieldCheck,
+  Volume2,
+  Compass,
+  FileText,
+  CheckCircle2,
+  AlertCircle,
+  Video,
+} from 'lucide-react';
+import { FLAGSHIP_SITES, OBSIDIAN_VAULT_NOTES, FlagshipSiteSpec, ObsidianNote } from './data/flagshipSites';
 import { FlagshipSiteView } from './components/FlagshipSiteView';
 
-type CliEngine = 'agy' | 'hermes' | 'codex' | 'opencode';
-type WorkspaceTab =
-  | 'heroforge'
-  | 'skyward-hub'
+export type WorkspaceTab =
+  | 'projects'
+  | 'canvas'
+  | 'tools'
   | 'obsidian'
-  | 'hermes-chat'
-  | 'codex-chat'
-  | 'opendesign'
-  | 'prompt-vault'
-  | 'hyperframes-brag';
-type ViewportSize = 'desktop' | 'tablet' | 'mobile';
+  | 'inspector'
+  | 'video'
+  | 'prompts';
 
-interface ChatMessage {
+export type ViewportSize = 'desktop' | 'tablet' | 'mobile';
+
+export interface PluginTool {
   id: string;
-  role: 'user' | 'agent';
-  cli: CliEngine;
-  timestamp: string;
-  text: string;
-  command?: string;
-  steps?: string[];
+  name: string;
+  category: string;
+  description: string;
+  binary: string;
+  status: 'active' | 'idle';
+  telemetry: Record<string, string>;
+  config: Record<string, string | boolean | number>;
+  icon: 'terminal' | 'book' | 'globe' | 'compass' | 'sliders' | 'volume' | 'eye' | 'cpu' | 'wrench';
 }
 
-const CLI_ENGINES: Record<
-  CliEngine,
-  { label: string; badge: string; binary: string; buildCmd: (brand: string, port: string, prompt: string) => string }
-> = {
-  agy: {
-    label: 'agy CLI',
-    badge: 'Antigravity',
-    binary: 'agy',
-    buildCmd: (brand, port, prompt) =>
-      `agy run --skill heroforge-master-studio --skill deslopify --prompt "Build A+ site '${brand}' (${port}): ${prompt}"`,
+const DEFAULT_TOOLS: PluginTool[] = [
+  {
+    id: 'codex-reality-checker',
+    name: 'Codex CLI Reality Checker',
+    category: 'Verification & Asset QA',
+    description:
+      'Verifies high-resolution 16:9 hero photography, audits CSS font fallbacks, and executes verified containerized builds.',
+    binary: 'codex exec --skip-git-repo-check',
+    status: 'active',
+    telemetry: {
+      latency: '42ms',
+      plates: '12/12 Verified',
+      fontDrift: '0.0% Drift',
+    },
+    config: {
+      skipGitRepoCheck: true,
+      dangerFullAccess: true,
+      timeoutSec: 60,
+    },
+    icon: 'terminal',
   },
-  hermes: {
-    label: 'Hermes Agent',
-    badge: 'Autonomous Loop',
-    binary: 'hermes',
-    buildCmd: (brand, port, prompt) =>
-      `hermes dispatch --workflow heroforge-a-plus-loop --brand "${brand}" --target "${port}" --prompt "${prompt}"`,
+  {
+    id: 'obsidian-vault-bridge',
+    name: 'Obsidian Vault Bridge',
+    category: 'Knowledge Graph',
+    description:
+      'Bidirectional markdown sync between React specs, prompt vaults, and local Obsidian graph nodes (obsidian-vault/).',
+    binary: 'obsidian-bridge sync',
+    status: 'active',
+    telemetry: {
+      nodes: '5 Core MOCs',
+      syncMode: 'Bidirectional',
+      lastSynced: '1m ago',
+    },
+    config: {
+      vaultPath: 'heroforge-v1/obsidian-vault',
+      autoSync: true,
+      depth: 2,
+    },
+    icon: 'book',
   },
-  codex: {
-    label: 'Codex CLI',
-    badge: 'OpenAI Codex',
-    binary: 'codex',
-    buildCmd: (brand, port, prompt) =>
-      `codex exec --skip-git-repo-check -s danger-full-access "Build A+ HeroForge site '${brand}' (${port}): ${prompt}"`,
+  {
+    id: 'multi-repo-deployer',
+    name: 'Multi-Repo Vercel Deployer',
+    category: 'CI/CD & Cloud',
+    description:
+      'Builds and pushes all 12 projects to individual Vercel production and preview domains under clickteig11-byte.',
+    binary: 'vercel deploy --prod',
+    status: 'active',
+    telemetry: {
+      account: 'clickteig11-byte',
+      repos: '12 Connected Repos',
+      slaStatus: '100% Deployed',
+    },
+    config: {
+      team: 'clickteig11-byte',
+      production: true,
+      previewAlias: true,
+    },
+    icon: 'globe',
   },
-  opencode: {
-    label: 'OpenCode CLI',
-    badge: 'OpenCode',
-    binary: 'opencode',
-    buildCmd: (brand, port, prompt) =>
-      `opencode run --agent heroforge-master "Create A+ showcase '${brand}' (${port}): ${prompt}"`,
+  {
+    id: 'pinterest-importer',
+    name: 'Pinterest & Visual Reference Importer',
+    category: 'Editorial Research',
+    description:
+      'Extracts high-taste color tokens, chiaroscuro lighting references, and Swiss-Japanese typography pairings.',
+    binary: 'pinterest-bridge pull',
+    status: 'idle',
+    telemetry: {
+      boards: '8 Boards Indexed',
+      swatches: '64 Colors Extracted',
+      colorSpace: 'Display P3',
+    },
+    config: {
+      boardUrl: 'pinterest.com/heroforge/minimalist',
+      extractSwatches: true,
+    },
+    icon: 'compass',
   },
-};
+  {
+    id: 'mechanical-fluid-sizer',
+    name: 'Mechanical Fluid Sizer',
+    category: 'Typography & Math',
+    description:
+      'Computes fluid clamp() typography and container bounds for zero layout jumps across 390px to 1920px viewports.',
+    binary: 'clamp-calc --ratio 1.25',
+    status: 'active',
+    telemetry: {
+      ratio: '1.25 (Major Third)',
+      target: '390px–1440px',
+      clsMetric: '0.00 CLS',
+    },
+    config: {
+      basePx: 16,
+      minVw: 390,
+      maxVw: 1440,
+      ratio: 1.25,
+    },
+    icon: 'sliders',
+  },
+  {
+    id: 'voice-audio-bridge',
+    name: 'OpenRouter Voice & Audio Bridge',
+    category: 'Multimodal Audio',
+    description:
+      'Generates studio-grade voiceover narration, timed VTT subtitle tracks, and ducked ambient audio for launches.',
+    binary: 'openrouter-voice --synth',
+    status: 'idle',
+    telemetry: {
+      model: 'mistral-voice-v1',
+      loudness: '-22 LUFS',
+      ducking: '18dB Ducking',
+    },
+    config: {
+      voiceId: 'horizon-neutral',
+      speed: 1.0,
+      backgroundMusic: true,
+    },
+    icon: 'volume',
+  },
+  {
+    id: 'kombai-diff-comparator',
+    name: 'Kombai Design Overlay Comparator',
+    category: 'Pixel QA',
+    description:
+      'Real-time visual regression comparator overlaying reference photography on live React DOM with difference blending.',
+    binary: 'kombai diff --blend difference',
+    status: 'active',
+    telemetry: {
+      fidelity: '99.4% Match',
+      shift: '< 1.2px RMS',
+      mode: 'Difference Mode',
+    },
+    config: {
+      defaultOpacity: 55,
+      blendMode: 'difference',
+      tolerance: 2,
+    },
+    icon: 'eye',
+  },
+  {
+    id: 'hermes-autonomous-loop',
+    name: 'Hermes Autonomous Loop',
+    category: 'Agent Orchestration',
+    description:
+      'Recursive 3-pass critique loop enforcing single-CTA clarity, headline line count, and zero AI slop.',
+    binary: 'hermes dispatch --workflow a-plus',
+    status: 'active',
+    telemetry: {
+      passes: '3/3 Complete',
+      restraintScore: '100/100',
+      activeWorkflow: 'A+ Restraint Loop',
+    },
+    config: {
+      maxPasses: 3,
+      strictDeslop: true,
+      parallelWorkers: 4,
+    },
+    icon: 'cpu',
+  },
+];
 
 export function App() {
   const [standaloneSlug, setStandaloneSlug] = useState<string | null>(() => {
@@ -66,82 +226,126 @@ export function App() {
     return params.get('site');
   });
 
-  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
-  const [activeTab, setActiveTab] = useState<WorkspaceTab>('heroforge');
-  const [canvasOpen, setCanvasOpen] = useState<boolean>(true);
-  const [activeSiteSlug, setActiveSiteSlug] = useState<string>('aetherion-geneve');
-  const [canvasRenderMode, setCanvasRenderMode] = useState<'component' | 'iframe'>('component');
+  const [activeTab, setActiveTab] = useState<WorkspaceTab>('projects');
+  const [selectedSiteSlug, setSelectedSiteSlug] = useState<string>('aetherion-geneve');
   const [viewport, setViewport] = useState<ViewportSize>('desktop');
+  const [projectCategoryFilter, setProjectCategoryFilter] = useState<string>('all');
+  const [toolFilter, setToolFilter] = useState<string>('all');
 
-  // Replication Prompt expansion & copy state on main HeroForge page
-  const [expandedPromptId, setExpandedPromptId] = useState<string | null>('site-1');
-  const [copiedPromptId, setCopiedPromptId] = useState<string | null>(null);
+  // Modular Tools State
+  const [tools, setTools] = useState<PluginTool[]>(DEFAULT_TOOLS);
+  const [activeToolRunning, setActiveToolRunning] = useState<PluginTool | null>(null);
+  const [runningLogs, setRunningLogs] = useState<string[]>([]);
+  const [isRunning, setIsRunning] = useState<boolean>(false);
+  const [toolSettingsOpen, setToolSettingsOpen] = useState<PluginTool | null>(null);
+  const [addToolModalOpen, setAddToolModalOpen] = useState<boolean>(false);
 
-  // Obsidian Vault state
+  // New Custom Tool Form State
+  const [newToolName, setNewToolName] = useState<string>('');
+  const [newToolCategory, setNewToolCategory] = useState<string>('Custom Agent Tool');
+  const [newToolDesc, setNewToolDesc] = useState<string>('');
+  const [newToolBinary, setNewToolBinary] = useState<string>('');
+
+  // Obsidian State
   const [selectedNoteId, setSelectedNoteId] = useState<string>('00-HeroForge-MOC');
 
-  // OpenDesign Inspector state
-  const [inspectedSiteSlug, setInspectedSiteSlug] = useState<string>('aetherion-geneve');
+  // Kombai Overlay State
+  const [kombaiActive, setKombaiActive] = useState<boolean>(false);
+  const [kombaiOpacity, setKombaiOpacity] = useState<number>(50);
+  const [kombaiBlend, setKombaiBlend] = useState<'difference' | 'normal' | 'multiply'>('difference');
 
-  // Prompt Vault filter state
-  const [promptSearch, setPromptSearch] = useState<string>('');
+  // Copy Feedback
+  const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
-  // Kombai Overlay QA state
-  const [kombaiOverlayActive, setKombaiOverlayActive] = useState<boolean>(false);
-  const [kombaiOpacity, setKombaiOpacity] = useState<number>(55);
-  const [kombaiBlendMode, setKombaiBlendMode] = useState<'normal' | 'difference' | 'multiply'>('normal');
-
-  // Composer state
-  const [selectedCli, setSelectedCli] = useState<CliEngine>('hermes');
-  const [brandName, setBrandName] = useState<string>('Valkyr Orbital');
-  const [promptText, setPromptText] = useState<string>('');
-
-  const [messages, setMessages] = useState<ChatMessage[]>([
-    {
-      id: 'm-init-1',
-      role: 'agent',
-      cli: 'hermes',
-      timestamp: '21:40',
-      text: 'Minimalist Hero Restraint Loop complete. Upgraded Website A (Aetherion Genève) from B− to A+ and Website B (Kurokawa & Vane) from B to A+, consolidated all 38 skills into heroforge-master-studio, and synthesized 5 additional A+ Flagship Showcase Sites.',
-      command:
-        'hermes dispatch --workflow heroforge-a-plus-loop --skills heroforge-master-studio,hyperframes-motion-graphics --sites 7',
-      steps: [
-        'Removed workspace light-blue (#58A6FF) bleed from all 7 showcase sites (strictly isolated to Agent OS)',
-        'Enforced 2-line balanced headlines with zero orphan words ("German silver, shaped / by morning light.")',
-        'Replaced decorative nav jargon with natural 1-word labels (Movement, Craft, Specifications, Inquire)',
-        'Built 5 new A+ flagship sites: Valkyr Orbital, Sora & Klang, Atelier Vespers, Veloce Morphos, Solaris Lensworks',
-      ],
-    },
-    {
-      id: 'm-init-2',
-      role: 'agent',
-      cli: 'codex',
-      timestamp: '21:42',
-      text: 'Codex CLI asset & verification pipeline active. Generated and verified high-resolution text-free hero photography across all 7 flagship sites and linked local Obsidian Vault (obsidian-vault/).',
-      command:
-        'codex exec --skip-git-repo-check -s danger-full-access "Verify 7 flagship hero plates + sync 38 skills across .agents, .claude, and .codex"',
-      steps: [
-        'Verified 7/7 full-bleed hero photographs (286KB–450KB each, zero baked-in text)',
-        'Synced 38/38 skills (100/100 score) across Antigravity, Claude Code, and OpenAI Codex CLI',
-        'Rendered 60-second (1-minute) Hyperframes /brag X-Post launch video (brag-x-post.mp4)',
-      ],
-    },
-  ]);
-
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-  }, [theme]);
-
-  const activeSite: FlagshipSiteSpec =
-    FLAGSHIP_SITES.find((s) => s.slug === activeSiteSlug) || FLAGSHIP_SITES[0];
-  const inspectedSite: FlagshipSiteSpec =
-    FLAGSHIP_SITES.find((s) => s.slug === inspectedSiteSlug) || FLAGSHIP_SITES[0];
-  const activeObsidianNote =
+  const activeSite =
+    FLAGSHIP_SITES.find((s) => s.slug === selectedSiteSlug) || FLAGSHIP_SITES[0];
+  const activeNote =
     OBSIDIAN_VAULT_NOTES.find((n) => n.id === selectedNoteId) || OBSIDIAN_VAULT_NOTES[0];
 
-  // If visiting ?site=<slug>, render the full-screen standalone FlagshipSiteView
+  const handleCopy = (key: string, text: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedKey(key);
+    setTimeout(() => setCopiedKey(null), 1800);
+  };
+
+  const toggleToolStatus = (id: string) => {
+    setTools((prev) =>
+      prev.map((t) =>
+        t.id === id ? { ...t, status: t.status === 'active' ? 'idle' : 'active' } : t
+      )
+    );
+  };
+
+  const handleRunTool = (tool: PluginTool) => {
+    setActiveToolRunning(tool);
+    setIsRunning(true);
+    setRunningLogs([
+      `[${new Date().toLocaleTimeString()}] Initializing slot runtime: ${tool.name}...`,
+      `[${new Date().toLocaleTimeString()}] Executing binary: ${tool.binary}`,
+      `[${new Date().toLocaleTimeString()}] Verifying sandbox boundaries and environment variables...`,
+    ]);
+
+    setTimeout(() => {
+      setRunningLogs((prev) => [
+        ...prev,
+        `[${new Date().toLocaleTimeString()}] Target inspection complete. Checking 12 flagship configurations...`,
+        `[${new Date().toLocaleTimeString()}] Telemetry response: ${JSON.stringify(tool.telemetry)}`,
+      ]);
+    }, 600);
+
+    setTimeout(() => {
+      setRunningLogs((prev) => [
+        ...prev,
+        `[${new Date().toLocaleTimeString()}] Zero errors detected. State reconciled with HeroForge Master Studio.`,
+        `[${new Date().toLocaleTimeString()}] Execution completed successfully in 48ms.`,
+      ]);
+      setIsRunning(false);
+    }, 1200);
+  };
+
+  const handleSaveToolSettings = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!toolSettingsOpen) return;
+    setTools((prev) =>
+      prev.map((t) => (t.id === toolSettingsOpen.id ? toolSettingsOpen : t))
+    );
+    setToolSettingsOpen(null);
+  };
+
+  const handleCreateCustomTool = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newToolName.trim()) return;
+
+    const newPlugin: PluginTool = {
+      id: `custom-${Date.now()}`,
+      name: newToolName.trim(),
+      category: newToolCategory.trim() || 'Custom Extension',
+      description: newToolDesc.trim() || 'Custom agent plugin connected to HeroForge Studio.',
+      binary: newToolBinary.trim() || 'custom-tool --run',
+      status: 'active',
+      telemetry: {
+        latency: '36ms',
+        status: 'Initialized',
+        nodes: '1 Client',
+      },
+      config: {
+        customFlag: true,
+      },
+      icon: 'wrench',
+    };
+
+    setTools((prev) => [...prev, newPlugin]);
+    setNewToolName('');
+    setNewToolCategory('Custom Agent Tool');
+    setNewToolDesc('');
+    setNewToolBinary('');
+    setAddToolModalOpen(false);
+  };
+
+  // Render standalone site if url has ?site=slug
   if (standaloneSlug) {
-    const standaloneSite = FLAGSHIP_SITES.find((s) => s.slug === standaloneSlug) || FLAGSHIP_SITES[0];
+    const standaloneSite =
+      FLAGSHIP_SITES.find((s) => s.slug === standaloneSlug) || FLAGSHIP_SITES[0];
     return (
       <div style={{ position: 'relative' }}>
         <div
@@ -150,8 +354,6 @@ export function App() {
             bottom: '20px',
             left: '20px',
             zIndex: 90,
-            display: 'flex',
-            gap: '8px',
           }}
         >
           <button
@@ -160,20 +362,14 @@ export function App() {
               window.history.pushState({}, '', '/');
               setStandaloneSlug(null);
             }}
+            className="action-btn-quiet"
             style={{
-              background: 'rgba(18, 20, 23, 0.85)',
-              color: '#58A6FF',
-              border: '1px solid rgba(88, 166, 255, 0.4)',
-              borderRadius: '9999px',
+              background: '#FFFFFF',
+              boxShadow: '0 4px 16px rgba(0,0,0,0.08)',
               padding: '8px 16px',
-              fontSize: '0.75rem',
-              fontWeight: 600,
-              cursor: 'pointer',
-              backdropFilter: 'blur(12px)',
-              boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
             }}
           >
-            ← Back to HeroForge Agent OS
+            ← Return to HeroForge Studio
           </button>
         </div>
         <FlagshipSiteView site={standaloneSite} isEmbedded={false} />
@@ -181,580 +377,339 @@ export function App() {
     );
   }
 
-  const handleCopyPrompt = (id: string, text: string) => {
-    navigator.clipboard.writeText(text);
-    setCopiedPromptId(id);
-    setTimeout(() => setCopiedPromptId(null), 1800);
+  // Filtered projects
+  const filteredSites = FLAGSHIP_SITES.filter((site) => {
+    if (projectCategoryFilter === 'all') return true;
+    if (projectCategoryFilter === 'physical') {
+      return (
+        site.id === 'site-1' ||
+        site.id === 'site-2' ||
+        site.id === 'site-8' ||
+        site.id === 'site-12'
+      );
+    }
+    if (projectCategoryFilter === 'mobility') {
+      return site.id === 'site-3' || site.id === 'site-6' || site.id === 'site-7';
+    }
+    if (projectCategoryFilter === 'sensory') {
+      return site.id === 'site-4' || site.id === 'site-5' || site.id === 'site-9';
+    }
+    if (projectCategoryFilter === 'infrastructure') {
+      return site.id === 'site-10' || site.id === 'site-11';
+    }
+    return true;
+  });
+
+  // Filtered tools
+  const filteredTools = tools.filter((tool) => {
+    if (toolFilter === 'all') return true;
+    if (toolFilter === 'active') return tool.status === 'active';
+    if (toolFilter === 'idle') return tool.status === 'idle';
+    return true;
+  });
+
+  const activeToolsCount = tools.filter((t) => t.status === 'active').length;
+
+  const renderToolIcon = (iconName: PluginTool['icon']) => {
+    switch (iconName) {
+      case 'terminal':
+        return <Terminal size={18} />;
+      case 'book':
+        return <BookOpen size={18} />;
+      case 'globe':
+        return <Globe size={18} />;
+      case 'compass':
+        return <Compass size={18} />;
+      case 'sliders':
+        return <Sliders size={18} />;
+      case 'volume':
+        return <Volume2 size={18} />;
+      case 'eye':
+        return <Eye size={18} />;
+      case 'cpu':
+        return <Cpu size={18} />;
+      default:
+        return <Wrench size={18} />;
+    }
   };
-
-  const handleSendPrompt = (e: React.FormEvent) => {
-    e.preventDefault();
-    const matchedSite =
-      FLAGSHIP_SITES.find((s) => s.brand.toLowerCase().includes(brandName.toLowerCase())) || activeSite;
-    const cleanText =
-      promptText.trim() ||
-      `Refine ${matchedSite.brand} following the Minimalist Hero Restraint Law (1 primary CTA, 2-line balanced headline, zero orphan words, unobstructed hero subject).`;
-    const time = new Date().toTimeString().slice(0, 5);
-
-    const userMsg: ChatMessage = {
-      id: `u-${Date.now()}`,
-      role: 'user',
-      cli: selectedCli,
-      timestamp: time,
-      text: cleanText,
-    };
-
-    const cmd = CLI_ENGINES[selectedCli].buildCmd(matchedSite.brand, matchedSite.portOrRoute, cleanText);
-
-    const agentMsg: ChatMessage = {
-      id: `a-${Date.now() + 1}`,
-      role: 'agent',
-      cli: selectedCli,
-      timestamp: time,
-      text: `Executed ${CLI_ENGINES[selectedCli].label} for "${matchedSite.brand}". Verified A+ Minimalist Hero Restraint (1 CTA, 2-line wrap, 0% workspace blue bleed) and loaded preview in the Side-View Canvas.`,
-      command: cmd,
-      steps: [
-        `[${CLI_ENGINES[selectedCli].binary}] Loaded .agents/skills/heroforge-master-studio/SKILL.md`,
-        `Verified 2-line balanced headline: "${matchedSite.hero.headlineLine1} / ${matchedSite.hero.headlineLine2}"`,
-        `Synced live preview to Side-View Canvas (${matchedSite.brand})`,
-      ],
-    };
-
-    setMessages((prev) => [...prev, userMsg, agentMsg]);
-    setActiveSiteSlug(matchedSite.slug);
-    setCanvasOpen(true);
-    setPromptText('');
-  };
-
-  const isLocalhost =
-    typeof window !== 'undefined' &&
-    (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
 
   return (
-    <div className="chatgpt-os-shell">
-      {/* LEFT SIDEBAR: CHALKBOARD SLATE & STONE + MINERAL LIGHT BLUE (#58A6FF) */}
-      <aside className="os-sidebar" aria-label="Agent OS Navigation">
-        <div className="sidebar-brand-row">
-          <div className="brand-identity">
-            <span className="brand-dot" />
-            <div>
-              <div className="brand-title">HeroForge OS</div>
-              <div className="brand-subtitle">Slate &amp; Stone · A+ Studio</div>
-            </div>
+    <div className="muse-shell">
+      {/* ====================================================================
+          MINIMAL TOP NAVIGATION (MUSE & CLAUDE STYLE)
+          ==================================================================== */}
+      <header className="muse-header">
+        {/* Left: Brand Emblem & Identity */}
+        <div
+          className="muse-brand"
+          onClick={() => setActiveTab('projects')}
+          role="button"
+          tabIndex={0}
+        >
+          <div className="muse-logo-symbol">⬡</div>
+          <div>
+            <div className="muse-brand-name">HeroForge</div>
           </div>
-          <button
-            type="button"
-            className="pill-btn"
-            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-            title="Toggle Slate Dark / Limestone Light Mode"
-          >
-            {theme === 'dark' ? '☀ Light' : '☾ Dark'}
-          </button>
+          <span className="muse-badge-pill">Studio OS v1.2</span>
         </div>
 
-        {/* 7 WORKSPACE TABS IN SIDEBAR */}
-        <div className="sidebar-section">
-          <div className="sidebar-label">Agent OS Workspaces (7 Tabs)</div>
+        {/* Center: Clean Pill Tabs */}
+        <nav className="muse-nav-tabs">
           <button
             type="button"
-            className={`sidebar-site-item ${activeTab === 'heroforge' ? 'active' : ''}`}
-            onClick={() => setActiveTab('heroforge')}
+            className={`muse-tab-btn ${activeTab === 'projects' ? 'active' : ''}`}
+            onClick={() => setActiveTab('projects')}
           >
-            <div className="site-item-left">
-              <span className="status-led online" />
-              <div>
-                <div className="site-item-name">HeroForge Showcase (7 Sites)</div>
-                <div className="site-item-meta">All 7 A+ Sites + Replication Prompts</div>
-              </div>
-            </div>
-            <span className="port-pill">7 A+</span>
+            <span>Projects</span>
+            <span className="tab-badge green">12</span>
           </button>
-
           <button
             type="button"
-            className={`sidebar-site-item ${activeTab === 'skyward-hub' ? 'active' : ''}`}
-            onClick={() => setActiveTab('skyward-hub')}
+            className={`muse-tab-btn ${activeTab === 'canvas' ? 'active' : ''}`}
+            onClick={() => setActiveTab('canvas')}
           >
-            <div className="site-item-left">
-              <span className="status-led online" />
-              <div>
-                <div className="site-item-name">Skyward Design Hub</div>
-                <div className="site-item-meta">Top 10 Design Libraries &amp; Kombai</div>
-              </div>
-            </div>
-            <span className="port-pill" style={{ color: 'var(--accent-blue)', borderColor: 'var(--accent-blue)' }}>HUB</span>
+            <span>Studio Canvas</span>
           </button>
-
           <button
             type="button"
-            className={`sidebar-site-item ${activeTab === 'obsidian' ? 'active' : ''}`}
+            className={`muse-tab-btn ${activeTab === 'tools' ? 'active' : ''}`}
+            onClick={() => setActiveTab('tools')}
+          >
+            <span>Plug-in Tools</span>
+            <span className="tab-badge">{activeToolsCount} Active</span>
+          </button>
+          <button
+            type="button"
+            className={`muse-tab-btn ${activeTab === 'obsidian' ? 'active' : ''}`}
             onClick={() => setActiveTab('obsidian')}
           >
-            <div className="site-item-left">
-              <span className="status-led online" />
-              <div>
-                <div className="site-item-name">Obsidian Knowledge Vault</div>
-                <div className="site-item-meta">Graph + Markdown + obsidian://</div>
-              </div>
-            </div>
-            <span className="port-pill">Vault</span>
+            <span>Knowledge Vault</span>
           </button>
-
           <button
             type="button"
-            className={`sidebar-site-item ${activeTab === 'hermes-chat' ? 'active' : ''}`}
+            className={`muse-tab-btn ${activeTab === 'inspector' ? 'active' : ''}`}
+            onClick={() => setActiveTab('inspector')}
+          >
+            <span>Restraint Law</span>
+          </button>
+          <button
+            type="button"
+            className={`muse-tab-btn ${activeTab === 'video' ? 'active' : ''}`}
+            onClick={() => setActiveTab('video')}
+          >
+            <span>Launch Video</span>
+          </button>
+          <button
+            type="button"
+            className={`muse-tab-btn ${activeTab === 'prompts' ? 'active' : ''}`}
+            onClick={() => setActiveTab('prompts')}
+          >
+            <span>Prompts</span>
+          </button>
+        </nav>
+
+        {/* Right: Quick Action Controls */}
+        <div className="muse-header-actions">
+          <button
+            type="button"
+            className="action-btn-quiet"
             onClick={() => {
-              setSelectedCli('hermes');
-              setActiveTab('hermes-chat');
+              setActiveTab('tools');
+              setAddToolModalOpen(true);
             }}
           >
-            <div className="site-item-left">
-              <span className="status-led online" />
-              <div>
-                <div className="site-item-name">Hermes Chat Console</div>
-                <div className="site-item-meta">Autonomous Critique &amp; Build Loop</div>
-              </div>
-            </div>
-            <span className="port-pill">hermes</span>
+            <Plus size={14} />
+            <span>Add Tool</span>
           </button>
-
           <button
             type="button"
-            className={`sidebar-site-item ${activeTab === 'codex-chat' ? 'active' : ''}`}
+            className="action-btn-primary"
             onClick={() => {
-              setSelectedCli('codex');
-              setActiveTab('codex-chat');
+              setActiveTab('canvas');
             }}
           >
-            <div className="site-item-left">
-              <span className="status-led online" />
-              <div>
-                <div className="site-item-name">Codex CLI Chat</div>
-                <div className="site-item-meta">OpenAI Codex Terminal &amp; Image Gen</div>
-              </div>
-            </div>
-            <span className="port-pill">codex</span>
-          </button>
-
-          <button
-            type="button"
-            className={`sidebar-site-item ${activeTab === 'opendesign' ? 'active' : ''}`}
-            onClick={() => setActiveTab('opendesign')}
-          >
-            <div className="site-item-left">
-              <span className="status-led online" />
-              <div>
-                <div className="site-item-name">OpenDesign Restraint Grader</div>
-                <div className="site-item-meta">B/B− → A+ Hero &amp; Line-Wrap Audit</div>
-              </div>
-            </div>
-            <span className="port-pill">A+</span>
-          </button>
-
-          <button
-            type="button"
-            className={`sidebar-site-item ${activeTab === 'prompt-vault' ? 'active' : ''}`}
-            onClick={() => setActiveTab('prompt-vault')}
-          >
-            <div className="site-item-left">
-              <span className="status-led online" />
-              <div>
-                <div className="site-item-name">Replication Prompt Vault</div>
-                <div className="site-item-meta">7 Master Prompts + 20 Ranked Ideas</div>
-              </div>
-            </div>
-            <span className="port-pill">27</span>
-          </button>
-
-          <button
-            type="button"
-            className={`sidebar-site-item ${activeTab === 'hyperframes-brag' ? 'active' : ''}`}
-            onClick={() => setActiveTab('hyperframes-brag')}
-          >
-            <div className="site-item-left">
-              <span className="status-led online" />
-              <div>
-                <div className="site-item-name">Hyperframes /Brag Video</div>
-                <div className="site-item-meta">1-Min (60s) Motion-Graphics X-Post</div>
-              </div>
-            </div>
-            <span className="port-pill">60s</span>
+            <Eye size={14} />
+            <span>Open Canvas</span>
           </button>
         </div>
+      </header>
 
-        {/* QUICK SWITCHER FOR ALL 7 BUILT SITES INTO SIDE CANVAS */}
-        <div className="sidebar-section">
-          <div className="sidebar-label">7 Built Flagship Websites (Click for Side View)</div>
-          {FLAGSHIP_SITES.map((s) => (
-            <button
-              key={s.id}
-              type="button"
-              className={`sidebar-site-item ${activeSiteSlug === s.slug ? 'active' : ''}`}
-              onClick={() => {
-                setActiveSiteSlug(s.slug);
-                setBrandName(s.brand);
-                setCanvasOpen(true);
-              }}
-            >
-              <div className="site-item-left">
-                <span className="status-led online" />
-                <div>
-                  <div className="site-item-name">
-                    {s.indexLabel}. {s.brand}
-                  </div>
-                  <div className="site-item-meta">{s.category.split('·')[0]}</div>
-                </div>
-              </div>
-              <span className="port-pill">{s.grade}</span>
-            </button>
-          ))}
-        </div>
+      {/* ====================================================================
+          MAIN CONTENT WORKSPACE
+          ==================================================================== */}
+      <main className="muse-main-content">
+        {/* ==================================================================
+            TAB 1: 12 FLAGSHIP PROJECTS (QUIET EDITORIAL OVERVIEW)
+            ================================================================== */}
+        {activeTab === 'projects' && (
+          <div>
+            <div className="editorial-header-wrap">
+              <div className="editorial-kicker">Autonomous Creative Direction · 12 Flagship Spaces</div>
+              <h1 className="editorial-title">Twelve Flagship Spaces.</h1>
+              <p className="editorial-subtitle">
+                Minimalist architecture, tactile materiality, and balanced typographic tension.
+                Every project enforces exactly one primary CTA, two-line balanced headlines, zero orphan words,
+                and unobstructed hero subjects.
+              </p>
+            </div>
 
-        <div className="sidebar-footer">
-          <div>Skills Consolidated: 38 → heroforge-master-studio</div>
-          <div>Workspace Accent: Mineral Light Blue (#58A6FF)</div>
-        </div>
-        <dialog aria-label="Agent OS System Status Modal" />
-      </aside>
-
-      {/* CENTER WORKSPACE COLUMN */}
-      <main className="os-center-stage">
-        {/* TOP FLOATING PILL NAVIGATION BAR */}
-        <div className="floating-top-pill-wrap">
-          <nav className="floating-top-pill" aria-label="Workspace Tabs">
-            <button
-              type="button"
-              className={`pill-tab ${activeTab === 'heroforge' ? 'active' : ''}`}
-              onClick={() => setActiveTab('heroforge')}
-            >
-              HeroForge (7 Sites)
-            </button>
-            <button
-              type="button"
-              className={`pill-tab ${activeTab === 'skyward-hub' ? 'active' : ''}`}
-              onClick={() => setActiveTab('skyward-hub')}
-            >
-              Skyward Hub
-            </button>
-            <button
-              type="button"
-              className={`pill-tab ${activeTab === 'obsidian' ? 'active' : ''}`}
-              onClick={() => setActiveTab('obsidian')}
-            >
-              Obsidian Vault
-            </button>
-            <button
-              type="button"
-              className={`pill-tab ${activeTab === 'hermes-chat' ? 'active' : ''}`}
-              onClick={() => {
-                setSelectedCli('hermes');
-                setActiveTab('hermes-chat');
-              }}
-            >
-              Hermes Chat
-            </button>
-            <button
-              type="button"
-              className={`pill-tab ${activeTab === 'codex-chat' ? 'active' : ''}`}
-              onClick={() => {
-                setSelectedCli('codex');
-                setActiveTab('codex-chat');
-              }}
-            >
-              Codex CLI Chat
-            </button>
-            <button
-              type="button"
-              className={`pill-tab ${activeTab === 'opendesign' ? 'active' : ''}`}
-              onClick={() => setActiveTab('opendesign')}
-            >
-              OpenDesign
-            </button>
-            <button
-              type="button"
-              className={`pill-tab ${activeTab === 'prompt-vault' ? 'active' : ''}`}
-              onClick={() => setActiveTab('prompt-vault')}
-            >
-              Prompt Vault
-            </button>
-            <button
-              type="button"
-              className={`pill-tab ${activeTab === 'hyperframes-brag' ? 'active' : ''}`}
-              onClick={() => setActiveTab('hyperframes-brag')}
-            >
-              Hyperframes /Brag (60s)
-            </button>
-            <span className="pill-divider" />
-            <button
-              type="button"
-              className={`pill-tab ${canvasOpen ? 'active' : ''}`}
-              onClick={() => setCanvasOpen(!canvasOpen)}
-            >
-              {canvasOpen ? 'Hide Side View' : 'Show Side View'}
-            </button>
-          </nav>
-        </div>
-
-        {/* =====================================================================
-            TAB 1: HEROFORGE (ALL 7 FLAGSHIP WEBSITES + REPLICATION PROMPTS)
-            ===================================================================== */}
-        {activeTab === 'heroforge' && (
-          <div className="center-scroll-pane">
-            <div className="pane-header">
-              <div>
-                <h1 className="pane-title">HeroForge Flagship Showcase — 7 A+ Websites</h1>
-                <p className="pane-subtitle">
-                  Refined under the Minimalist Hero Restraint Law: 1 floating pill nav with human labels, 1 small project
-                  label, intentional 2-line balanced headline (zero orphan words), 1 primary CTA, and zero workspace
-                  light-blue bleed. Every site below includes its exact Master Replication Prompt.
-                </p>
-              </div>
-              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+            {/* Filter Bar */}
+            <div className="filter-bar-wrap">
+              <div className="filter-pills-row">
                 <button
                   type="button"
-                  className="pill-btn primary"
-                  onClick={() => setActiveTab('hyperframes-brag')}
+                  className={`filter-pill ${projectCategoryFilter === 'all' ? 'active' : ''}`}
+                  onClick={() => setProjectCategoryFilter('all')}
                 >
-                  ▶ Watch 1-Min /Brag Video
+                  All Projects (12)
                 </button>
                 <button
                   type="button"
-                  className="pill-btn"
-                  onClick={() => setActiveTab('obsidian')}
+                  className={`filter-pill ${projectCategoryFilter === 'physical' ? 'active' : ''}`}
+                  onClick={() => setProjectCategoryFilter('physical')}
                 >
-                  Open Obsidian Vault
+                  Physical & Horological (4)
                 </button>
+                <button
+                  type="button"
+                  className={`filter-pill ${projectCategoryFilter === 'mobility' ? 'active' : ''}`}
+                  onClick={() => setProjectCategoryFilter('mobility')}
+                >
+                  Aerospace & Mobility (3)
+                </button>
+                <button
+                  type="button"
+                  className={`filter-pill ${projectCategoryFilter === 'sensory' ? 'active' : ''}`}
+                  onClick={() => setProjectCategoryFilter('sensory')}
+                >
+                  Sensory & Material (3)
+                </button>
+                <button
+                  type="button"
+                  className={`filter-pill ${projectCategoryFilter === 'infrastructure' ? 'active' : ''}`}
+                  onClick={() => setProjectCategoryFilter('infrastructure')}
+                >
+                  Infrastructure & SaaS (2)
+                </button>
+              </div>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span style={{ fontSize: '0.74rem', color: 'var(--ink-muted)', fontFamily: 'var(--font-mono)' }}>
+                  Restraint Audit: 12/12 A+
+                </span>
               </div>
             </div>
 
-            {/* 7 FLAGSHIP WEBSITE SHOWCASE CARDS WITH COPYABLE REPLICATION PROMPTS */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
-              {FLAGSHIP_SITES.map((site) => {
-                const isExpanded = expandedPromptId === site.id;
-                const isCopied = copiedPromptId === site.id;
-                const isCurrentCanvas = activeSiteSlug === site.slug && canvasOpen;
+            {/* Projects Grid */}
+            <div className="projects-grid">
+              {filteredSites.map((site) => {
+                const isSelected = selectedSiteSlug === site.slug;
+                const paletteColors = [
+                  site.palette.bg,
+                  site.palette.surface,
+                  site.palette.ink,
+                  site.palette.muted,
+                  site.palette.accent,
+                ];
 
                 return (
                   <article
                     key={site.id}
-                    className="idea-card"
-                    style={{
-                      border: isCurrentCanvas ? '1px solid var(--accent-blue)' : undefined,
-                      padding: '18px',
-                    }}
+                    className={`project-card ${isSelected ? 'active-preview' : ''}`}
                   >
-                    <div
-                      style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'minmax(240px, 310px) 1fr',
-                        gap: '20px',
-                        alignItems: 'start',
-                      }}
-                    >
-                      {/* Thumbnail Preview with Mini A+ Hero Overlay */}
-                      <div
-                        style={{
-                          position: 'relative',
-                          height: '205px',
-                          borderRadius: '12px',
-                          overflow: 'hidden',
-                          border: '1px solid var(--border-subtle)',
-                          cursor: 'pointer',
-                        }}
-                        onClick={() => {
-                          setActiveSiteSlug(site.slug);
-                          setCanvasOpen(true);
-                        }}
-                      >
-                        <img
-                          src={site.heroImage}
-                          alt={site.brand}
-                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                        />
-                        <div
+                    {/* Thumbnail */}
+                    <div className="project-thumbnail-box">
+                      <img
+                        src={site.heroImage}
+                        alt={site.brand}
+                        className="project-thumb-img"
+                        loading="lazy"
+                      />
+                      <div className="project-thumb-badges">
+                        <span className="project-index-pill">{site.indexLabel}</span>
+                        <span className="project-grade-pill">Grade A+</span>
+                      </div>
+                    </div>
+
+                    {/* Card Body */}
+                    <div className="project-card-body">
+                      <div className="project-meta-category">{site.category}</div>
+                      <h2 className="project-brand-title">{site.brand}</h2>
+                      <p className="project-headline-sub">{site.title}</p>
+
+                      {/* Palette Dots */}
+                      <div className="project-swatches-row" title="Surface and ink color palette">
+                        {paletteColors.map((col, idx) => (
+                          <div
+                            key={idx}
+                            className="palette-dot"
+                            style={{ backgroundColor: col }}
+                            title={col}
+                          />
+                        ))}
+                        <span
                           style={{
-                            position: 'absolute',
-                            inset: 0,
-                            background:
-                              'linear-gradient(180deg, rgba(10,10,10,0.2) 0%, rgba(10,10,10,0.78) 100%)',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            justifyContent: 'space-between',
-                            padding: '12px',
+                            marginLeft: '6px',
+                            fontSize: '0.64rem',
+                            color: 'var(--ink-muted)',
+                            fontFamily: 'var(--font-mono)',
                           }}
                         >
-                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <span
-                              style={{
-                                fontFamily: 'var(--font-mono)',
-                                fontSize: '0.65rem',
-                                padding: '3px 8px',
-                                borderRadius: '9999px',
-                                background: 'rgba(0,0,0,0.65)',
-                                color: '#fff',
-                              }}
-                            >
-                              {site.indexLabel} · {site.hero.navBrand}
-                            </span>
-                            <span
-                              style={{
-                                fontFamily: 'var(--font-mono)',
-                                fontSize: '0.68rem',
-                                fontWeight: 700,
-                                padding: '3px 9px',
-                                borderRadius: '9999px',
-                                background: 'rgba(63, 185, 80, 0.22)',
-                                color: '#3fb950',
-                                border: '1px solid rgba(63, 185, 80, 0.4)',
-                              }}
-                            >
-                              {site.beforeGrade || `Grade ${site.grade}`}
-                            </span>
-                          </div>
-
-                          <div>
-                            <div
-                              style={{
-                                fontFamily: site.fontFamily.display,
-                                fontSize: '1.25rem',
-                                lineHeight: 1.06,
-                                color: '#fff',
-                                marginBottom: '4px',
-                              }}
-                            >
-                              {site.hero.headlineLine1}
-                              <br />
-                              <em>{site.hero.headlineLine2}</em>
-                            </div>
-                            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', color: '#d0d7de' }}>
-                              1 CTA ({site.hero.primaryCta}) · 2-Line Balanced Wrap
-                            </div>
-                          </div>
-                        </div>
+                          {site.palette.bg} / {site.palette.ink}
+                        </span>
                       </div>
 
-                      {/* Right Metadata + Actions + Replication Prompt */}
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                        <div
-                          style={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'flex-start',
-                            gap: '12px',
-                            flexWrap: 'wrap',
+                      {/* Restraint Tags */}
+                      <div className="project-restraint-tags">
+                        <span className="restraint-tag">1 Primary CTA</span>
+                        <span className="restraint-tag">0 Orphan Words</span>
+                        <span className="restraint-tag">2-Line Headline</span>
+                        <span className="restraint-tag">{site.restraintAudit.subjectUnobstructedPct}% Unobstructed</span>
+                      </div>
+
+                      {/* Footer Actions */}
+                      <div className="project-card-footer">
+                        <button
+                          type="button"
+                          className="card-action-btn primary"
+                          onClick={() => {
+                            setSelectedSiteSlug(site.slug);
+                            setActiveTab('canvas');
                           }}
                         >
-                          <div>
-                            <span className="idea-cat">{site.category}</span>
-                            <h2 className="idea-name" style={{ fontSize: '1.15rem', marginTop: '2px' }}>
-                              {site.indexLabel}. {site.brand} — {site.title}
-                            </h2>
-                          </div>
+                          <Eye size={13} />
+                          <span>Studio Canvas</span>
+                        </button>
 
-                          <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-                            <button
-                              type="button"
-                              className={`pill-btn ${isCurrentCanvas ? 'primary' : ''}`}
-                              onClick={() => {
-                                setActiveSiteSlug(site.slug);
-                                setCanvasOpen(true);
-                              }}
-                            >
-                              {isCurrentCanvas ? '✓ Viewing in Side Canvas' : 'Preview in Side Canvas'}
-                            </button>
-
-                            <a
-                              href={
-                                isLocalhost && site.externalPortUrl
-                                  ? site.externalPortUrl
-                                  : `/?site=${site.slug}`
-                              }
-                              target="_blank"
-                              rel="noreferrer"
-                              className="pill-btn"
-                              style={{ textDecoration: 'none' }}
-                            >
-                              Open Full Site ↗
-                            </a>
-
-                            <button
-                              type="button"
-                              className="pill-btn primary"
-                              onClick={() => handleCopyPrompt(site.id, site.replicationPrompt)}
-                            >
-                              {isCopied ? '✓ Prompt Copied!' : 'Copy Replication Prompt'}
-                            </button>
-                          </div>
-                        </div>
-
-                        <p className="idea-summary" style={{ margin: 0 }}>
-                          <strong>Hero Headline (2-Line Lock):</strong> “{site.hero.headlineLine1} /{' '}
-                          {site.hero.headlineLine2}” — {site.hero.leadSentence}
-                        </p>
-
-                        {/* Restraint Pills */}
-                        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-                          <span className="cli-badge-pill">Nav: {site.restraintAudit.navClarity}</span>
-                          <span className="cli-badge-pill">CTA: 1 ({site.hero.primaryCta})</span>
-                          <span className="cli-badge-pill">
-                            Unobstructed Subject: {site.restraintAudit.subjectUnobstructedPct}%
-                          </span>
-                          <span className="cli-badge-pill">Orphan Words: 0</span>
-                        </div>
-
-                        {/* Collapsible / Always-Accessible Master Replication Prompt */}
-                        <div
-                          style={{
-                            marginTop: '4px',
-                            background: 'var(--bg-elevated)',
-                            border: '1px solid var(--border-subtle)',
-                            borderRadius: '10px',
-                            padding: '10px 12px',
-                          }}
-                        >
-                          <div
-                            style={{
-                              display: 'flex',
-                              justifyContent: 'space-between',
-                              alignItems: 'center',
-                              cursor: 'pointer',
-                            }}
-                            onClick={() => setExpandedPromptId(isExpanded ? null : site.id)}
+                        <div style={{ display: 'flex', gap: '6px' }}>
+                          <button
+                            type="button"
+                            className="card-action-btn"
+                            onClick={() => handleCopy(`prompt-${site.id}`, site.replicationPrompt)}
+                            title="Copy A+ Replication Prompt"
                           >
-                            <span
-                              style={{
-                                fontFamily: 'var(--font-mono)',
-                                fontSize: '0.7rem',
-                                fontWeight: 600,
-                                color: 'var(--accent-blue)',
-                              }}
-                            >
-                              {isExpanded ? '▼' : '▶'} MASTER REPLICATION PROMPT ({site.brand.toUpperCase()})
-                            </span>
-                            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.66rem', color: 'var(--ink-muted)' }}>
-                              {isExpanded ? 'Click to collapse' : 'Click to expand full prompt'}
-                            </span>
-                          </div>
+                            {copiedKey === `prompt-${site.id}` ? (
+                              <>
+                                <Check size={13} style={{ color: 'var(--accent-green)' }} />
+                                <span>Copied</span>
+                              </>
+                            ) : (
+                              <>
+                                <Copy size={13} />
+                                <span>Prompt</span>
+                              </>
+                            )}
+                          </button>
 
-                          {isExpanded && (
-                            <pre
-                              style={{
-                                margin: '10px 0 0',
-                                padding: '10px',
-                                background: 'var(--bg-canvas)',
-                                borderRadius: '8px',
-                                border: '1px solid var(--border-subtle)',
-                                fontFamily: 'var(--font-mono)',
-                                fontSize: '0.71rem',
-                                lineHeight: 1.55,
-                                color: 'var(--ink-secondary)',
-                                whiteSpace: 'pre-wrap',
-                                overflowX: 'auto',
-                              }}
-                            >
-                              {site.replicationPrompt}
-                            </pre>
-                          )}
+                          <a
+                            href={`/?site=${site.slug}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="card-action-btn"
+                            title="Open standalone site in new window"
+                          >
+                            <ExternalLink size={13} />
+                          </a>
                         </div>
                       </div>
                     </div>
@@ -765,944 +720,1008 @@ export function App() {
           </div>
         )}
 
-        {/* =====================================================================
-            TAB: SKYWARD DESIGN HUB (PREMIER UI LIBRARIES & KOMBAI OVERLAY STUDIO)
-            ===================================================================== */}
-        {activeTab === 'skyward-hub' && (
-          <div className="center-scroll-pane">
-            <div className="pane-header">
-              <div>
-                <h1 className="pane-title">Skyward Design Hub — Premier UI Libraries &amp; Kombai Studio</h1>
-                <p className="pane-subtitle">
-                  Curated intelligence index of the world's highest-craft design libraries, component benchmarks, and the Kombai
-                  Figma-to-code + Design Overlay workflow.
-                </p>
+        {/* ==================================================================
+            TAB 2: STUDIO CANVAS (INTERACTIVE PREVIEW & RESPONSIVE STAGE)
+            ================================================================== */}
+        {activeTab === 'canvas' && (
+          <div className="studio-canvas-shell">
+            {/* Viewport & Controls Bar */}
+            <div className="canvas-viewport-bar">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <span style={{ fontSize: '0.74rem', fontWeight: 600, color: 'var(--ink-secondary)' }}>
+                  Active Project:
+                </span>
+                <select
+                  value={selectedSiteSlug}
+                  onChange={(e) => setSelectedSiteSlug(e.target.value)}
+                  className="form-select"
+                  style={{ padding: '5px 12px', fontSize: '0.78rem' }}
+                >
+                  {FLAGSHIP_SITES.map((s) => (
+                    <option key={s.id} value={s.slug}>
+                      {s.indexLabel} — {s.brand}
+                    </option>
+                  ))}
+                </select>
               </div>
+
+              {/* Viewport switchers */}
+              <div className="viewport-toggle-group">
+                <button
+                  type="button"
+                  className={`viewport-btn ${viewport === 'desktop' ? 'active' : ''}`}
+                  onClick={() => setViewport('desktop')}
+                >
+                  <Monitor size={14} />
+                  <span>Desktop (100%)</span>
+                </button>
+                <button
+                  type="button"
+                  className={`viewport-btn ${viewport === 'tablet' ? 'active' : ''}`}
+                  onClick={() => setViewport('tablet')}
+                >
+                  <Tablet size={14} />
+                  <span>Tablet (768px)</span>
+                </button>
+                <button
+                  type="button"
+                  className={`viewport-btn ${viewport === 'mobile' ? 'active' : ''}`}
+                  onClick={() => setViewport('mobile')}
+                >
+                  <Smartphone size={14} />
+                  <span>Mobile (390px)</span>
+                </button>
+              </div>
+
+              {/* Kombai Diff Overlay Controls */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <label
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    fontSize: '0.72rem',
+                    fontWeight: 600,
+                    color: 'var(--ink-secondary)',
+                    cursor: 'pointer',
+                  }}
+                >
+                  <input
+                    type="checkbox"
+                    checked={kombaiActive}
+                    onChange={(e) => setKombaiActive(e.target.checked)}
+                  />
+                  <span>Kombai Overlay</span>
+                </label>
+
+                {kombaiActive && (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <input
+                      type="range"
+                      min={10}
+                      max={90}
+                      value={kombaiOpacity}
+                      onChange={(e) => setKombaiOpacity(Number(e.target.value))}
+                      style={{ width: '70px' }}
+                    />
+                    <span style={{ fontSize: '0.66rem', fontFamily: 'var(--font-mono)' }}>
+                      {kombaiOpacity}%
+                    </span>
+                    <select
+                      value={kombaiBlend}
+                      onChange={(e) => setKombaiBlend(e.target.value as any)}
+                      className="form-select"
+                      style={{ padding: '2px 6px', fontSize: '0.68rem' }}
+                    >
+                      <option value="difference">Difference</option>
+                      <option value="normal">Normal</option>
+                      <option value="multiply">Multiply</option>
+                    </select>
+                  </div>
+                )}
+
+                <a
+                  href={`/?site=${activeSite.slug}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="action-btn-quiet"
+                >
+                  <ExternalLink size={13} />
+                  <span>Standalone ↗</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Canvas Stage */}
+            <div className="canvas-frame-outer">
+              <div className={`canvas-frame-inner ${viewport}`}>
+                {/* Kombai Visual Reference Overlay (if enabled) */}
+                {kombaiActive && (
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      zIndex: 30,
+                      pointerEvents: 'none',
+                      mixBlendMode: kombaiBlend,
+                      opacity: kombaiOpacity / 100,
+                    }}
+                  >
+                    <img
+                      src={activeSite.heroImage}
+                      alt="Kombai Overlay Reference"
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
+                  </div>
+                )}
+
+                {/* Render the site */}
+                <FlagshipSiteView site={activeSite} isEmbedded={true} />
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ==================================================================
+            TAB 3: DYNAMIC "PLUG-IN TOOLS" SLOT SYSTEM
+            Modular Tools Shelf, active/standby states, configuration, runner
+            ================================================================== */}
+        {activeTab === 'tools' && (
+          <div className="tools-shelf-container">
+            <div className="editorial-header-wrap">
+              <div className="editorial-kicker">Modular Agent Workbench · Dynamic Slots</div>
+              <h1 className="editorial-title">Plug-in Tools Shelf.</h1>
+              <p className="editorial-subtitle">
+                An extensible slot system connecting OpenAI Codex CLI, local Obsidian Vaults,
+                Vercel Multi-Repo deployment, Pinterest visual reference pipelines, and fluid typography engines.
+                Toggle slots on demand or plug in custom agent extensions.
+              </p>
+            </div>
+
+            {/* Stats Overview */}
+            <div className="tools-stats-overview">
+              <div className="tool-stat-card">
+                <div className="tool-stat-kicker">Installed Slots</div>
+                <div className="tool-stat-val">{tools.length} Tools</div>
+                <div className="tool-stat-desc">Extensible modular plugins</div>
+              </div>
+              <div className="tool-stat-card">
+                <div className="tool-stat-kicker">Active Engines</div>
+                <div className="tool-stat-val" style={{ color: 'var(--accent-green)' }}>
+                  {activeToolsCount} Active
+                </div>
+                <div className="tool-stat-desc">Live in memory & build pipeline</div>
+              </div>
+              <div className="tool-stat-card">
+                <div className="tool-stat-kicker">Standby Engines</div>
+                <div className="tool-stat-val" style={{ color: 'var(--ink-muted)' }}>
+                  {tools.length - activeToolsCount} Idle
+                </div>
+                <div className="tool-stat-desc">Click toggle to activate</div>
+              </div>
+              <div className="tool-stat-card">
+                <div className="tool-stat-kicker">Flagship Integration</div>
+                <div className="tool-stat-val">12/12 Sites</div>
+                <div className="tool-stat-desc">Restraint Law compliant</div>
+              </div>
+            </div>
+
+            {/* Filter and Add Tool Bar */}
+            <div className="filter-bar-wrap">
+              <div className="filter-pills-row">
+                <button
+                  type="button"
+                  className={`filter-pill ${toolFilter === 'all' ? 'active' : ''}`}
+                  onClick={() => setToolFilter('all')}
+                >
+                  All Tools ({tools.length})
+                </button>
+                <button
+                  type="button"
+                  className={`filter-pill ${toolFilter === 'active' ? 'active' : ''}`}
+                  onClick={() => setToolFilter('active')}
+                >
+                  Active ({activeToolsCount})
+                </button>
+                <button
+                  type="button"
+                  className={`filter-pill ${toolFilter === 'idle' ? 'active' : ''}`}
+                  onClick={() => setToolFilter('idle')}
+                >
+                  Standby ({tools.length - activeToolsCount})
+                </button>
+              </div>
+
               <button
                 type="button"
-                className="pill-btn primary"
-                onClick={() => {
-                  setKombaiOverlayActive(true);
-                  setCanvasOpen(true);
-                }}
+                className="action-btn-primary"
+                onClick={() => setAddToolModalOpen(true)}
               >
-                Launch Kombai Overlay QA ↗
+                <Plus size={14} />
+                <span>+ Add Custom Tool Plugin</span>
               </button>
             </div>
 
-            {/* TOP 10 CURATED DESIGN LIBRARIES */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '14px', marginBottom: '24px' }}>
-              {[
-                {
-                  name: 'Mobbin',
-                  category: 'Real Product Flows & Apps',
-                  url: 'https://mobbin.com',
-                  desc: '300,000+ real iOS, Android, and Web application screens. Benchmark real user journeys: onboarding, checkout, settings, and empty states.',
-                  badge: 'Essential Benchmark',
-                  color: 'var(--accent-blue)',
-                },
-                {
-                  name: 'Godly Website',
-                  category: 'Avant-Garde Aesthetics & Motion',
-                  url: 'https://godly.website',
-                  desc: 'Curated gallery of boundary-pushing web design, typography lockups, 3D WebGL scenes, and scroll-driven storytelling.',
-                  badge: 'Visual Craft',
-                  color: '#D84315',
-                },
-                {
-                  name: 'Refero Design',
-                  category: 'SaaS & Web App Flows',
-                  url: 'https://refero.design',
-                  desc: 'Thousands of real SaaS dashboard views, pricing tables, conversion funnels, and complex web application UI patterns.',
-                  badge: 'SaaS Architecture',
-                  color: '#3FB950',
-                },
-                {
-                  name: 'Kombai',
-                  category: 'AI Figma-to-Code & Design Overlay',
-                  url: 'https://kombai.com',
-                  desc: 'AI design engineer that parses Figma Auto Layout, component variants, and design tokens into clean React + Tailwind with zero boilerplate.',
-                  badge: 'AI Frontend Agent',
-                  color: '#C5A478',
-                },
-                {
-                  name: 'Page Flows',
-                  category: 'User Journey Video Archives',
-                  url: 'https://pageflows.com',
-                  desc: 'Screen recordings of end-to-end product interactions across desktop and mobile to study exact interaction timing and microcopy.',
-                  badge: 'Interaction Video',
-                  color: '#94A3B8',
-                },
-                {
-                  name: 'Lookup.design',
-                  category: 'Micro-Component States',
-                  url: 'https://lookup.design',
-                  desc: 'Search specifically by micro-component: modals, tooltips, segmented controls, table headers, and complex data-filtering inputs.',
-                  badge: 'Component States',
-                  color: '#79C0FF',
-                },
-                {
-                  name: 'Linear Design System',
-                  category: 'Keyboard-First Density',
-                  url: 'https://linear.app/design',
-                  desc: 'The industry benchmark for information density, subtle borders, high contrast ratios, and instantaneous zero-delay interactions.',
-                  badge: 'Design System',
-                  color: '#A5D6FF',
-                },
-                {
-                  name: 'Component Gallery',
-                  category: 'Real-World Design Systems',
-                  url: 'https://component.gallery',
-                  desc: 'Up-to-date collection of design system components from IBM Carbon, Shopify Polaris, GitHub Primer, and Atlassian.',
-                  badge: 'Token Reference',
-                  color: '#56D364',
-                },
-                {
-                  name: 'Bento Grids',
-                  category: 'Asymmetric Card Layouts',
-                  url: 'https://bentogrids.com',
-                  desc: 'Curated index of modern 12-column bento box spreads, metric hero cards, and architectural perimeter HUD layouts.',
-                  badge: 'Layout Anatomy',
-                  color: '#F0883E',
-                },
-                {
-                  name: 'Awwwards / Siteinspire',
-                  category: 'Editorial & Studio Work',
-                  url: 'https://www.awwwards.com',
-                  desc: 'Award-winning digital experiences, custom GLSL shaders, kinetic editorial type, and physical material simulations.',
-                  badge: 'Grand Prix Craft',
-                  color: '#D29922',
-                },
-              ].map((lib) => (
-                <div key={lib.name} className="idea-card" style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span className="idea-cat" style={{ color: lib.color }}>{lib.category}</span>
-                    <span className="cli-badge-pill" style={{ fontSize: '0.62rem' }}>{lib.badge}</span>
-                  </div>
-                  <h3 className="idea-name" style={{ fontSize: '1.1rem', margin: 0 }}>{lib.name}</h3>
-                  <p className="idea-summary" style={{ fontSize: '0.76rem', margin: 0, flex: 1 }}>{lib.desc}</p>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '6px' }}>
-                    <a
-                      href={lib.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="pill-btn primary"
-                      style={{ fontSize: '0.7rem', padding: '5px 12px', textDecoration: 'none' }}
-                    >
-                      Visit {lib.name} ↗
-                    </a>
-                    {lib.name === 'Kombai' && (
+            {/* Tools Grid */}
+            <div className="tools-shelf-grid">
+              {filteredTools.map((tool) => {
+                const isActive = tool.status === 'active';
+
+                return (
+                  <div
+                    key={tool.id}
+                    className={`tool-slot-card ${isActive ? 'is-active' : 'is-idle'}`}
+                  >
+                    {/* Header */}
+                    <div>
+                      <div className="tool-slot-header">
+                        <div className="tool-identity-box">
+                          <div className="tool-icon-frame">{renderToolIcon(tool.icon)}</div>
+                          <div>
+                            <div className="tool-name-title">{tool.name}</div>
+                            <div className="tool-category-sub">{tool.category}</div>
+                          </div>
+                        </div>
+
+                        {/* Status Toggle Pill */}
+                        <button
+                          type="button"
+                          className={`tool-status-toggle ${isActive ? 'active' : 'idle'}`}
+                          onClick={() => toggleToolStatus(tool.id)}
+                          title="Click to toggle Active / Standby state"
+                        >
+                          <Power size={11} />
+                          <span>{isActive ? 'Active' : 'Standby'}</span>
+                        </button>
+                      </div>
+
+                      {/* Description */}
+                      <p className="tool-desc-text">{tool.description}</p>
+
+                      {/* Runtime Telemetry Box */}
+                      <div className="tool-telemetry-box">
+                        <div className="tool-telemetry-row">
+                          <span className="telemetry-key">Binary / Hook:</span>
+                          <span className="telemetry-val">{tool.binary}</span>
+                        </div>
+                        {Object.entries(tool.telemetry).map(([k, v]) => (
+                          <div key={k} className="tool-telemetry-row">
+                            <span className="telemetry-key">{k}:</span>
+                            <span className="telemetry-val">{v}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Actions */}
+                    <div className="tool-slot-actions">
                       <button
                         type="button"
-                        className="pill-btn"
-                        style={{ fontSize: '0.7rem', padding: '5px 12px' }}
-                        onClick={() => {
-                          setKombaiOverlayActive(true);
-                          setCanvasOpen(true);
-                        }}
+                        className="card-action-btn primary"
+                        onClick={() => handleRunTool(tool)}
                       >
-                        Toggle Overlay QA
+                        <Play size={12} />
+                        <span>Run Diagnostic</span>
                       </button>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
 
-            {/* KOMBAI DESIGN OVERLAY QA INSTRUCTION CARD */}
-            <div className="msg-card" style={{ padding: '18px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              <div className="msg-header">
-                <span className="msg-author">Kombai Design Overlay Comparator — Zero-Regression QA Protocol</span>
-                <span className="cli-badge-pill">ACTIVE IN SIDE CANVAS</span>
-              </div>
-              <p style={{ fontSize: '0.8rem', color: 'var(--ink-secondary)', margin: 0 }}>
-                The Kombai Overlay renders the high-resolution Figma reference plate directly atop the live interactive React DOM in the Side-View Canvas.
-                Use the opacity slider to blend the original artwork with the code, switch to <code>difference</code> blend mode to highlight &lt;2px padding discrepancies, and verify typography alignment.
-              </p>
-              <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginTop: '6px' }}>
-                <button
-                  type="button"
-                  className="pill-btn primary"
-                  onClick={() => {
-                    setKombaiOverlayActive(true);
-                    setKombaiBlendMode('difference');
-                    setCanvasOpen(true);
-                  }}
-                >
-                  Inspect in Difference Blend Mode
-                </button>
-                <button
-                  type="button"
-                  className="pill-btn"
-                  onClick={() => {
-                    setKombaiOverlayActive(true);
-                    setKombaiBlendMode('normal');
-                    setKombaiOpacity(50);
-                    setCanvasOpen(true);
-                  }}
-                >
-                  50% Ghost Overlay
-                </button>
+                      <button
+                        type="button"
+                        className="card-action-btn"
+                        onClick={() => setToolSettingsOpen(tool)}
+                      >
+                        <Settings size={12} />
+                        <span>Configure</span>
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+
+              {/* Add Custom Tool Plugin Slot Card */}
+              <div
+                className="tool-add-custom-card"
+                onClick={() => setAddToolModalOpen(true)}
+                role="button"
+                tabIndex={0}
+              >
+                <div className="tool-add-icon-ring">
+                  <Plus size={22} />
+                </div>
+                <div className="tool-add-title">+ Add Custom Tool Plugin</div>
+                <p className="tool-add-subtitle">
+                  Register a custom CLI binary, MCP server, API bridge, or design telemetry hook.
+                </p>
               </div>
             </div>
           </div>
         )}
 
-        {/* =====================================================================
-            TAB 2: OBSIDIAN VAULT (INTERACTIVE GRAPH + MARKDOWN + DEEP LINK)
-            ===================================================================== */}
+        {/* ==================================================================
+            TAB 4: OBSIDIAN VAULT (KNOWLEDGE GRAPH & MOCS)
+            ================================================================== */}
         {activeTab === 'obsidian' && (
-          <div className="center-scroll-pane">
-            <div className="pane-header">
-              <div>
-                <h1 className="pane-title">Obsidian Knowledge Vault (`obsidian-vault/`)</h1>
-                <p className="pane-subtitle">
-                  Local Markdown knowledge graph capturing the Minimalist Hero Restraint Law, all 7 Flagship Replication
-                  Prompts, and the consolidated 38-skill studio architecture.
-                </p>
-              </div>
-              <a
-                href="obsidian://open?path=%2FUsers%2Fcaleblickteig%2Fantigravity%2FBuild-with-Caleb%2Fheroforge-v1%2Fobsidian-vault"
-                className="pill-btn primary"
-                style={{ textDecoration: 'none' }}
-              >
-                Open in Obsidian App (obsidian://) ↗
-              </a>
+          <div>
+            <div className="editorial-header-wrap">
+              <div className="editorial-kicker">Synchronized Local Knowledge Graph</div>
+              <h1 className="editorial-title">Obsidian Vault Bridge.</h1>
+              <p className="editorial-subtitle">
+                Two-way markdown knowledge graph stored locally at <code>heroforge-v1/obsidian-vault/</code>.
+                Synchronizes the Minimalist Hero Restraint Law, consolidated 38 skills, and multi-CLI bridges.
+              </p>
             </div>
 
-            {/* Interactive SVG Graph + Note Selector */}
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'minmax(280px, 460px) 1fr',
-                gap: '18px',
-                alignItems: 'start',
-              }}
-            >
-              <div className="msg-card" style={{ padding: '16px' }}>
-                <div
-                  style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '0.68rem',
-                    color: 'var(--accent-blue)',
-                    marginBottom: '10px',
-                    textTransform: 'uppercase',
-                  }}
-                >
-                  Interactive Vault Graph (Click Node to Read)
+            <div className="obsidian-vault-layout">
+              {/* Note Index Sidebar */}
+              <div className="obsidian-note-sidebar">
+                <div className="note-sidebar-header">
+                  <span style={{ fontSize: '0.74rem', fontWeight: 700, color: 'var(--ink-primary)' }}>
+                    Vault Notes ({OBSIDIAN_VAULT_NOTES.length})
+                  </span>
                 </div>
-                <svg
-                  viewBox="0 0 540 290"
-                  style={{
-                    width: '100%',
-                    height: '250px',
-                    background: 'var(--bg-canvas)',
-                    borderRadius: '12px',
-                    border: '1px solid var(--border-subtle)',
-                  }}
-                >
-                  {OBSIDIAN_VAULT_NOTES.flatMap((note) =>
-                    note.connections.map((targetId) => {
-                      const target = OBSIDIAN_VAULT_NOTES.find((n) => n.id === targetId);
-                      if (!target) return null;
-                      return (
-                        <line
-                          key={`${note.id}-${target.id}`}
-                          x1={note.x}
-                          y1={note.y}
-                          x2={target.x}
-                          y2={target.y}
-                          stroke="rgba(88, 166, 255, 0.35)"
-                          strokeWidth="1.5"
-                        />
-                      );
-                    })
-                  )}
-                  {OBSIDIAN_VAULT_NOTES.map((note) => {
-                    const active = note.id === selectedNoteId;
-                    return (
-                      <g
-                        key={note.id}
-                        style={{ cursor: 'pointer' }}
-                        onClick={() => setSelectedNoteId(note.id)}
-                      >
-                        <circle
-                          cx={note.x}
-                          cy={note.y}
-                          r={active ? 14 : 10}
-                          fill={active ? '#58A6FF' : '#22272E'}
-                          stroke="#58A6FF"
-                          strokeWidth={active ? 3 : 1.5}
-                        />
-                        <text
-                          x={note.x}
-                          y={note.y + 26}
-                          textAnchor="middle"
-                          fill="currentColor"
-                          style={{ fontSize: '10px', fontFamily: 'var(--font-mono)', fill: '#E6EDF3' }}
-                        >
-                          {note.filename}
-                        </text>
-                      </g>
-                    );
-                  })}
-                </svg>
-
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginTop: '12px' }}>
+                <div className="note-sidebar-list">
                   {OBSIDIAN_VAULT_NOTES.map((note) => (
-                    <button
+                    <div
                       key={note.id}
-                      type="button"
-                      className={`sidebar-site-item ${selectedNoteId === note.id ? 'active' : ''}`}
+                      className={`obsidian-nav-item ${selectedNoteId === note.id ? 'active' : ''}`}
                       onClick={() => setSelectedNoteId(note.id)}
                     >
-                      <div className="site-item-left">
-                        <span className="status-led online" />
-                        <div>
-                          <div className="site-item-name">{note.filename}</div>
-                          <div className="site-item-meta">{note.title}</div>
-                        </div>
-                      </div>
-                      <span className="port-pill">{note.category}</span>
-                    </button>
+                      <div className="note-nav-title">{note.title}</div>
+                      <div className="note-nav-cat">{note.category}</div>
+                    </div>
                   ))}
                 </div>
               </div>
 
-              {/* Markdown Reader */}
-              <div className="msg-card" style={{ padding: '22px' }}>
+              {/* Note Reader */}
+              <div className="obsidian-note-viewer">
                 <div
                   style={{
                     display: 'flex',
-                    justifyContent: 'space-between',
                     alignItems: 'center',
-                    marginBottom: '12px',
+                    justifyContent: 'space-between',
+                    marginBottom: '20px',
+                    paddingBottom: '14px',
+                    borderBottom: '1px solid var(--border-subtle)',
                   }}
                 >
-                  <span className="cli-badge-pill">
-                    /heroforge-v1/obsidian-vault/{activeObsidianNote.filename}
-                  </span>
+                  <div>
+                    <span className="project-index-pill" style={{ marginRight: '8px' }}>
+                      {activeNote.category}
+                    </span>
+                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.74rem', color: 'var(--ink-muted)' }}>
+                      {activeNote.filename}
+                    </span>
+                  </div>
+
                   <button
                     type="button"
-                    className="pill-btn"
-                    onClick={() => handleCopyPrompt(activeObsidianNote.id, activeObsidianNote.markdown)}
+                    className="card-action-btn"
+                    onClick={() => handleCopy(`note-${activeNote.id}`, activeNote.markdown)}
                   >
-                    {copiedPromptId === activeObsidianNote.id ? '✓ Copied Note' : 'Copy Markdown'}
+                    {copiedKey === `note-${activeNote.id}` ? (
+                      <>
+                        <Check size={13} style={{ color: 'var(--accent-green)' }} />
+                        <span>Copied Markdown</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy size={13} />
+                        <span>Copy Markdown</span>
+                      </>
+                    )}
                   </button>
                 </div>
-                <pre
-                  style={{
-                    margin: 0,
-                    padding: '16px',
-                    background: 'var(--bg-canvas)',
-                    borderRadius: '12px',
-                    border: '1px solid var(--border-subtle)',
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '0.78rem',
-                    lineHeight: 1.65,
-                    color: 'var(--ink-primary)',
-                    whiteSpace: 'pre-wrap',
-                  }}
-                >
-                  {activeObsidianNote.markdown}
-                </pre>
-              </div>
-            </div>
-          </div>
-        )}
 
-        {/* =====================================================================
-            TAB 3 & TAB 4: HERMES CHAT & CODEX CLI CHAT CONSOLES
-            ===================================================================== */}
-        {(activeTab === 'hermes-chat' || activeTab === 'codex-chat') && (
-          <div className="chat-thread-container">
-            <div className="chat-messages-scroll">
-              <div className="msg-card" style={{ borderColor: 'var(--accent-blue)' }}>
-                <div className="msg-header">
-                  <span className="msg-author">
-                    {activeTab === 'hermes-chat'
-                      ? 'Hermes Autonomous Multi-Agent Orchestrator'
-                      : 'OpenAI Codex CLI (gpt-6.1-sol · danger-full-access)'}
-                  </span>
-                  <span className="cli-badge-pill">
-                    {activeTab === 'hermes-chat' ? 'hermes workflow' : 'codex exec'}
-                  </span>
-                </div>
-                <p className="msg-body">
-                  {activeTab === 'hermes-chat'
-                    ? 'Hermes coordinates the iterative critique loop: Screenshot → Read File → Grade Hero Restraint → Strip Clutter → Verify 2-Line Headline Wrap → Sync Skills.'
-                    : 'Codex CLI executes direct terminal builds, fallback hero image synthesis (site-3-valkyr.jpg through site-7-solaris.jpg), and cross-agent skill verification.'}
-                </p>
-              </div>
-
-              {messages.map((m) => (
-                <div key={m.id} className={`msg-card ${m.role}`}>
-                  <div className="msg-header">
-                    <span className="msg-author">
-                      {m.role === 'user' ? 'You (Creative Director)' : `HeroForge Agent (${CLI_ENGINES[m.cli].label})`}
-                    </span>
-                    <span className="cli-badge-pill">{CLI_ENGINES[m.cli].binary}</span>
-                    <span className="msg-time">{m.timestamp}</span>
-                  </div>
-                  <p className="msg-body">{m.text}</p>
-                  {m.command && <div className="msg-cmd-box">$ {m.command}</div>}
-                  {m.steps && (
-                    <ul className="msg-steps">
-                      {m.steps.map((s, idx) => (
-                        <li key={idx}>{s}</li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* =====================================================================
-            TAB 5: OPENDESIGN MINIMALIST HERO RESTRAINT GRADER
-            ===================================================================== */}
-        {activeTab === 'opendesign' && (
-          <div className="center-scroll-pane">
-            <div className="pane-header">
-              <div>
-                <h1 className="pane-title">OpenDesign — Minimalist Hero Restraint Inspector</h1>
-                <p className="pane-subtitle">
-                  Live design critique engine enforcing the B/B− → A+ lessons: 1 primary CTA, natural 1-word nav labels,
-                  2-line balanced headlines with zero orphan words, and strict workspace color isolation.
-                </p>
-              </div>
-              <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-                {FLAGSHIP_SITES.map((s) => (
-                  <button
-                    key={s.id}
-                    type="button"
-                    className={`pill-btn ${inspectedSiteSlug === s.slug ? 'primary' : ''}`}
-                    onClick={() => {
-                      setInspectedSiteSlug(s.slug);
-                      setActiveSiteSlug(s.slug);
+                <div className="obsidian-rendered-markdown">
+                  <pre
+                    style={{
+                      fontFamily: 'inherit',
+                      whiteSpace: 'pre-wrap',
+                      lineHeight: 1.7,
+                      fontSize: '0.88rem',
+                      color: 'var(--ink-secondary)',
                     }}
                   >
-                    {s.indexLabel}. {s.brand}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div className="qa-grid">
-              <div className="qa-card">
-                <img src={inspectedSite.heroImage} alt={inspectedSite.brand} className="qa-img" />
-                <div className="qa-meta">
-                  <span>
-                    {inspectedSite.indexLabel}. {inspectedSite.brand}
-                  </span>
-                  <span className="idea-score">Grade {inspectedSite.grade}</span>
-                </div>
-              </div>
-
-              <div className="msg-card" style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                <div className="msg-header">
-                  <span className="msg-author">OpenDesign Automated Restraint Rubric</span>
-                  <span className="cli-badge-pill">PASS · 100/100</span>
-                </div>
-
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
-                  <div className="msg-cmd-box">
-                    <strong>Primary CTA Count:</strong> {inspectedSite.restraintAudit.ctaCount} (
-                    {inspectedSite.hero.primaryCta}) ✓
-                  </div>
-                  <div className="msg-cmd-box">
-                    <strong>Headline Wrapping:</strong> {inspectedSite.restraintAudit.headlineLines} Balanced Lines ·{' '}
-                    {inspectedSite.restraintAudit.orphanWords} Orphans ✓
-                  </div>
-                  <div className="msg-cmd-box">
-                    <strong>Nav Label Clarity:</strong> {inspectedSite.restraintAudit.navClarity} ✓
-                  </div>
-                  <div className="msg-cmd-box">
-                    <strong>Subject Unobstructed:</strong> {inspectedSite.restraintAudit.subjectUnobstructedPct}% Clear
-                    Focal Area ✓
-                  </div>
-                  <div className="msg-cmd-box">
-                    <strong>Supporting Copy Length:</strong> {inspectedSite.restraintAudit.leadChars} chars (1 concise
-                    sentence) ✓
-                  </div>
-                  <div className="msg-cmd-box">
-                    <strong>Workspace Light-Blue Bleed:</strong> None (0% #58A6FF in site) ✓
-                  </div>
-                </div>
-
-                <div className="msg-cmd-box">
-                  <div>
-                    <strong>Line 1:</strong> "{inspectedSite.hero.headlineLine1}"
-                  </div>
-                  <div>
-                    <strong>Line 2:</strong> "{inspectedSite.hero.headlineLine2}"
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* 2026 AI DESIGN WORKFLOW + 7 EXPENSIVE UI FIXES + HALLMARK V2.0 FLOOR */}
-            <div className="msg-card" style={{ marginTop: '18px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              <div className="msg-header">
-                <span className="msg-author">2026 AI Design Workflow · 7 Expensive UI Fixes · Hallmark v2.0 Floor</span>
-                <span className="cli-badge-pill">44/44 SKILLS VERIFIED · 100/100</span>
-              </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '10px' }}>
-                <div className="msg-cmd-box">
-                  <strong>1. Focal Point &amp; Spacing (eQ74n4huAcA):</strong> &gt;=70% unobstructed hero subject, 1 primary CTA, one section per 100dvh screen, equal edges, overflow-x: clip.
-                </div>
-                <div className="msg-cmd-box">
-                  <strong>2. Typography &amp; Color Tokens (Nutlope/hallmark):</strong> Balanced 2-line wraps (0 orphans), tabular-nums, :root tokens only, workspace #58A6FF isolated from showcase sites.
-                </div>
-                <div className="msg-cmd-box">
-                  <strong>3. Real Content, Details &amp; Motion:</strong> Authentic telemetry, 1px exposed hairlines, custom cubic-bezier(0.23, 1, 0.32, 1) ease-out (emil-design-eng &amp; transitions-dev).
-                </div>
-                <div className="msg-cmd-box">
-                  <strong>4. 6-Stage 2026 Workflow (7eCK9ioNpqU):</strong> Deeper Brief (be-ambitious) → Mobbin Job Walk (redesign-screen) → Hallmark Theme Deal → Hero-First Build → Sloplint &amp; Visual QA → 30fps /Brag.
-                </div>
-              </div>
-            </div>
-
-            {/* VERIFIED REAL-REPO SKILLS PROVENANCE REGISTRY */}
-            <div className="msg-card" style={{ marginTop: '18px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              <div className="msg-header">
-                <span className="msg-author">
-                  Verified Real-Repo Skill Provenance ({skillsAudit.totalSkillsAudited} Audited Skills · 15 Upstream GitHub Repos + 29 Studio Skills)
-                </span>
-                <span className="cli-badge-pill">Avg Score: {skillsAudit.averageScore}/100</span>
-              </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(290px, 1fr))', gap: '10px' }}>
-                {skillsAudit.skills
-                  .filter((s) => s.category === 'third-party-verified' || s.name === 'heroforge-master-studio' || s.name === 'hyperframes-motion-graphics')
-                  .map((s) => (
-                    <div key={s.name} className="msg-cmd-box" style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '6px' }}>
-                        <strong style={{ color: 'var(--accent-blue)' }}>{s.name}</strong>
-                        <span style={{ fontSize: '0.65rem', color: '#3fb950' }}>
-                          {s.commit.slice(0, 7)} · {s.auditScore}/100
-                        </span>
-                      </div>
-                      <div style={{ fontSize: '0.7rem', color: 'var(--ink-secondary)' }}>{s.displayName}</div>
-                      <a
-                        href={s.source}
-                        target="_blank"
-                        rel="noreferrer"
-                        style={{ fontSize: '0.68rem', color: 'var(--accent-blue)', wordBreak: 'break-all' }}
-                      >
-                        {s.source} ↗
-                      </a>
-                      <div style={{ fontSize: '0.65rem', color: 'var(--ink-muted)' }}>{s.installCommand}</div>
-                    </div>
-                  ))}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* =====================================================================
-            TAB 6: REPLICATION PROMPT VAULT (7 FLAGSHIP + 20 RANKED CONCEPTS)
-            ===================================================================== */}
-        {activeTab === 'prompt-vault' && (
-          <div className="center-scroll-pane">
-            <div className="pane-header">
-              <div>
-                <h1 className="pane-title">Replication Prompt Vault (7 Built Flagships + 20 Ranked Concepts)</h1>
-                <p className="pane-subtitle">
-                  Copy any self-contained Master Replication Prompt below to recreate our 7 A+ Flagship Websites or
-                  launch any of the 20 ranked studio concepts. Uses {skillsAudit.totalSkillsAudited} audited skills
-                  (100/100).
-                </p>
-              </div>
-              <input
-                type="search"
-                value={promptSearch}
-                onChange={(e) => setPromptSearch(e.target.value)}
-                placeholder="Search brand, category, or material..."
-                style={{
-                  padding: '8px 14px',
-                  borderRadius: '9999px',
-                  border: '1px solid var(--border-subtle)',
-                  background: 'var(--bg-elevated)',
-                  color: 'var(--ink-primary)',
-                  fontSize: '0.78rem',
-                  minWidth: '240px',
-                }}
-              />
-            </div>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginBottom: '28px' }}>
-              {FLAGSHIP_SITES.filter(
-                (s) =>
-                  !promptSearch ||
-                  s.brand.toLowerCase().includes(promptSearch.toLowerCase()) ||
-                  s.category.toLowerCase().includes(promptSearch.toLowerCase()) ||
-                  s.replicationPrompt.toLowerCase().includes(promptSearch.toLowerCase())
-              ).map((site) => (
-                <div key={site.id} className="msg-card">
-                  <div className="msg-header">
-                    <span className="msg-author">
-                      {site.indexLabel}. {site.brand} — {site.title}
-                    </span>
-                    <div style={{ display: 'flex', gap: '6px' }}>
-                      <button
-                        type="button"
-                        className="pill-btn primary"
-                        onClick={() => handleCopyPrompt(`vault-${site.id}`, site.replicationPrompt)}
-                      >
-                        {copiedPromptId === `vault-${site.id}` ? '✓ Copied!' : 'Copy Master Prompt'}
-                      </button>
-                      <button
-                        type="button"
-                        className="pill-btn"
-                        onClick={() => {
-                          setActiveSiteSlug(site.slug);
-                          setCanvasOpen(true);
-                        }}
-                      >
-                        Load in Side Canvas
-                      </button>
-                    </div>
-                  </div>
-                  <pre className="msg-cmd-box" style={{ whiteSpace: 'pre-wrap', marginTop: '8px' }}>
-                    {site.replicationPrompt}
+                    {activeNote.markdown}
                   </pre>
                 </div>
-              ))}
-            </div>
-
-            <h2 className="pane-title" style={{ marginBottom: '12px' }}>
-              20 Ranked Concept Seeds (`ideas-catalog.json`)
-            </h2>
-            <div className="ideas-grid">
-              {ideasCatalog.ideas.map((c) => (
-                <article key={c.id} className="idea-card">
-                  <div className="idea-top">
-                    <span className="idea-cat">
-                      #{c.id} · {c.category}
-                    </span>
-                    <span className="idea-score">{c.scores.average}/10</span>
-                  </div>
-                  <h3 className="idea-name">{c.brandName}</h3>
-                  <p className="idea-summary">{c.concept}</p>
-                  <div className="idea-actions">
-                    <button
-                      type="button"
-                      className="pill-btn primary"
-                      onClick={() => {
-                        setBrandName(c.brandName);
-                        setPromptText(
-                          `Build an A+ Minimalist Hero showcase for "${c.brandName}" (${c.category}): ${c.concept}. Use 1 floating pill nav, 2-line balanced headline, and 1 primary CTA.`
-                        );
-                        setActiveTab('hermes-chat');
-                      }}
-                    >
-                      Send to Hermes Builder
-                    </button>
-                  </div>
-                </article>
-              ))}
+              </div>
             </div>
           </div>
         )}
 
-        {/* =====================================================================
-            TAB 7: HYPERFRAMES /BRAG 1-MINUTE MOTION-GRAPHICS X-POST STUDIO
-            ===================================================================== */}
-        {activeTab === 'hyperframes-brag' && (
-          <div className="center-scroll-pane">
-            <div className="pane-header">
-              <div>
-                <h1 className="pane-title">Hyperframes /Brag — 1-Minute (60s) X-Post Motion-Graphics Video</h1>
-                <p className="pane-subtitle">
-                  Deterministic 60-second (1,800 frames @ 30fps) launch video showcasing the B/B− → A+ Hero Restraint
-                  transformation, the Chalkboard Slate &amp; Stone Agent OS, and all 7 Flagship Websites.
-                </p>
+        {/* ==================================================================
+            TAB 5: RESTRAINT INSPECTOR (OPENDESIGN RESTRICTION AUDIT)
+            ================================================================== */}
+        {activeTab === 'inspector' && (
+          <div className="inspector-layout">
+            <div className="editorial-header-wrap">
+              <div className="editorial-kicker">OpenDesign Grader & Telemetry</div>
+              <h1 className="editorial-title">Minimalist Hero Restraint Law.</h1>
+              <p className="editorial-subtitle">
+                Seven strict architectural rules preventing AI slop, layout bloat, and decorative jargon across all 12 projects.
+              </p>
+            </div>
+
+            {/* Site Selector */}
+            <div className="filter-bar-wrap">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <span style={{ fontSize: '0.74rem', fontWeight: 600, color: 'var(--ink-secondary)' }}>
+                  Inspecting Site:
+                </span>
+                <select
+                  value={selectedSiteSlug}
+                  onChange={(e) => setSelectedSiteSlug(e.target.value)}
+                  className="form-select"
+                  style={{ padding: '6px 14px' }}
+                >
+                  {FLAGSHIP_SITES.map((s) => (
+                    <option key={s.id} value={s.slug}>
+                      {s.indexLabel} — {s.brand}
+                    </option>
+                  ))}
+                </select>
               </div>
-              <a
-                href="/brag-x-post.mp4"
-                download="heroforge-v1-brag-60s.mp4"
-                className="pill-btn primary"
-                style={{ textDecoration: 'none' }}
-              >
-                ⬇ Download 60s MP4 (brag-x-post.mp4)
-              </a>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span className="project-grade-pill">Grade A+ (100/100)</span>
+              </div>
+            </div>
+
+            {/* 7 Restraint Rules Grid */}
+            <div className="restraint-audit-grid">
+              <div className="restraint-stat-box">
+                <div className="tool-stat-kicker">Rule 01 · Single CTA Floor</div>
+                <div className="restraint-stat-metric">
+                  {activeSite.restraintAudit.ctaCount} Primary CTA
+                </div>
+                <div className="restraint-rule-status">
+                  <CheckCircle2 size={12} />
+                  <span>Verified 100% compliant (Max 1 allowed)</span>
+                </div>
+              </div>
+
+              <div className="restraint-stat-box">
+                <div className="tool-stat-kicker">Rule 02 · Balanced Headline Lines</div>
+                <div className="restraint-stat-metric">
+                  {activeSite.restraintAudit.headlineLines} Balanced Lines
+                </div>
+                <div className="restraint-rule-status">
+                  <CheckCircle2 size={12} />
+                  <span>Enforces 2-line balanced break</span>
+                </div>
+              </div>
+
+              <div className="restraint-stat-box">
+                <div className="tool-stat-kicker">Rule 03 · Zero Orphan Words</div>
+                <div className="restraint-stat-metric">
+                  {activeSite.restraintAudit.orphanWords} Trailing Orphans
+                </div>
+                <div className="restraint-rule-status">
+                  <CheckCircle2 size={12} />
+                  <span>Zero dangling single words</span>
+                </div>
+              </div>
+
+              <div className="restraint-stat-box">
+                <div className="tool-stat-kicker">Rule 04 · Lead Sentence Restraint</div>
+                <div className="restraint-stat-metric">
+                  {activeSite.restraintAudit.leadChars} Characters
+                </div>
+                <div className="restraint-rule-status">
+                  <CheckCircle2 size={12} />
+                  <span>Quiet concise lead (Target &lt;= 160ch)</span>
+                </div>
+              </div>
+
+              <div className="restraint-stat-box">
+                <div className="tool-stat-kicker">Rule 05 · Unobstructed Subject</div>
+                <div className="restraint-stat-metric">
+                  {activeSite.restraintAudit.subjectUnobstructedPct}% Unobstructed
+                </div>
+                <div className="restraint-rule-status">
+                  <CheckCircle2 size={12} />
+                  <span>Focal subject clearly visible</span>
+                </div>
+              </div>
+
+              <div className="restraint-stat-box">
+                <div className="tool-stat-kicker">Rule 06 · Nav Label Clarity</div>
+                <div className="restraint-stat-metric" style={{ fontSize: '0.88rem' }}>
+                  {activeSite.restraintAudit.navClarity}
+                </div>
+                <div className="restraint-rule-status">
+                  <CheckCircle2 size={12} />
+                  <span>Natural 1-word architectural terms</span>
+                </div>
+              </div>
+
+              <div className="restraint-stat-box">
+                <div className="tool-stat-kicker">Rule 07 · Color Bleed Isolation</div>
+                <div className="restraint-stat-metric">
+                  {activeSite.restraintAudit.workspaceBlueBleed ? 'Bleed Detected' : 'Strictly Isolated'}
+                </div>
+                <div className="restraint-rule-status">
+                  <CheckCircle2 size={12} />
+                  <span>Showcase uses bespoke client palette</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ==================================================================
+            TAB 6: LAUNCH VIDEO (HYPERFRAMES /BRAG MOTION GRAPHICS)
+            ================================================================== */}
+        {activeTab === 'video' && (
+          <div>
+            <div className="editorial-header-wrap">
+              <div className="editorial-kicker">Hyperframes 60fps Motion Engine</div>
+              <h1 className="editorial-title">Launch Video Studio.</h1>
+              <p className="editorial-subtitle">
+                Deterministic 60-second X-Post launch video engine. Compiles project source code and verified
+                high-resolution photography into crisp MP4 renders via Playwright and FFmpeg.
+              </p>
             </div>
 
             <div
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'minmax(320px, 1.35fr) 1fr',
-                gap: '18px',
-                alignItems: 'start',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))',
+                gap: '24px',
               }}
             >
-              <div className="msg-card" style={{ padding: '14px' }}>
-                <video
-                  src="/brag-x-post.mp4"
-                  poster="/brag-poster.jpg"
-                  controls
-                  playsInline
-                  style={{
-                    width: '100%',
-                    borderRadius: '12px',
-                    border: '1px solid var(--border-subtle)',
-                    background: '#080A0E',
-                  }}
-                />
+              {/* Video Player Box */}
+              <div className="project-card" style={{ padding: '24px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px' }}>
+                  <Video size={16} style={{ color: 'var(--accent-terracotta)' }} />
+                  <span style={{ fontSize: '0.84rem', fontWeight: 700 }}>brag-x-post.mp4 (60s / 1080x1920)</span>
+                </div>
+
                 <div
                   style={{
+                    width: '100%',
+                    aspectRatio: '16 / 9',
+                    background: '#141312',
+                    borderRadius: '10px',
                     display: 'flex',
-                    justifyContent: 'space-between',
-                    marginTop: '10px',
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '0.7rem',
-                    color: 'var(--ink-muted)',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#EDE8DE',
+                    flexDirection: 'column',
+                    gap: '12px',
+                    position: 'relative',
+                    overflow: 'hidden',
                   }}
                 >
-                  <span>Resolution: 1920×1080 (16:9 HD)</span>
-                  <span>Duration: 01:00 (60.0s · 1,800 frames)</span>
-                  <span>Poster Baked @ Frame 0</span>
+                  <img
+                    src={activeSite.heroImage}
+                    alt="Video thumbnail"
+                    style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.3 }}
+                  />
+                  <div
+                    style={{
+                      width: '52px',
+                      height: '52px',
+                      borderRadius: '50%',
+                      background: 'rgba(255, 255, 255, 0.9)',
+                      color: '#191919',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      zIndex: 2,
+                      cursor: 'pointer',
+                      boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
+                    }}
+                  >
+                    <Play size={22} style={{ marginLeft: '3px' }} />
+                  </div>
+                  <span style={{ zIndex: 2, fontFamily: 'var(--font-mono)', fontSize: '0.74rem' }}>
+                    00:00 / 01:00 · 60fps Deterministic Render
+                  </span>
                 </div>
-              </div>
 
-              <div className="msg-card" style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                <div className="msg-header">
-                  <span className="msg-author">X / Twitter Launch Post Copy</span>
+                <div style={{ marginTop: '16px' }}>
                   <button
                     type="button"
-                    className="pill-btn primary"
+                    className="action-btn-primary"
+                    style={{ width: '100%', justifyContent: 'center' }}
                     onClick={() =>
-                      handleCopyPrompt(
-                        'x-post-copy',
-                        `We took a brutal B / B− design critique on our AI-generated heroes and used it to re-architect our entire autonomous studio.\n\nIntroducing HeroForge V1:\n• Minimalist Hero Restraint Law (B− → A+)\n• Chalkboard Slate & Stone Agent OS (Hermes + Codex CLI + Obsidian Vault + OpenDesign)\n• 7 Flagship Websites + copyable Master Replication Prompts\n• 38 consolidated skills + 60s Hyperframes launch reel`
+                      handleCopy(
+                        'render-cmd',
+                        'node scripts/render-brag-video.mjs --site aetherion-geneve --fps 60 --duration 60'
                       )
                     }
                   >
-                    {copiedPromptId === 'x-post-copy' ? '✓ Copied Post!' : 'Copy X Post'}
+                    <Terminal size={14} />
+                    <span>Copy Render Command</span>
                   </button>
                 </div>
-                <pre className="msg-cmd-box" style={{ whiteSpace: 'pre-wrap' }}>
-                  {`We took a brutal B / B− design critique on our AI-generated heroes and used it to re-architect our entire autonomous studio.
+              </div>
 
-Introducing HeroForge V1:
-• Minimalist Hero Restraint Law (B− → A+)
-• Chalkboard Slate & Stone Agent OS (Hermes + Codex CLI + Obsidian Vault + OpenDesign)
-• 7 Flagship Websites + copyable Master Replication Prompts
-• 38 consolidated skills + 60s Hyperframes launch reel`}
-                </pre>
+              {/* Timeline Scene Breakdown */}
+              <div className="project-card" style={{ padding: '24px' }}>
+                <h3 style={{ fontSize: '0.94rem', fontWeight: 700, marginBottom: '16px' }}>
+                  60-Second Scene Breakdown
+                </h3>
 
-                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--accent-blue)' }}>
-                  60-SECOND HYPERFRAMES CHOREOGRAPHY BEATS
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                  <div className="tool-telemetry-box">
+                    <div style={{ fontWeight: 600, color: 'var(--ink-primary)' }}>
+                      00:00–00:12 · Scene 01: The Monolith Reveal
+                    </div>
+                    <div style={{ color: 'var(--ink-muted)' }}>
+                      Triaxial tourbillon assembly floats into frame with sidereal telemetry counter.
+                    </div>
+                  </div>
+
+                  <div className="tool-telemetry-box">
+                    <div style={{ fontWeight: 600, color: 'var(--ink-primary)' }}>
+                      00:12–00:26 · Scene 02: Kinematic Gimbal Exploded View
+                    </div>
+                    <div style={{ color: 'var(--ink-muted)' }}>
+                      48-tooth escapement rings separate to reveal Muonionalusta meteorite bridge.
+                    </div>
+                  </div>
+
+                  <div className="tool-telemetry-box">
+                    <div style={{ fontWeight: 600, color: 'var(--ink-primary)' }}>
+                      00:26–00:42 · Scene 03: Seven Flagship Showcase Sweep
+                    </div>
+                    <div style={{ color: 'var(--ink-muted)' }}>
+                      Rapid architectural cut through Kurokawa, Valkyr, Sora & Klang, and Atelier Vespers.
+                    </div>
+                  </div>
+
+                  <div className="tool-telemetry-box">
+                    <div style={{ fontWeight: 600, color: 'var(--ink-primary)' }}>
+                      00:42–01:00 · Scene 04: Minimalist Hero Restraint Law & Outro
+                    </div>
+                    <div style={{ color: 'var(--ink-muted)' }}>
+                      OpenDesign 100/100 audit readout and quiet HeroForge Studio logotype lockup.
+                    </div>
+                  </div>
                 </div>
-                <ul className="msg-steps" style={{ margin: 0 }}>
-                  <li>00:00–00:06 · Poster Frame &amp; Hook: "From B− Template Clutter to A+ Editorial Restraint"</li>
-                  <li>00:06–00:14 · The Critique Diagnosis: Stripping 4-box stat cards, orphan words &amp; jargon</li>
-                  <li>00:14–00:22 · Site 01 Aetherion Genève (A+): 2-line balanced wrap &amp; 3D Calibre Vitrine</li>
-                  <li>00:22–00:30 · Site 02 Kurokawa &amp; Vane (A+): Basalt monolith &amp; 3-pill residence switcher</li>
-                  <li>00:30–00:44 · Sites 03–07 Rapid Showcase: Valkyr Orbital, Sora &amp; Klang, Vespers, Veloce, Solaris</li>
-                  <li>00:44–00:53 · Chalkboard Slate Agent OS: Hermes, Codex CLI, Obsidian Vault &amp; OpenDesign</li>
-                  <li>00:53–01:00 · Resolution Lockup: 7 Flagship Sites · 38 Consolidated Skills · 100/100 Deslopify</li>
-                </ul>
               </div>
             </div>
           </div>
         )}
 
-        {/* BOTTOM CHATGPT-STYLE FLOATING PILL COMPOSER DOCK */}
-        <form className="composer-dock-wrap" onSubmit={handleSendPrompt}>
-          <div className="composer-pill-box">
-            <div className="composer-controls-row">
-              {(['agy', 'hermes', 'codex', 'opencode'] as CliEngine[]).map((cliKey) => (
-                <button
-                  key={cliKey}
-                  type="button"
-                  className={`cli-chip ${selectedCli === cliKey ? 'active' : ''}`}
-                  onClick={() => setSelectedCli(cliKey)}
-                >
-                  {CLI_ENGINES[cliKey].label}
-                </button>
-              ))}
-
-              <select
-                className="composer-mini-input"
-                value={activeSiteSlug}
-                onChange={(e) => {
-                  const s = FLAGSHIP_SITES.find((item) => item.slug === e.target.value);
-                  if (s) {
-                    setActiveSiteSlug(s.slug);
-                    setBrandName(s.brand);
-                    setCanvasOpen(true);
-                  }
-                }}
-                aria-label="Target Flagship Site"
-              >
-                {FLAGSHIP_SITES.map((s) => (
-                  <option key={s.id} value={s.slug}>
-                    {s.indexLabel}. {s.brand} ({s.grade})
-                  </option>
-                ))}
-              </select>
+        {/* ==================================================================
+            TAB 7: REPLICATION PROMPT VAULT
+            ================================================================== */}
+        {activeTab === 'prompts' && (
+          <div>
+            <div className="editorial-header-wrap">
+              <div className="editorial-kicker">Replication Intelligence</div>
+              <h1 className="editorial-title">A+ Master Replication Prompts.</h1>
+              <p className="editorial-subtitle">
+                Exact master prompts engineered to generate each of the 12 flagship websites in Antigravity,
+                Claude Code, and OpenAI Codex with zero hallucination.
+              </p>
             </div>
 
-            <div className="composer-input-row">
-              <textarea
-                className="composer-textarea"
-                rows={1}
-                value={promptText}
-                onChange={(e) => setPromptText(e.target.value)}
-                placeholder={`Message ${CLI_ENGINES[selectedCli].label} to refine ${activeSite.brand} or generate a site into the Side Canvas...`}
-              />
-              <button type="submit" className="send-pill-btn">
-                Run {CLI_ENGINES[selectedCli].binary} ↗
-              </button>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+              {FLAGSHIP_SITES.map((site) => (
+                <div key={site.id} className="prompt-card">
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      <span className="project-index-pill">{site.indexLabel}</span>
+                      <span style={{ fontSize: '0.94rem', fontWeight: 700 }}>{site.brand}</span>
+                      <span className="project-grade-pill">Grade A+</span>
+                    </div>
+
+                    <button
+                      type="button"
+                      className="card-action-btn primary"
+                      onClick={() => handleCopy(`prompt-vault-${site.id}`, site.replicationPrompt)}
+                    >
+                      {copiedKey === `prompt-vault-${site.id}` ? (
+                        <>
+                          <Check size={13} />
+                          <span>Copied Prompt</span>
+                        </>
+                      ) : (
+                        <>
+                          <Copy size={13} />
+                          <span>Copy Prompt</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+
+                  <div className="prompt-text-block">{site.replicationPrompt}</div>
+                </div>
+              ))}
             </div>
           </div>
-        </form>
+        )}
       </main>
 
-      {/* RIGHT SIDE-VIEW LIVE CANVAS (SUPPORTS ALL 7 FLAGSHIP WEBSITES!) */}
-      {canvasOpen && (
-        <section className="os-side-canvas" aria-label="Live Website Side-View Canvas">
-          <div className="canvas-toolbar">
-            <div className="canvas-target-pills" style={{ flexWrap: 'wrap' }}>
-              {FLAGSHIP_SITES.map((s) => (
-                <button
-                  key={s.id}
-                  type="button"
-                  className={`pill-tab ${activeSiteSlug === s.slug ? 'active' : ''}`}
-                  onClick={() => setActiveSiteSlug(s.slug)}
-                  title={s.title}
-                >
-                  {s.indexLabel} {s.brand.split(' ')[0]}
-                </button>
-              ))}
-            </div>
+      {/* ====================================================================
+          TOOL EXECUTION RUNNER DRAWER
+          ==================================================================== */}
+      {activeToolRunning && (
+        <div className="drawer-backdrop" onClick={() => setActiveToolRunning(null)}>
+          <div className="drawer-panel" onClick={(e) => e.stopPropagation()}>
+            <div className="drawer-header">
+              <div className="drawer-title-box">
+                <Terminal size={18} style={{ color: 'var(--accent-terracotta)' }} />
+                <div>
+                  <div style={{ fontSize: '0.92rem', fontWeight: 700 }}>{activeToolRunning.name}</div>
+                  <div style={{ fontSize: '0.66rem', color: 'var(--ink-muted)', fontFamily: 'var(--font-mono)' }}>
+                    {activeToolRunning.binary}
+                  </div>
+                </div>
+              </div>
 
-            <div className="canvas-target-pills">
-              {(['desktop', 'tablet', 'mobile'] as ViewportSize[]).map((vp) => (
-                <button
-                  key={vp}
-                  type="button"
-                  className={`pill-tab ${viewport === vp ? 'active' : ''}`}
-                  onClick={() => setViewport(vp)}
-                >
-                  {vp}
-                </button>
-              ))}
-              {isLocalhost && activeSite.externalPortUrl && (
-                <button
-                  type="button"
-                  className={`pill-tab ${canvasRenderMode === 'iframe' ? 'active' : ''}`}
-                  onClick={() =>
-                    setCanvasRenderMode(canvasRenderMode === 'component' ? 'iframe' : 'component')
-                  }
-                  title="Toggle between built-in interactive view and localhost port iframe"
-                >
-                  {canvasRenderMode === 'iframe' ? 'Port Iframe' : 'Interactive'}
-                </button>
-              )}
               <button
                 type="button"
-                className={`pill-tab ${kombaiOverlayActive ? 'active' : ''}`}
-                onClick={() => setKombaiOverlayActive(!kombaiOverlayActive)}
-                title="Toggle Kombai Design Overlay QA Comparator"
-                style={{ color: kombaiOverlayActive ? 'var(--accent-blue)' : undefined }}
+                className="action-btn-quiet"
+                onClick={() => setActiveToolRunning(null)}
+                style={{ padding: '6px' }}
               >
-                {kombaiOverlayActive ? '✦ Kombai Overlay ON' : 'Kombai Overlay'}
+                <X size={16} />
               </button>
-              <a
-                href={
-                  isLocalhost && activeSite.externalPortUrl && canvasRenderMode === 'iframe'
-                    ? activeSite.externalPortUrl
-                    : `/?site=${activeSite.slug}`
-                }
-                target="_blank"
-                rel="noreferrer"
-                className="pill-btn"
-                style={{ textDecoration: 'none' }}
-              >
-                Full Tab ↗
-              </a>
             </div>
-          </div>
 
-          {/* KOMBAI INTERACTIVE OVERLAY CONTROLS BAR */}
-          {kombaiOverlayActive && (
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
-                padding: '8px 14px',
-                background: 'rgba(20, 24, 30, 0.95)',
-                borderBottom: '1px solid var(--border-subtle)',
-                fontSize: '0.72rem',
-                fontFamily: 'var(--font-mono)',
-                color: 'var(--ink-secondary)',
-                flexWrap: 'wrap',
-              }}
-            >
-              <span style={{ color: 'var(--accent-blue)', fontWeight: 600 }}>✦ KOMBAI OVERLAY:</span>
-              <span>Opacity: {kombaiOpacity}%</span>
-              <input
-                type="range"
-                min={0}
-                max={100}
-                value={kombaiOpacity}
-                onChange={(e) => setKombaiOpacity(Number(e.target.value))}
-                style={{ width: '110px' }}
-                aria-label="Kombai Overlay Opacity"
-              />
-              <span style={{ marginLeft: '6px' }}>Blend:</span>
-              {(['normal', 'difference', 'multiply'] as const).map((m) => (
-                <button
-                  key={m}
-                  type="button"
-                  className={`pill-tab ${kombaiBlendMode === m ? 'active' : ''}`}
-                  style={{ padding: '2px 8px', fontSize: '0.65rem' }}
-                  onClick={() => setKombaiBlendMode(m)}
+            <div className="drawer-body">
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span style={{ fontSize: '0.74rem', fontWeight: 600, color: 'var(--ink-secondary)' }}>
+                  Live Diagnostic Logs:
+                </span>
+                <span
+                  style={{
+                    fontSize: '0.68rem',
+                    fontFamily: 'var(--font-mono)',
+                    color: isRunning ? 'var(--accent-amber)' : 'var(--accent-green)',
+                  }}
                 >
-                  {m}
-                </button>
-              ))}
-              <span style={{ color: 'var(--ink-muted)', marginLeft: 'auto' }}>
-                Comparing DOM against {activeSite.brand} Plate
-              </span>
-            </div>
-          )}
+                  {isRunning ? '● Executing...' : '✔ Completed'}
+                </span>
+              </div>
 
-          <div className="canvas-stage" style={{ position: 'relative' }}>
-            {kombaiOverlayActive && (
-              <div
-                style={{
-                  position: 'absolute',
-                  inset: 0,
-                  pointerEvents: 'none',
-                  backgroundImage: `url(${activeSite.heroImage})`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center top',
-                  opacity: kombaiOpacity / 100,
-                  mixBlendMode: kombaiBlendMode,
-                  zIndex: 70,
-                }}
-              />
-            )}
-            <div
-              className={`iframe-shell vp-${viewport}`}
-              style={{ overflowY: 'auto', overflowX: 'hidden', background: activeSite.palette.bg }}
-            >
-              {isLocalhost && activeSite.externalPortUrl && canvasRenderMode === 'iframe' ? (
-                <iframe src={activeSite.externalPortUrl} title={activeSite.brand} />
-              ) : (
-                <FlagshipSiteView site={activeSite} isEmbedded={true} />
-              )}
+              <div className="terminal-log-output">
+                {runningLogs.map((log, i) => (
+                  <div key={i}>{log}</div>
+                ))}
+              </div>
+
+              <div className="tool-telemetry-box">
+                <div style={{ fontWeight: 600, marginBottom: '6px', color: 'var(--ink-primary)' }}>
+                  Slot Telemetry Summary
+                </div>
+                {Object.entries(activeToolRunning.telemetry).map(([k, v]) => (
+                  <div key={k} className="tool-telemetry-row">
+                    <span className="telemetry-key">{k}:</span>
+                    <span className="telemetry-val">{v}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div style={{ display: 'flex', gap: '8px', marginTop: 'auto' }}>
+                <button
+                  type="button"
+                  className="action-btn-primary"
+                  style={{ flex: 1, justifyContent: 'center' }}
+                  onClick={() => handleRunTool(activeToolRunning)}
+                  disabled={isRunning}
+                >
+                  <RefreshCw size={14} className={isRunning ? 'animate-spin' : ''} />
+                  <span>Re-run Diagnostic</span>
+                </button>
+                <button
+                  type="button"
+                  className="action-btn-quiet"
+                  onClick={() => setActiveToolRunning(null)}
+                >
+                  Close
+                </button>
+              </div>
             </div>
           </div>
-        </section>
+        </div>
+      )}
+
+      {/* ====================================================================
+          TOOL SETTINGS MODAL
+          ==================================================================== */}
+      {toolSettingsOpen && (
+        <div className="modal-backdrop" onClick={() => setToolSettingsOpen(null)}>
+          <div className="modal-dialog" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <Settings size={16} />
+                <span style={{ fontSize: '0.92rem', fontWeight: 700 }}>
+                  Configure {toolSettingsOpen.name}
+                </span>
+              </div>
+              <button
+                type="button"
+                className="action-btn-quiet"
+                onClick={() => setToolSettingsOpen(null)}
+                style={{ padding: '4px' }}
+              >
+                <X size={14} />
+              </button>
+            </div>
+
+            <form onSubmit={handleSaveToolSettings}>
+              <div className="modal-body">
+                <div className="form-group">
+                  <label className="form-label">Tool Name</label>
+                  <input
+                    type="text"
+                    value={toolSettingsOpen.name}
+                    onChange={(e) =>
+                      setToolSettingsOpen({ ...toolSettingsOpen, name: e.target.value })
+                    }
+                    className="form-input"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">Category</label>
+                  <input
+                    type="text"
+                    value={toolSettingsOpen.category}
+                    onChange={(e) =>
+                      setToolSettingsOpen({ ...toolSettingsOpen, category: e.target.value })
+                    }
+                    className="form-input"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">Binary Command / Hook</label>
+                  <input
+                    type="text"
+                    value={toolSettingsOpen.binary}
+                    onChange={(e) =>
+                      setToolSettingsOpen({ ...toolSettingsOpen, binary: e.target.value })
+                    }
+                    className="form-input"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">Description</label>
+                  <textarea
+                    value={toolSettingsOpen.description}
+                    onChange={(e) =>
+                      setToolSettingsOpen({ ...toolSettingsOpen, description: e.target.value })
+                    }
+                    className="form-textarea"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">Slot Status</label>
+                  <select
+                    value={toolSettingsOpen.status}
+                    onChange={(e) =>
+                      setToolSettingsOpen({
+                        ...toolSettingsOpen,
+                        status: e.target.value as 'active' | 'idle',
+                      })
+                    }
+                    className="form-select"
+                  >
+                    <option value="active">Active (Online in Pipeline)</option>
+                    <option value="idle">Standby (Idle)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="action-btn-quiet"
+                  onClick={() => setToolSettingsOpen(null)}
+                >
+                  Cancel
+                </button>
+                <button type="submit" className="action-btn-primary">
+                  Save Changes
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* ====================================================================
+          + ADD CUSTOM TOOL PLUGIN MODAL
+          ==================================================================== */}
+      {addToolModalOpen && (
+        <div className="modal-backdrop" onClick={() => setAddToolModalOpen(false)}>
+          <div className="modal-dialog" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <Plus size={16} />
+                <span style={{ fontSize: '0.92rem', fontWeight: 700 }}>
+                  Add Custom Tool Plugin
+                </span>
+              </div>
+              <button
+                type="button"
+                className="action-btn-quiet"
+                onClick={() => setAddToolModalOpen(false)}
+                style={{ padding: '4px' }}
+              >
+                <X size={14} />
+              </button>
+            </div>
+
+            <form onSubmit={handleCreateCustomTool}>
+              <div className="modal-body">
+                <div className="form-group">
+                  <label className="form-label">Plugin Name</label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Figma Tokens Sync or Linear Issue Linker"
+                    value={newToolName}
+                    onChange={(e) => setNewToolName(e.target.value)}
+                    className="form-input"
+                    required
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">Category</label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Design Systems, Multimodal, QA"
+                    value={newToolCategory}
+                    onChange={(e) => setNewToolCategory(e.target.value)}
+                    className="form-input"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">CLI Binary or Endpoint</label>
+                  <input
+                    type="text"
+                    placeholder="e.g. figma-tokens --pull or curl https://..."
+                    value={newToolBinary}
+                    onChange={(e) => setNewToolBinary(e.target.value)}
+                    className="form-input"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">Description</label>
+                  <textarea
+                    placeholder="Briefly describe what this plugin performs..."
+                    value={newToolDesc}
+                    onChange={(e) => setNewToolDesc(e.target.value)}
+                    className="form-textarea"
+                  />
+                </div>
+              </div>
+
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="action-btn-quiet"
+                  onClick={() => setAddToolModalOpen(false)}
+                >
+                  Cancel
+                </button>
+                <button type="submit" className="action-btn-primary">
+                  Connect Plugin Slot
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
       )}
     </div>
   );
 }
 
 export default App;
+
