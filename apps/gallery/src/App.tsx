@@ -203,7 +203,7 @@ const DEFAULT_TOOLS: PluginTool[] = [
     name: 'Hermes Autonomous Loop',
     category: 'Agent Orchestration',
     description:
-      'Recursive 3-pass critique loop enforcing single-CTA clarity, headline line count, and zero AI slop.',
+      'Recursive 3-pass critique loop enforcing single-CTA clarity, headline line count, and authentic domain craft.',
     binary: 'hermes dispatch --workflow a-plus',
     status: 'active',
     telemetry: {
@@ -213,7 +213,7 @@ const DEFAULT_TOOLS: PluginTool[] = [
     },
     config: {
       maxPasses: 3,
-      strictDeslop: true,
+      strictAudit: true,
       parallelWorkers: 4,
     },
     icon: 'cpu',
@@ -1142,7 +1142,7 @@ export function App() {
               <div className="editorial-kicker">OpenDesign Grader & Telemetry</div>
               <h1 className="editorial-title">Minimalist Hero Restraint Law.</h1>
               <p className="editorial-subtitle">
-                Seven strict architectural rules preventing AI slop, layout bloat, and decorative jargon across all 12 projects.
+                Seven strict architectural rules ensuring authentic design standards, structural clarity, and tangible craft across all 12 projects.
               </p>
             </div>
 

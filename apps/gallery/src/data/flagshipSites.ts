@@ -972,7 +972,7 @@ Supporting Sections:
       subjectUnobstructedPct: 80,
       workspaceBlueBleed: false,
     },
-    replicationPrompt: 'Build an authentic, anti-slop commercial hydronics website in daylight light mode (#F6F8FB). Feature high-pressure boiler manifolds, zero floating pills, zero italic gradient headlines, and technical precision telemetry.',
+    replicationPrompt: 'Build an authentic commercial hydronics website in daylight light mode (#F6F8FB). Feature high-pressure boiler manifolds, zero floating pills, zero italic gradient headlines, and technical precision telemetry.',
   },
   {
     id: 'site-9',
@@ -1057,7 +1057,7 @@ Supporting Sections:
       subjectUnobstructedPct: 82,
       workspaceBlueBleed: false,
     },
-    replicationPrompt: 'Build an agronomic estate lawn care website in sunlit warm linen (#F8F7F2) and deep forest peat (#18241A). Feature zero-emission robotic fleet specs, soil microbial assays, and anti-slop natural typography.',
+    replicationPrompt: 'Build an agronomic estate lawn care website in sunlit warm linen (#F8F7F2) and deep forest peat (#18241A). Feature zero-emission robotic fleet specs, soil microbial assays, and clean Daylight typography.',
   },
   {
     id: 'site-10',
@@ -1142,7 +1142,7 @@ Supporting Sections:
       subjectUnobstructedPct: 84,
       workspaceBlueBleed: false,
     },
-    replicationPrompt: 'Build an architectural metal roofing site in quarried slate light mode (#F1F3F6) and anthracite zinc (#141A24). Focus on standing-seam mechanics, copper fasteners, Welsh slate, and zero AI slop.',
+    replicationPrompt: 'Build an architectural metal roofing site in quarried slate light mode (#F1F3F6) and anthracite zinc (#141A24). Focus on standing-seam mechanics, copper fasteners, Welsh slate, and authentic domain specifications.',
   },
   {
     id: 'site-11',
@@ -1227,7 +1227,7 @@ Supporting Sections:
       subjectUnobstructedPct: 85,
       workspaceBlueBleed: false,
     },
-    replicationPrompt: 'Build a high-performance developer SaaS runtime website in Swiss light mode (#F8FAFC) and obsidian ink (#0F172A). Feature live agent mesh telemetry, sub-10ms benchmarks, and zero AI slop.',
+    replicationPrompt: 'Build a high-performance developer SaaS runtime website in Swiss light mode (#F8FAFC) and obsidian ink (#0F172A). Feature live agent mesh telemetry, sub-10ms benchmarks, and clean Daylight design standards.',
   },
   {
     id: 'site-12',
@@ -1312,7 +1312,7 @@ Supporting Sections:
       subjectUnobstructedPct: 88,
       workspaceBlueBleed: false,
     },
-    replicationPrompt: 'Build an ultra-luxury high-jewelry and crystallography showcase in daylight parchment (#FDFBF7) and deep obsidian (#181615). Feature microscopic inclusion mapping, tension settings, and zero AI slop.',
+    replicationPrompt: 'Build an ultra-luxury high-jewelry and crystallography showcase in daylight parchment (#FDFBF7) and deep obsidian (#181615). Feature microscopic inclusion mapping, tension settings, and tangible craft.',
   },
 ];
 
@@ -1399,7 +1399,7 @@ Every flagship site in HeroForge V1 has a verified **A+ Master Replication Promp
     markdown: `# 03 — Consolidated Skill Architecture
 
 All 38 skills are audited at **100/100** and consolidated into:
-- **\`heroforge-master-studio/SKILL.md\`**: Unified design, 3D, mobile UX, anti-slop, and Minimalist Hero Restraint skill.
+- **\`heroforge-master-studio/SKILL.md\`**: Unified design, 3D, mobile UX, authentic craft, and Minimalist Hero Restraint skill.
 - **\`hyperframes-motion-graphics/SKILL.md\`**: Deterministic 60-second (1-minute) X-Post launch video composer & renderer.
 - Synchronized across \`.agents/skills\`, \`.claude/skills\`, and \`.codex/skills\`.`,
   },
