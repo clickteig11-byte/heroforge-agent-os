@@ -13,7 +13,6 @@ export default defineConfig({
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom'],
-          motion: ['motion', 'gsap'],
           icons: ['lucide-react']
         }
       }
