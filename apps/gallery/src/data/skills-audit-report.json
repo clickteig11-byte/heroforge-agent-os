@@ -184,7 +184,7 @@
     },
     {
       "name": "design-taste-frontend",
-      "displayName": "TasteSkill 2.5.1 (Anti-Slop Frontend Design Skill)",
+      "displayName": "TasteSkill 2.5.1 (High-Taste Frontend Design Skill)",
       "category": "third-party-verified",
       "source": "https://github.com/Leonxlnx/taste-skill",
       "commit": "f6b76575f949707b4e3c37cd86cb44b0b98643e8",
@@ -248,7 +248,7 @@
     },
     {
       "name": "hallmark",
-      "displayName": "Hallmark v2.0 (Together AI / Nutlope Anti-Slop Design Skill)",
+      "displayName": "Hallmark v2.0 (Together AI / Nutlope Human-Grade Design Skill)",
       "category": "third-party-verified",
       "source": "https://github.com/Nutlope/hallmark",
       "commit": "7e213cb6feb4ef82733bd66a0600b2e54ca0994c",
@@ -360,7 +360,7 @@
     },
     {
       "name": "impeccable",
-      "displayName": "Impeccable Design & Anti-Slop Critique Engine",
+      "displayName": "Impeccable Design & Craft Critique Engine",
       "category": "third-party-verified",
       "source": "https://github.com/pbakaus/impeccable",
       "commit": "f2baa414a87d9acf1e21ccf776bfaec0262ad6df",

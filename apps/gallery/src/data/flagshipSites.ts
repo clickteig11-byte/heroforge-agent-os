@@ -363,7 +363,7 @@ Supporting Sections:
           title: 'Dual-Propellant Xenon / Krypton Cathode',
           metric: '1.4 N @ 22 kWInput',
           summary:
-            'Hot-swappable propellant feed manifold transitions seamlessly between high-thrust orbit raising and high-Isp stationkeeping.',
+            'Hot-swappable propellant feed manifold transitions directly between high-thrust orbit raising and high-Isp stationkeeping.',
         },
         {
           index: '03',
