@@ -1,0 +1,753 @@
+[
+  {
+    "app": "gallery",
+    "appName": "Master OS minimal dashboard",
+    "targetPath": "apps/gallery",
+    "status": "SUCCESS",
+    "tsErrors": 0,
+    "tsDiagnostics": [],
+    "buildErrors": 0,
+    "warnings": [],
+    "duration": "15.71s",
+    "daylightVerified": true,
+    "daylightBg": "#FAF9F6",
+    "jargonPromptResidueCount": 0,
+    "jargonViolations": [],
+    "bundleUnder200KBVerified": true,
+    "bundleMetrics": {
+      "totalDistSize": "81041.02 kB",
+      "jsSize": "252.70 kB",
+      "cssSize": "20.06 kB",
+      "htmlFiles": [
+        {
+          "rel": "index.html",
+          "size": "1.24 kB"
+        }
+      ],
+      "jsBundles": [
+        {
+          "rel": "assets/icons-D8nhEhWT.js",
+          "size": "17.31 kB",
+          "sizeBytes": 17727,
+          "under200KB": true
+        },
+        {
+          "rel": "assets/index-By7z6BLt.js",
+          "size": "104.34 kB",
+          "sizeBytes": 106843,
+          "under200KB": true
+        },
+        {
+          "rel": "assets/vendor-CdwR5GUa.js",
+          "size": "131.05 kB",
+          "sizeBytes": 134198,
+          "under200KB": true
+        }
+      ],
+      "cssBundles": [
+        {
+          "rel": "assets/index-DLyKQZfr.css",
+          "size": "20.06 kB"
+        }
+      ]
+    },
+    "files": [
+      {
+        "rel": "assets/icons-D8nhEhWT.js",
+        "size": "17.31 kB"
+      },
+      {
+        "rel": "assets/index-By7z6BLt.js",
+        "size": "104.34 kB"
+      },
+      {
+        "rel": "assets/index-DLyKQZfr.css",
+        "size": "20.06 kB"
+      },
+      {
+        "rel": "assets/vendor-CdwR5GUa.js",
+        "size": "131.05 kB"
+      },
+      {
+        "rel": "brag-poster.jpg",
+        "size": "307.60 kB"
+      },
+      {
+        "rel": "brag-x-post.mp4",
+        "size": "36320.86 kB"
+      },
+      {
+        "rel": "favicon.ico",
+        "size": "0.23 kB"
+      },
+      {
+        "rel": "favicon.svg",
+        "size": "0.23 kB"
+      },
+      {
+        "rel": "index.html",
+        "size": "1.24 kB"
+      },
+      {
+        "rel": "qa/gallery/desktop-full.png",
+        "size": "784.28 kB"
+      },
+      {
+        "rel": "qa/gallery/desktop-hero.png",
+        "size": "865.24 kB"
+      },
+      {
+        "rel": "qa/gallery/desktop-scrolled.png",
+        "size": "784.28 kB"
+      },
+      {
+        "rel": "qa/gallery/mobile-full.png",
+        "size": "157.12 kB"
+      },
+      {
+        "rel": "qa/gallery/mobile-hero.png",
+        "size": "38.05 kB"
+      },
+      {
+        "rel": "qa/gallery/tablet-full.png",
+        "size": "182.21 kB"
+      },
+      {
+        "rel": "qa/gallery/tablet-hero.png",
+        "size": "41.44 kB"
+      },
+      {
+        "rel": "qa/website-a/desktop-full.png",
+        "size": "1838.99 kB"
+      },
+      {
+        "rel": "qa/website-a/desktop-hero.png",
+        "size": "1257.76 kB"
+      },
+      {
+        "rel": "qa/website-a/desktop-scrolled.png",
+        "size": "144.83 kB"
+      },
+      {
+        "rel": "qa/website-a/mobile-full.png",
+        "size": "711.19 kB"
+      },
+      {
+        "rel": "qa/website-a/mobile-hero.png",
+        "size": "369.16 kB"
+      },
+      {
+        "rel": "qa/website-a/tablet-full.png",
+        "size": "1082.50 kB"
+      },
+      {
+        "rel": "qa/website-a/tablet-hero.png",
+        "size": "794.25 kB"
+      },
+      {
+        "rel": "qa/website-b/desktop-full.png",
+        "size": "3591.99 kB"
+      },
+      {
+        "rel": "qa/website-b/desktop-hero.png",
+        "size": "1368.76 kB"
+      },
+      {
+        "rel": "qa/website-b/desktop-scrolled.png",
+        "size": "161.41 kB"
+      },
+      {
+        "rel": "qa/website-b/mobile-full.png",
+        "size": "1046.89 kB"
+      },
+      {
+        "rel": "qa/website-b/mobile-hero.png",
+        "size": "401.23 kB"
+      },
+      {
+        "rel": "qa/website-b/tablet-full.png",
+        "size": "1710.23 kB"
+      },
+      {
+        "rel": "qa/website-b/tablet-hero.png",
+        "size": "847.08 kB"
+      },
+      {
+        "rel": "references/sites/service-lawn.jpg",
+        "size": "1030.65 kB"
+      },
+      {
+        "rel": "references/sites/service-plumbing.jpg",
+        "size": "717.61 kB"
+      },
+      {
+        "rel": "references/sites/service-roofing.jpg",
+        "size": "842.08 kB"
+      },
+      {
+        "rel": "references/sites/service-saas.png",
+        "size": "207.57 kB"
+      },
+      {
+        "rel": "references/sites/site-3-valkyr.jpg",
+        "size": "310.56 kB"
+      },
+      {
+        "rel": "references/sites/site-4-sora.jpg",
+        "size": "285.74 kB"
+      },
+      {
+        "rel": "references/sites/site-5-vespers.jpg",
+        "size": "311.02 kB"
+      },
+      {
+        "rel": "references/sites/site-6-veloce.jpg",
+        "size": "373.79 kB"
+      },
+      {
+        "rel": "references/sites/site-7-solaris.jpg",
+        "size": "450.43 kB"
+      },
+      {
+        "rel": "references/website-a/atelier-hero-bg.jpg",
+        "size": "708.34 kB"
+      },
+      {
+        "rel": "references/website-a/atelier-hero-bg.png",
+        "size": "708.34 kB"
+      },
+      {
+        "rel": "references/website-a/hero-mockup-1.png",
+        "size": "1376.29 kB"
+      },
+      {
+        "rel": "references/website-a/hero-mockup-2.png",
+        "size": "1453.58 kB"
+      },
+      {
+        "rel": "references/website-a/hero-mockup-3.png",
+        "size": "1321.04 kB"
+      },
+      {
+        "rel": "references/website-a/reference-desktop.png",
+        "size": "1301.25 kB"
+      },
+      {
+        "rel": "references/website-a/reference-mobile.png",
+        "size": "1197.16 kB"
+      },
+      {
+        "rel": "references/website-b/hero-mockup-1.png",
+        "size": "1394.83 kB"
+      },
+      {
+        "rel": "references/website-b/hero-mockup-2.png",
+        "size": "1428.04 kB"
+      },
+      {
+        "rel": "references/website-b/hero-mockup-3.png",
+        "size": "1331.99 kB"
+      },
+      {
+        "rel": "references/website-b/plate-atacama-travertine.jpg",
+        "size": "783.13 kB"
+      },
+      {
+        "rel": "references/website-b/plate-atacama-travertine.png",
+        "size": "1626.73 kB"
+      },
+      {
+        "rel": "references/website-b/plate-naoshima-acoustic.jpg",
+        "size": "816.53 kB"
+      },
+      {
+        "rel": "references/website-b/plate-naoshima-acoustic.png",
+        "size": "1621.46 kB"
+      },
+      {
+        "rel": "references/website-b/plate-reykjavik-basalt.jpg",
+        "size": "716.14 kB"
+      },
+      {
+        "rel": "references/website-b/plate-reykjavik-basalt.png",
+        "size": "1539.11 kB"
+      },
+      {
+        "rel": "references/website-b/reference-desktop.png",
+        "size": "1405.87 kB"
+      },
+      {
+        "rel": "references/website-b/reference-mobile.png",
+        "size": "699.92 kB"
+      }
+    ]
+  },
+  {
+    "app": "vane-hydronics",
+    "appName": "Vane & Tor Hydronics",
+    "targetPath": "apps/vane-hydronics",
+    "status": "SUCCESS",
+    "tsErrors": 0,
+    "tsDiagnostics": [],
+    "buildErrors": 0,
+    "warnings": [],
+    "duration": "12.13s",
+    "daylightVerified": true,
+    "daylightBg": "#F6F4EE",
+    "jargonPromptResidueCount": 0,
+    "jargonViolations": [],
+    "bundleUnder200KBVerified": true,
+    "bundleMetrics": {
+      "totalDistSize": "920.17 kB",
+      "jsSize": "181.94 kB",
+      "cssSize": "18.91 kB",
+      "htmlFiles": [
+        {
+          "rel": "index.html",
+          "size": "1.24 kB"
+        }
+      ],
+      "jsBundles": [
+        {
+          "rel": "assets/index-DFUrx6kT.js",
+          "size": "181.94 kB",
+          "sizeBytes": 186306,
+          "under200KB": true
+        }
+      ],
+      "cssBundles": [
+        {
+          "rel": "assets/index-BLPp_F1U.css",
+          "size": "18.91 kB"
+        }
+      ]
+    },
+    "files": [
+      {
+        "rel": "assets/index-BLPp_F1U.css",
+        "size": "18.91 kB"
+      },
+      {
+        "rel": "assets/index-DFUrx6kT.js",
+        "size": "181.94 kB"
+      },
+      {
+        "rel": "favicon.ico",
+        "size": "0.23 kB"
+      },
+      {
+        "rel": "favicon.svg",
+        "size": "0.23 kB"
+      },
+      {
+        "rel": "images/plant-room-hero.jpg",
+        "size": "717.61 kB"
+      },
+      {
+        "rel": "index.html",
+        "size": "1.24 kB"
+      }
+    ]
+  },
+  {
+    "app": "nordic-turf",
+    "appName": "Nordic Turf Living Soil",
+    "targetPath": "apps/nordic-turf",
+    "status": "SUCCESS",
+    "tsErrors": 0,
+    "tsDiagnostics": [],
+    "buildErrors": 0,
+    "warnings": [],
+    "duration": "7.79s",
+    "daylightVerified": true,
+    "daylightBg": "#f8f7f2",
+    "jargonPromptResidueCount": 0,
+    "jargonViolations": [],
+    "bundleUnder200KBVerified": true,
+    "bundleMetrics": {
+      "totalDistSize": "151.97 kB",
+      "jsSize": "145.94 kB",
+      "cssSize": "4.88 kB",
+      "htmlFiles": [
+        {
+          "rel": "index.html",
+          "size": "1.15 kB"
+        }
+      ],
+      "jsBundles": [
+        {
+          "rel": "assets/index-DaoU1RLF.js",
+          "size": "145.94 kB",
+          "sizeBytes": 149442,
+          "under200KB": true
+        }
+      ],
+      "cssBundles": [
+        {
+          "rel": "assets/index-BIho8FgT.css",
+          "size": "4.88 kB"
+        }
+      ]
+    },
+    "files": [
+      {
+        "rel": "assets/index-BIho8FgT.css",
+        "size": "4.88 kB"
+      },
+      {
+        "rel": "assets/index-DaoU1RLF.js",
+        "size": "145.94 kB"
+      },
+      {
+        "rel": "index.html",
+        "size": "1.15 kB"
+      }
+    ]
+  },
+  {
+    "app": "strata-roofing",
+    "appName": "Strata Slate & Zinc",
+    "targetPath": "apps/strata-roofing",
+    "status": "SUCCESS",
+    "tsErrors": 0,
+    "tsDiagnostics": [],
+    "buildErrors": 0,
+    "warnings": [],
+    "duration": "5.99s",
+    "daylightVerified": true,
+    "daylightBg": "#f1f3f6",
+    "jargonPromptResidueCount": 0,
+    "jargonViolations": [],
+    "bundleUnder200KBVerified": true,
+    "bundleMetrics": {
+      "totalDistSize": "151.95 kB",
+      "jsSize": "145.94 kB",
+      "cssSize": "4.88 kB",
+      "htmlFiles": [
+        {
+          "rel": "index.html",
+          "size": "1.13 kB"
+        }
+      ],
+      "jsBundles": [
+        {
+          "rel": "assets/index-BN8SW598.js",
+          "size": "145.94 kB",
+          "sizeBytes": 149438,
+          "under200KB": true
+        }
+      ],
+      "cssBundles": [
+        {
+          "rel": "assets/index-BW5x0TZ9.css",
+          "size": "4.88 kB"
+        }
+      ]
+    },
+    "files": [
+      {
+        "rel": "assets/index-BN8SW598.js",
+        "size": "145.94 kB"
+      },
+      {
+        "rel": "assets/index-BW5x0TZ9.css",
+        "size": "4.88 kB"
+      },
+      {
+        "rel": "index.html",
+        "size": "1.13 kB"
+      }
+    ]
+  },
+  {
+    "app": "kronos-runtime",
+    "appName": "Kronos Runtime",
+    "targetPath": "apps/kronos-runtime",
+    "status": "SUCCESS",
+    "tsErrors": 0,
+    "tsDiagnostics": [],
+    "buildErrors": 0,
+    "warnings": [],
+    "duration": "6.38s",
+    "daylightVerified": true,
+    "daylightBg": "#f8fafc",
+    "jargonPromptResidueCount": 0,
+    "jargonViolations": [],
+    "bundleUnder200KBVerified": true,
+    "bundleMetrics": {
+      "totalDistSize": "152.13 kB",
+      "jsSize": "146.04 kB",
+      "cssSize": "5.00 kB",
+      "htmlFiles": [
+        {
+          "rel": "index.html",
+          "size": "1.09 kB"
+        }
+      ],
+      "jsBundles": [
+        {
+          "rel": "assets/index-DS3Iu9Vq.js",
+          "size": "146.04 kB",
+          "sizeBytes": 149547,
+          "under200KB": true
+        }
+      ],
+      "cssBundles": [
+        {
+          "rel": "assets/index-BTaC0usd.css",
+          "size": "5.00 kB"
+        }
+      ]
+    },
+    "files": [
+      {
+        "rel": "assets/index-BTaC0usd.css",
+        "size": "5.00 kB"
+      },
+      {
+        "rel": "assets/index-DS3Iu9Vq.js",
+        "size": "146.04 kB"
+      },
+      {
+        "rel": "index.html",
+        "size": "1.09 kB"
+      }
+    ]
+  },
+  {
+    "app": "site-4-sora",
+    "appName": "Sora Acoustic Monolith",
+    "targetPath": "apps/site-4-sora",
+    "status": "SUCCESS",
+    "tsErrors": 0,
+    "tsDiagnostics": [],
+    "buildErrors": 0,
+    "warnings": [],
+    "duration": "5.50s",
+    "daylightVerified": true,
+    "daylightBg": "#f7f5f0",
+    "jargonPromptResidueCount": 0,
+    "jargonViolations": [],
+    "bundleUnder200KBVerified": true,
+    "bundleMetrics": {
+      "totalDistSize": "438.17 kB",
+      "jsSize": "145.78 kB",
+      "cssSize": "5.65 kB",
+      "htmlFiles": [
+        {
+          "rel": "index.html",
+          "size": "1.01 kB"
+        }
+      ],
+      "jsBundles": [
+        {
+          "rel": "assets/index-BDkgGdnB.js",
+          "size": "145.78 kB",
+          "sizeBytes": 149274,
+          "under200KB": true
+        }
+      ],
+      "cssBundles": [
+        {
+          "rel": "assets/index-BJbKMK2K.css",
+          "size": "5.65 kB"
+        }
+      ]
+    },
+    "files": [
+      {
+        "rel": "assets/index-BDkgGdnB.js",
+        "size": "145.78 kB"
+      },
+      {
+        "rel": "assets/index-BJbKMK2K.css",
+        "size": "5.65 kB"
+      },
+      {
+        "rel": "index.html",
+        "size": "1.01 kB"
+      },
+      {
+        "rel": "references/sites/site-4-sora.jpg",
+        "size": "285.74 kB"
+      }
+    ]
+  },
+  {
+    "app": "site-5-vespers",
+    "appName": "Atelier Vespers",
+    "targetPath": "apps/site-5-vespers",
+    "status": "SUCCESS",
+    "tsErrors": 0,
+    "tsDiagnostics": [],
+    "buildErrors": 0,
+    "warnings": [],
+    "duration": "6.50s",
+    "daylightVerified": true,
+    "daylightBg": "#f7f6f2",
+    "jargonPromptResidueCount": 0,
+    "jargonViolations": [],
+    "bundleUnder200KBVerified": true,
+    "bundleMetrics": {
+      "totalDistSize": "463.35 kB",
+      "jsSize": "145.71 kB",
+      "cssSize": "5.61 kB",
+      "htmlFiles": [
+        {
+          "rel": "index.html",
+          "size": "1.02 kB"
+        }
+      ],
+      "jsBundles": [
+        {
+          "rel": "assets/index-BT35Lmbv.js",
+          "size": "145.71 kB",
+          "sizeBytes": 149204,
+          "under200KB": true
+        }
+      ],
+      "cssBundles": [
+        {
+          "rel": "assets/index-CTJTHxn7.css",
+          "size": "5.61 kB"
+        }
+      ]
+    },
+    "files": [
+      {
+        "rel": "assets/index-BT35Lmbv.js",
+        "size": "145.71 kB"
+      },
+      {
+        "rel": "assets/index-CTJTHxn7.css",
+        "size": "5.61 kB"
+      },
+      {
+        "rel": "index.html",
+        "size": "1.02 kB"
+      },
+      {
+        "rel": "references/sites/site-5-vespers.jpg",
+        "size": "311.02 kB"
+      }
+    ]
+  },
+  {
+    "app": "site-6-veloce",
+    "appName": "Veloce Aerodynamics",
+    "targetPath": "apps/site-6-veloce",
+    "status": "SUCCESS",
+    "tsErrors": 0,
+    "tsDiagnostics": [],
+    "buildErrors": 0,
+    "warnings": [],
+    "duration": "6.26s",
+    "daylightVerified": true,
+    "daylightBg": "#f7f7f9",
+    "jargonPromptResidueCount": 0,
+    "jargonViolations": [],
+    "bundleUnder200KBVerified": true,
+    "bundleMetrics": {
+      "totalDistSize": "526.37 kB",
+      "jsSize": "146.02 kB",
+      "cssSize": "5.55 kB",
+      "htmlFiles": [
+        {
+          "rel": "index.html",
+          "size": "1.02 kB"
+        }
+      ],
+      "jsBundles": [
+        {
+          "rel": "assets/index-BDh6gAm5.js",
+          "size": "146.02 kB",
+          "sizeBytes": 149525,
+          "under200KB": true
+        }
+      ],
+      "cssBundles": [
+        {
+          "rel": "assets/index-Bf7mIAC0.css",
+          "size": "5.55 kB"
+        }
+      ]
+    },
+    "files": [
+      {
+        "rel": "assets/index-BDh6gAm5.js",
+        "size": "146.02 kB"
+      },
+      {
+        "rel": "assets/index-Bf7mIAC0.css",
+        "size": "5.55 kB"
+      },
+      {
+        "rel": "index.html",
+        "size": "1.02 kB"
+      },
+      {
+        "rel": "references/sites/site-6-veloce.jpg",
+        "size": "373.79 kB"
+      }
+    ]
+  },
+  {
+    "app": "site-7-solaris",
+    "appName": "Solaris Lensworks",
+    "targetPath": "apps/site-7-solaris",
+    "status": "SUCCESS",
+    "tsErrors": 0,
+    "tsDiagnostics": [],
+    "buildErrors": 0,
+    "warnings": [],
+    "duration": "5.42s",
+    "daylightVerified": true,
+    "daylightBg": "#f7f6f2",
+    "jargonPromptResidueCount": 0,
+    "jargonViolations": [],
+    "bundleUnder200KBVerified": true,
+    "bundleMetrics": {
+      "totalDistSize": "603.08 kB",
+      "jsSize": "146.08 kB",
+      "cssSize": "5.56 kB",
+      "htmlFiles": [
+        {
+          "rel": "index.html",
+          "size": "1.01 kB"
+        }
+      ],
+      "jsBundles": [
+        {
+          "rel": "assets/index-BapWqY8G.js",
+          "size": "146.08 kB",
+          "sizeBytes": 149587,
+          "under200KB": true
+        }
+      ],
+      "cssBundles": [
+        {
+          "rel": "assets/index-J0krvtqv.css",
+          "size": "5.56 kB"
+        }
+      ]
+    },
+    "files": [
+      {
+        "rel": "assets/index-BapWqY8G.js",
+        "size": "146.08 kB"
+      },
+      {
+        "rel": "assets/index-J0krvtqv.css",
+        "size": "5.56 kB"
+      },
+      {
+        "rel": "index.html",
+        "size": "1.01 kB"
+      },
+      {
+        "rel": "references/sites/site-7-solaris.jpg",
+        "size": "450.43 kB"
+      }
+    ]
+  }
+]
