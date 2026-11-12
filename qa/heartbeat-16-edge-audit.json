@@ -1,0 +1,398 @@
+{
+  "heartbeat_iteration": 16,
+  "timestamp": "2026-11-12T03:47:28.912Z",
+  "account": "clickteig11-byte",
+  "summary": {
+    "total_endpoints_audited": 12,
+    "healthy_endpoints": 12,
+    "http_200_pass_rate": "100.0%",
+    "tls_status": "100% Valid (Google Trust Services WR1, 78 days validity remaining)",
+    "compression_status": "100% Brotli (br)",
+    "edge_latency_avg_ms": 472.6,
+    "edge_network": "Vercel Edge Network (cle1 Point of Presence)",
+    "all_standalone_repos_clean": true,
+    "all_standalone_repos_synced": true,
+    "root_repository_synced": true
+  },
+  "root_repository": {
+    "path": "/Users/caleblickteig/antigravity/Build-with-Caleb/heroforge-v1",
+    "remote": "https://github.com/clickteig11-byte/heroforge-agent-os.git",
+    "branch": "main",
+    "clean": false,
+    "sync_status": "+0/-0"
+  },
+  "endpoints": [
+    {
+      "id": "site-1-calibre",
+      "name": "Calibre 01 / Haute Horlogerie",
+      "url": "https://website-a-3d.vercel.app",
+      "http_status": 200,
+      "latency_total_ms": 396.3,
+      "connect_ms": 0.3,
+      "tls_handshake_ms": 294,
+      "ttfb_ms": 94.7,
+      "compression": "br",
+      "brotli_verified": true,
+      "download_size_bytes": 675,
+      "edge_pop": "cle1",
+      "vercel_cache": "HIT",
+      "x_vercel_id": "cle1::c9s8l-1794455236925-ce94668602f9",
+      "server": "Vercel",
+      "tls_details": {
+        "valid": true,
+        "issuer": "C=US, O=Google Trust Services, CN=WR1",
+        "subject": "CN=*.vercel.app",
+        "not_after": "Jan 29 11:46:09 2027 GMT",
+        "days_validity": 78
+      },
+      "git": {
+        "repo_dir": "apps/website-a-3d",
+        "repo_url": "https://github.com/clickteig11-byte/aetherion-geneve.git",
+        "branch": "main",
+        "clean": true,
+        "sync_status": "+0/-0"
+      }
+    },
+    {
+      "id": "site-2-monograph",
+      "name": "Monograph IV / Kurokawa Vane",
+      "url": "https://website-b-editorial.vercel.app",
+      "http_status": 200,
+      "latency_total_ms": 389.3,
+      "connect_ms": 1.9,
+      "tls_handshake_ms": 176.7,
+      "ttfb_ms": 140.8,
+      "compression": "br",
+      "brotli_verified": true,
+      "download_size_bytes": 693,
+      "edge_pop": "cle1",
+      "vercel_cache": "HIT",
+      "x_vercel_id": "cle1::clbfp-1794455237942-cb27e5a80f1b",
+      "server": "Vercel",
+      "tls_details": {
+        "valid": true,
+        "issuer": "C=US, O=Google Trust Services, CN=WR1",
+        "subject": "CN=*.vercel.app",
+        "not_after": "Jan 29 11:46:09 2027 GMT",
+        "days_validity": 78
+      },
+      "git": {
+        "repo_dir": "apps/website-b-editorial",
+        "repo_url": "https://github.com/clickteig11-byte/kurokawa-vane.git",
+        "branch": "main",
+        "clean": true,
+        "sync_status": "+0/-0"
+      }
+    },
+    {
+      "id": "site-3-valkyr",
+      "name": "Helios-9 / Valkyr Propulsion",
+      "url": "https://site-3-valkyr.vercel.app",
+      "http_status": 200,
+      "latency_total_ms": 553.8,
+      "connect_ms": 0.3,
+      "tls_handshake_ms": 302.2,
+      "ttfb_ms": 186.8,
+      "compression": "br",
+      "brotli_verified": true,
+      "download_size_bytes": 534,
+      "edge_pop": "cle1",
+      "vercel_cache": "HIT",
+      "x_vercel_id": "cle1::vsp7r-1794455239026-6d4ffb39a6ce",
+      "server": "Vercel",
+      "tls_details": {
+        "valid": true,
+        "issuer": "C=US, O=Google Trust Services, CN=WR1",
+        "subject": "CN=*.vercel.app",
+        "not_after": "Jan 29 11:46:09 2027 GMT",
+        "days_validity": 78
+      },
+      "git": {
+        "repo_dir": "apps/site-3-valkyr",
+        "repo_url": "https://github.com/clickteig11-byte/valkyr-orbital.git",
+        "branch": "main",
+        "clean": true,
+        "sync_status": "+0/-0"
+      }
+    },
+    {
+      "id": "site-4-sora",
+      "name": "Reference 01 / Sora Acoustic Monolith",
+      "url": "https://sora-klang.vercel.app",
+      "http_status": 200,
+      "latency_total_ms": 336.5,
+      "connect_ms": 0.4,
+      "tls_handshake_ms": 189.9,
+      "ttfb_ms": 83.3,
+      "compression": "br",
+      "brotli_verified": true,
+      "download_size_bytes": 569,
+      "edge_pop": "cle1",
+      "vercel_cache": "HIT",
+      "x_vercel_id": "cle1::rm6cp-1794455239939-072fea1becaa",
+      "server": "Vercel",
+      "tls_details": {
+        "valid": true,
+        "issuer": "C=US, O=Google Trust Services, CN=WR1",
+        "subject": "CN=*.vercel.app",
+        "not_after": "Jan 29 11:46:09 2027 GMT",
+        "days_validity": 78
+      },
+      "git": {
+        "repo_dir": "apps/site-4-sora",
+        "repo_url": "https://github.com/clickteig11-byte/sora-klang.git",
+        "branch": "main",
+        "clean": true,
+        "sync_status": "+0/-0"
+      }
+    },
+    {
+      "id": "site-5-vespers",
+      "name": "Distillation 09 / Atelier Vespers",
+      "url": "https://site-5-vespers.vercel.app",
+      "http_status": 200,
+      "latency_total_ms": 427.7,
+      "connect_ms": 0.3,
+      "tls_handshake_ms": 270.8,
+      "ttfb_ms": 90.6,
+      "compression": "br",
+      "brotli_verified": true,
+      "download_size_bytes": 534,
+      "edge_pop": "cle1",
+      "vercel_cache": "HIT",
+      "x_vercel_id": "cle1::7hmpj-1794455241030-6e1f3f8e1c76",
+      "server": "Vercel",
+      "tls_details": {
+        "valid": true,
+        "issuer": "C=US, O=Google Trust Services, CN=WR1",
+        "subject": "CN=*.vercel.app",
+        "not_after": "Jan 29 11:46:09 2027 GMT",
+        "days_validity": 78
+      },
+      "git": {
+        "repo_dir": "apps/site-5-vespers",
+        "repo_url": "https://github.com/clickteig11-byte/atelier-vespers.git",
+        "branch": "main",
+        "clean": true,
+        "sync_status": "+0/-0"
+      }
+    },
+    {
+      "id": "site-6-veloce",
+      "name": "Tipo 04 / Veloce Aerodynamics",
+      "url": "https://site-6-veloce.vercel.app",
+      "http_status": 200,
+      "latency_total_ms": 579.9,
+      "connect_ms": 0.4,
+      "tls_handshake_ms": 392.6,
+      "ttfb_ms": 113.8,
+      "compression": "br",
+      "brotli_verified": true,
+      "download_size_bytes": 544,
+      "edge_pop": "cle1",
+      "vercel_cache": "HIT",
+      "x_vercel_id": "cle1::hb5k2-1794455242077-b1635b7f09c2",
+      "server": "Vercel",
+      "tls_details": {
+        "valid": true,
+        "issuer": "C=US, O=Google Trust Services, CN=WR1",
+        "subject": "CN=*.vercel.app",
+        "not_after": "Jan 29 11:46:09 2027 GMT",
+        "days_validity": 78
+      },
+      "git": {
+        "repo_dir": "apps/site-6-veloce",
+        "repo_url": "https://github.com/clickteig11-byte/veloce-morphos.git",
+        "branch": "main",
+        "clean": true,
+        "sync_status": "+0/-0"
+      }
+    },
+    {
+      "id": "site-7-solaris",
+      "name": "APO-Summitar / Solaris Lensworks",
+      "url": "https://site-7-solaris.vercel.app",
+      "http_status": 200,
+      "latency_total_ms": 663.9,
+      "connect_ms": 3.5,
+      "tls_handshake_ms": 320.6,
+      "ttfb_ms": 242.4,
+      "compression": "br",
+      "brotli_verified": true,
+      "download_size_bytes": 526,
+      "edge_pop": "cle1",
+      "vercel_cache": "HIT",
+      "x_vercel_id": "cle1::ljkck-1794455243320-2071af728815",
+      "server": "Vercel",
+      "tls_details": {
+        "valid": true,
+        "issuer": "C=US, O=Google Trust Services, CN=WR1",
+        "subject": "CN=*.vercel.app",
+        "not_after": "Jan 29 11:46:09 2027 GMT",
+        "days_validity": 78
+      },
+      "git": {
+        "repo_dir": "apps/site-7-solaris",
+        "repo_url": "https://github.com/clickteig11-byte/solaris-lensworks.git",
+        "branch": "main",
+        "clean": true,
+        "sync_status": "+0/-0"
+      }
+    },
+    {
+      "id": "site-8-hydronics",
+      "name": "Vane & Tor Hydronics",
+      "url": "https://vane-hydronics-five.vercel.app",
+      "http_status": 200,
+      "latency_total_ms": 396.5,
+      "connect_ms": 0.3,
+      "tls_handshake_ms": 242.4,
+      "ttfb_ms": 83.4,
+      "compression": "br",
+      "brotli_verified": true,
+      "download_size_bytes": 659,
+      "edge_pop": "cle1",
+      "vercel_cache": "HIT",
+      "x_vercel_id": "cle1::wql8f-1794455244340-556918aeb4eb",
+      "server": "Vercel",
+      "tls_details": {
+        "valid": true,
+        "issuer": "C=US, O=Google Trust Services, CN=WR1",
+        "subject": "CN=*.vercel.app",
+        "not_after": "Jan 29 11:46:09 2027 GMT",
+        "days_validity": 78
+      },
+      "git": {
+        "repo_dir": "apps/vane-hydronics",
+        "repo_url": "https://github.com/clickteig11-byte/vane-hydronics.git",
+        "branch": "main",
+        "clean": true,
+        "sync_status": "+0/-0"
+      }
+    },
+    {
+      "id": "site-9-turf",
+      "name": "Nordic Turf & Meadow",
+      "url": "https://nordic-turf-iota.vercel.app",
+      "http_status": 200,
+      "latency_total_ms": 394.6,
+      "connect_ms": 0.4,
+      "tls_handshake_ms": 199.1,
+      "ttfb_ms": 128.8,
+      "compression": "br",
+      "brotli_verified": true,
+      "download_size_bytes": 614,
+      "edge_pop": "cle1",
+      "vercel_cache": "HIT",
+      "x_vercel_id": "cle1::5rq6x-1794455245341-d1486c43660a",
+      "server": "Vercel",
+      "tls_details": {
+        "valid": true,
+        "issuer": "C=US, O=Google Trust Services, CN=WR1",
+        "subject": "CN=*.vercel.app",
+        "not_after": "Jan 29 11:46:09 2027 GMT",
+        "days_validity": 78
+      },
+      "git": {
+        "repo_dir": "apps/nordic-turf",
+        "repo_url": "https://github.com/clickteig11-byte/nordic-turf.git",
+        "branch": "main",
+        "clean": true,
+        "sync_status": "+0/-0"
+      }
+    },
+    {
+      "id": "site-10-roofing",
+      "name": "Strata Zinc & Slate",
+      "url": "https://strata-roofing-ten.vercel.app",
+      "http_status": 200,
+      "latency_total_ms": 604.2,
+      "connect_ms": 0.5,
+      "tls_handshake_ms": 426.3,
+      "ttfb_ms": 82.8,
+      "compression": "br",
+      "brotli_verified": true,
+      "download_size_bytes": 612,
+      "edge_pop": "cle1",
+      "vercel_cache": "HIT",
+      "x_vercel_id": "cle1::8ndjm-1794455246403-6b9379d60d43",
+      "server": "Vercel",
+      "tls_details": {
+        "valid": true,
+        "issuer": "C=US, O=Google Trust Services, CN=WR1",
+        "subject": "CN=*.vercel.app",
+        "not_after": "Jan 29 11:46:09 2027 GMT",
+        "days_validity": 78
+      },
+      "git": {
+        "repo_dir": "apps/strata-roofing",
+        "repo_url": "https://github.com/clickteig11-byte/strata-roofing.git",
+        "branch": "main",
+        "clean": true,
+        "sync_status": "+0/-0"
+      }
+    },
+    {
+      "id": "site-11-kronos",
+      "name": "Kronos Runtime",
+      "url": "https://kronos-runtime.vercel.app",
+      "http_status": 200,
+      "latency_total_ms": 408,
+      "connect_ms": 0.3,
+      "tls_handshake_ms": 192,
+      "ttfb_ms": 142.8,
+      "compression": "br",
+      "brotli_verified": true,
+      "download_size_bytes": 560,
+      "edge_pop": "cle1",
+      "vercel_cache": "HIT",
+      "x_vercel_id": "cle1::f9hgq-1794455247290-52b2b9e92d76",
+      "server": "Vercel",
+      "tls_details": {
+        "valid": true,
+        "issuer": "C=US, O=Google Trust Services, CN=WR1",
+        "subject": "CN=*.vercel.app",
+        "not_after": "Jan 29 11:46:09 2027 GMT",
+        "days_validity": 78
+      },
+      "git": {
+        "repo_dir": "apps/kronos-runtime",
+        "repo_url": "https://github.com/clickteig11-byte/kronos-runtime.git",
+        "branch": "main",
+        "clean": true,
+        "sync_status": "+0/-0"
+      }
+    },
+    {
+      "id": "site-12-gallery",
+      "name": "Master Gallery Minimal Hub",
+      "url": "https://gallery-mauve-tau.vercel.app",
+      "http_status": 200,
+      "latency_total_ms": 520,
+      "connect_ms": 0.4,
+      "tls_handshake_ms": 264,
+      "ttfb_ms": 191.9,
+      "compression": "br",
+      "brotli_verified": true,
+      "download_size_bytes": 625,
+      "edge_pop": "cle1",
+      "vercel_cache": "HIT",
+      "x_vercel_id": "cle1::hhjpn-1794455248283-4a59cd3d1115",
+      "server": "Vercel",
+      "tls_details": {
+        "valid": true,
+        "issuer": "C=US, O=Google Trust Services, CN=WR1",
+        "subject": "CN=*.vercel.app",
+        "not_after": "Jan 29 11:46:09 2027 GMT",
+        "days_validity": 78
+      },
+      "git": {
+        "repo_dir": "apps/gallery",
+        "repo_url": "https://github.com/clickteig11-byte/heroforge-agent-os.git",
+        "branch": "main",
+        "clean": true,
+        "sync_status": "+0/-0"
+      }
+    }
+  ]
+}
