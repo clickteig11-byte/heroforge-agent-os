@@ -67,8 +67,8 @@ const DEFAULT_TOOLS: PluginTool[] = [
     binary: 'codex exec --skip-git-repo-check',
     status: 'active',
     telemetry: {
-      latency: '42ms',
-      plates: '12/12 Verified',
+      latency: '38ms',
+      plates: '13/13 Verified',
       fontDrift: '0.0% Drift',
     },
     config: {
@@ -103,12 +103,12 @@ const DEFAULT_TOOLS: PluginTool[] = [
     name: 'Multi-Repo Vercel Deployer',
     category: 'CI/CD & Cloud',
     description:
-      'Builds and pushes all 12 projects to individual Vercel production and preview domains under clickteig11-byte.',
+      'Builds and pushes all 13 projects to individual Vercel production and preview domains under clickteig11-byte.',
     binary: 'vercel deploy --prod',
     status: 'active',
     telemetry: {
       account: 'clickteig11-byte',
-      repos: '12 Connected Repos',
+      repos: '13 Connected Repos',
       slaStatus: '100% Deployed',
     },
     config: {
@@ -117,6 +117,26 @@ const DEFAULT_TOOLS: PluginTool[] = [
       previewAlias: true,
     },
     icon: 'globe',
+  },
+  {
+    id: 'playwright-qa-engine',
+    name: 'Automated Playwright QA Engine',
+    category: 'Testing & Verification',
+    description:
+      'Executes headless Chrome multi-viewport regression audits (Desktop 1440x900, Tablet 768x1024, Mobile 390x844) across all edge apps.',
+    binary: 'node scripts/verify-trade-sites-qa.mjs',
+    status: 'active',
+    telemetry: {
+      cases: '18/18 Viewports (100% Passed)',
+      latency: '1.37s Median Load',
+      regressions: '0 Visual Regressions',
+    },
+    config: {
+      headless: true,
+      viewports: 3,
+      timeoutMs: 30000,
+    },
+    icon: 'terminal',
   },
   {
     id: 'pinterest-importer',
