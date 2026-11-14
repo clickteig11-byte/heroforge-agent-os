@@ -7,6 +7,7 @@ const SITES = [
   { name: 'nordic-turf', url: 'https://nordic-turf-iota.vercel.app' },
   { name: 'strata-roofing', url: 'https://strata-roofing-ten.vercel.app' },
   { name: 'volt-foundry', url: 'https://volt-foundry.vercel.app' },
+  { name: 'nyx-oriel', url: 'https://nyx-oriel.vercel.app' },
   { name: 'gallery-dashboard', url: 'https://heroforge-v1.vercel.app' },
 ];
 
