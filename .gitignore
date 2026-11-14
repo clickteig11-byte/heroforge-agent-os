@@ -8,3 +8,4 @@ brag-output/frames/
 *.log
 .vercel
 .env*
+qa/trade-sites/*.png
