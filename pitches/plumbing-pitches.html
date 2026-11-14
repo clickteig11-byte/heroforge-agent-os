@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plumbing Architecture — 3 Pitch Evaluation Deck</title>
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@500,700,800,900&f[]=clash-display@600,700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Cabinet Grotesk', -apple-system, sans-serif; background: #0c0e12; color: #f2f4f8; overflow-x: hidden; }
+    .pitch-bar { position: fixed; top: 0; left: 0; right: 0; height: 50px; background: rgba(14, 17, 23, 0.95); backdrop-filter: blur(16px); z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .pitch-tabs { display: flex; gap: 8px; }
+    .pitch-tab { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 6px 14px; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; cursor: pointer; text-transform: uppercase; }
+    .pitch-tab.active { background: #d97736; border-color: #d97736; color: #000; font-weight: 700; }
+    .view-card { padding-top: 50px; min-height: 100vh; display: none; }
+    .view-card.active { display: block; }
+    
+    /* PITCH B: VANE & TOR HYDRONICS (WINNER) */
+    .b-hero { position: relative; height: 90vh; min-height: 650px; display: flex; flex-direction: column; justify-content: flex-end; padding: 4rem; background: linear-gradient(180deg, #101216 0%, #080a0d 100%); border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .b-brand-edge { position: absolute; top: 70px; left: 4rem; right: 4rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.12); padding-bottom: 1rem; }
+    .b-brand { font-family: 'Clash Display', sans-serif; font-size: 1.1rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #fff; }
+    .b-coords { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #d97736; }
+    .b-headline { font-family: 'Clash Display', sans-serif; font-size: clamp(2.8rem, 5vw, 5.2rem); font-weight: 700; line-height: 0.98; text-transform: uppercase; letter-spacing: -0.03em; margin-bottom: 1.5rem; max-width: 900px; }
+    .b-sub { color: #d97736; display: block; font-size: 0.75em; }
+    .b-lead { font-size: 1.05rem; line-height: 1.6; color: rgba(255,255,255,0.75); max-width: 52ch; margin-bottom: 2rem; }
+    .b-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: #d97736; color: #0c0e12; padding: 1rem 2.2rem; font-weight: 700; text-transform: uppercase; font-size: 0.78rem; letter-spacing: 0.08em; text-decoration: none; border: 1px solid #d97736; }
+    .b-btn:hover { background: #fff; border-color: #fff; }
+    .b-specs { display: flex; gap: 2rem; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: #d97736; margin-top: 3rem; }
+  </style>
+</head>
+<body>
+  <div class="pitch-bar">
+    <div style="font-family:'JetBrains Mono'; font-size:0.75rem; font-weight:600; color:#d97736;">
+      VERTICAL 1: PLUMBING &amp; MECHANICAL ARCHITECTURE
+    </div>
+    <div class="pitch-tabs">
+      <button class="pitch-tab" onclick="switchPitch('a')">Pitch A: Kessel Technical</button>
+      <button class="pitch-tab active" onclick="switchPitch('b')">Pitch B: Vane &amp; Tor (Selected)</button>
+      <button class="pitch-tab" onclick="switchPitch('c')">Pitch C: HydroPulse 24</button>
+    </div>
+  </div>
+
+  <!-- PITCH A -->
+  <div id="pitch-a" class="view-card">
+    <div style="padding:6rem 4rem;">
+      <h2 style="font-family:'Space Grotesk'; font-size:2.5rem; margin-bottom:1rem;">KESSEL INDUSTRIAL BOILER &amp; HYDRONICS</h2>
+      <p style="color:#889; max-width:600px; margin-bottom:2rem;">German mechanical tolerances, hydrostatic pipe engineering, and commercial grade-316 stainless manifold networks.</p>
+      <div style="background:#141720; border:1px solid #252a36; padding:2rem; max-width:700px; font-family:'JetBrains Mono'; font-size:0.8rem;">
+        <div>[AUDIT RATING]: 86/100</div>
+        <div style="margin-top:0.5rem; color:#aaa;">Strength: Severe technical credibility. Weakness: Slightly cold for high-ticket residential renovations.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PITCH B (WINNER) -->
+  <div id="pitch-b" class="view-card active">
+    <div class="b-hero">
+      <div class="b-brand-edge">
+        <div class="b-brand">VANE &amp; TOR HYDRONICS</div>
+        <div class="b-coords">MECHANICAL SANITARY ARCHITECTURE · EST 1984</div>
+      </div>
+      <div>
+        <span style="font-family:'JetBrains Mono'; font-size:0.7rem; color:#d97736; letter-spacing:0.18em; text-transform:uppercase; margin-bottom:0.75rem; display:block;">
+          HYDROSTATIC PRESSURE · GRADE-316 COPPER &amp; BRASS
+        </span>
+        <h1 class="b-headline">
+          ARCHITECTURAL PLUMBING
+          <span class="b-sub">ENGINEERED TO TOLERANCE.</span>
+        </h1>
+        <p class="b-lead">
+          High-recovery hydronic boilers, silent acoustic drainage stacks, and precision manifold water networks built for architect-designed estates.
+        </p>
+        <a href="#dispatch" class="b-btn">DISPATCH CHIEF ENGINEER</a>
+        <div class="b-specs">
+          <span>0.00% LEAK TOLERANCE</span>
+          <span>·</span>
+          <span>50-YEAR COPPER WARRANTY</span>
+          <span>·</span>
+          <span>15-MIN CRITICAL DISPATCH</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PITCH C -->
+  <div id="pitch-c" class="view-card">
+    <div style="padding:6rem 4rem;">
+      <h2 style="font-family:'Space Grotesk'; font-size:2.5rem; margin-bottom:1rem;">HYDROPULSE TELEMETRY 24</h2>
+      <p style="color:#889; max-width:600px; margin-bottom:2rem;">Real-time acoustic leak listening sensors and algorithmic dispatch radar for high-density metropolitan residential towers.</p>
+      <div style="background:#141720; border:1px solid #252a36; padding:2rem; max-width:700px; font-family:'JetBrains Mono'; font-size:0.8rem;">
+        <div>[AUDIT RATING]: 84/100</div>
+        <div style="margin-top:0.5rem; color:#aaa;">Strength: Instant conversion radar. Weakness: Too software-heavy, lacks tactile plumbing materiality.</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function switchPitch(p) {
+      document.querySelectorAll('.pitch-tab').forEach((t, i) => {
+        t.classList.toggle('active', (p === 'a' && i === 0) || (p === 'b' && i === 1) || (p === 'c' && i === 2));
+      });
+      document.querySelectorAll('.view-card').forEach(c => c.classList.remove('active'));
+      document.getElementById('pitch-' + p).classList.add('active');
+    }
+  </script>
+</body>
+</html>

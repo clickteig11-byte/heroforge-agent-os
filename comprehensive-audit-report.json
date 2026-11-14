@@ -1,0 +1,547 @@
+{
+  "timestamp": "2026-11-11T17:49:03.758Z",
+  "apps": {
+    "gallery": {
+      "tscDurationSec": 4.58,
+      "viteDurationSec": 8.9,
+      "totalDurationSec": 13.48,
+      "tscPassed": true,
+      "tscErrors": [],
+      "vitePassed": true,
+      "viteErrors": [],
+      "warningsCount": 0,
+      "warnings": [],
+      "bundleSizes": {
+        "totalRawKB": 81040.4,
+        "totalGzipKB": 80549,
+        "jsRawKB": 252.7,
+        "jsGzipKB": 78.4,
+        "cssRawKB": 20.1,
+        "cssGzipKB": 4.1
+      },
+      "topFiles": [
+        {
+          "file": "brag-x-post.mp4",
+          "rawKB": 36320.86,
+          "gzipKB": 36317.59
+        },
+        {
+          "file": "qa/website-b/desktop-full.png",
+          "rawKB": 3591.99,
+          "gzipKB": 3553.37
+        },
+        {
+          "file": "qa/website-a/desktop-full.png",
+          "rawKB": 1838.99,
+          "gzipKB": 1813.84
+        },
+        {
+          "file": "qa/website-b/tablet-full.png",
+          "rawKB": 1710.23,
+          "gzipKB": 1666.67
+        },
+        {
+          "file": "references/website-b/plate-atacama-travertine.png",
+          "rawKB": 1626.73,
+          "gzipKB": 1627.23
+        },
+        {
+          "file": "references/website-b/plate-naoshima-acoustic.png",
+          "rawKB": 1621.46,
+          "gzipKB": 1621.96
+        }
+      ]
+    },
+    "vane-hydronics": {
+      "tscDurationSec": 4.75,
+      "viteDurationSec": 3.86,
+      "totalDurationSec": 8.61,
+      "tscPassed": true,
+      "tscErrors": [],
+      "vitePassed": true,
+      "viteErrors": [],
+      "warningsCount": 0,
+      "warnings": [],
+      "bundleSizes": {
+        "totalRawKB": 919.6,
+        "totalGzipKB": 776.3,
+        "jsRawKB": 181.9,
+        "jsGzipKB": 56.7,
+        "cssRawKB": 18.9,
+        "cssGzipKB": 4
+      },
+      "topFiles": [
+        {
+          "file": "images/plant-room-hero.jpg",
+          "rawKB": 717.61,
+          "gzipKB": 714.99
+        },
+        {
+          "file": "assets/index-DFUrx6kT.js",
+          "rawKB": 181.94,
+          "gzipKB": 56.68
+        },
+        {
+          "file": "assets/index-BLPp_F1U.css",
+          "rawKB": 18.91,
+          "gzipKB": 4
+        },
+        {
+          "file": "index.html",
+          "rawKB": 1.13,
+          "gzipKB": 0.58
+        }
+      ]
+    },
+    "nordic-turf": {
+      "tscDurationSec": 6,
+      "viteDurationSec": 2.39,
+      "totalDurationSec": 8.39,
+      "tscPassed": true,
+      "tscErrors": [],
+      "vitePassed": true,
+      "viteErrors": [],
+      "warningsCount": 0,
+      "warnings": [],
+      "bundleSizes": {
+        "totalRawKB": 152,
+        "totalGzipKB": 49,
+        "jsRawKB": 145.9,
+        "jsGzipKB": 46.9,
+        "cssRawKB": 4.9,
+        "cssGzipKB": 1.4
+      },
+      "topFiles": [
+        {
+          "file": "assets/index-DaoU1RLF.js",
+          "rawKB": 145.94,
+          "gzipKB": 46.94
+        },
+        {
+          "file": "assets/index-BIho8FgT.css",
+          "rawKB": 4.88,
+          "gzipKB": 1.43
+        },
+        {
+          "file": "index.html",
+          "rawKB": 1.15,
+          "gzipKB": 0.59
+        }
+      ]
+    },
+    "strata-roofing": {
+      "tscDurationSec": 3.65,
+      "viteDurationSec": 2.12,
+      "totalDurationSec": 5.77,
+      "tscPassed": true,
+      "tscErrors": [],
+      "vitePassed": true,
+      "viteErrors": [],
+      "warningsCount": 0,
+      "warnings": [],
+      "bundleSizes": {
+        "totalRawKB": 151.9,
+        "totalGzipKB": 49,
+        "jsRawKB": 145.9,
+        "jsGzipKB": 46.9,
+        "cssRawKB": 4.9,
+        "cssGzipKB": 1.4
+      },
+      "topFiles": [
+        {
+          "file": "assets/index-BN8SW598.js",
+          "rawKB": 145.94,
+          "gzipKB": 46.93
+        },
+        {
+          "file": "assets/index-BW5x0TZ9.css",
+          "rawKB": 4.88,
+          "gzipKB": 1.44
+        },
+        {
+          "file": "index.html",
+          "rawKB": 1.13,
+          "gzipKB": 0.59
+        }
+      ]
+    },
+    "kronos-runtime": {
+      "tscDurationSec": 3.59,
+      "viteDurationSec": 2.1,
+      "totalDurationSec": 5.69,
+      "tscPassed": true,
+      "tscErrors": [],
+      "vitePassed": true,
+      "viteErrors": [],
+      "warningsCount": 0,
+      "warnings": [],
+      "bundleSizes": {
+        "totalRawKB": 152.1,
+        "totalGzipKB": 49,
+        "jsRawKB": 146,
+        "jsGzipKB": 47,
+        "cssRawKB": 5,
+        "cssGzipKB": 1.5
+      },
+      "topFiles": [
+        {
+          "file": "assets/index-DS3Iu9Vq.js",
+          "rawKB": 146.04,
+          "gzipKB": 46.95
+        },
+        {
+          "file": "assets/index-BTaC0usd.css",
+          "rawKB": 5,
+          "gzipKB": 1.51
+        },
+        {
+          "file": "index.html",
+          "rawKB": 1.09,
+          "gzipKB": 0.54
+        }
+      ]
+    },
+    "site-4-sora": {
+      "tscDurationSec": 3.89,
+      "viteDurationSec": 2.17,
+      "totalDurationSec": 6.06,
+      "tscPassed": true,
+      "tscErrors": [],
+      "vitePassed": true,
+      "viteErrors": [],
+      "warningsCount": 0,
+      "warnings": [],
+      "bundleSizes": {
+        "totalRawKB": 438.2,
+        "totalGzipKB": 333.1,
+        "jsRawKB": 145.8,
+        "jsGzipKB": 46.9,
+        "cssRawKB": 5.6,
+        "cssGzipKB": 1.7
+      },
+      "topFiles": [
+        {
+          "file": "references/sites/site-4-sora.jpg",
+          "rawKB": 285.74,
+          "gzipKB": 283.95
+        },
+        {
+          "file": "assets/index-BDkgGdnB.js",
+          "rawKB": 145.78,
+          "gzipKB": 46.95
+        },
+        {
+          "file": "assets/index-BJbKMK2K.css",
+          "rawKB": 5.65,
+          "gzipKB": 1.65
+        },
+        {
+          "file": "index.html",
+          "rawKB": 1.01,
+          "gzipKB": 0.52
+        }
+      ]
+    },
+    "site-5-vespers": {
+      "tscDurationSec": 3.35,
+      "viteDurationSec": 2.15,
+      "totalDurationSec": 5.5,
+      "tscPassed": true,
+      "tscErrors": [],
+      "vitePassed": true,
+      "viteErrors": [],
+      "warningsCount": 0,
+      "warnings": [],
+      "bundleSizes": {
+        "totalRawKB": 463.4,
+        "totalGzipKB": 346,
+        "jsRawKB": 145.7,
+        "jsGzipKB": 46.9,
+        "cssRawKB": 5.6,
+        "cssGzipKB": 1.7
+      },
+      "topFiles": [
+        {
+          "file": "references/sites/site-5-vespers.jpg",
+          "rawKB": 311.02,
+          "gzipKB": 296.97
+        },
+        {
+          "file": "assets/index-BT35Lmbv.js",
+          "rawKB": 145.71,
+          "gzipKB": 46.87
+        },
+        {
+          "file": "assets/index-CTJTHxn7.css",
+          "rawKB": 5.61,
+          "gzipKB": 1.65
+        },
+        {
+          "file": "index.html",
+          "rawKB": 1.02,
+          "gzipKB": 0.52
+        }
+      ]
+    },
+    "site-6-veloce": {
+      "tscDurationSec": 3.59,
+      "viteDurationSec": 2.05,
+      "totalDurationSec": 5.64,
+      "tscPassed": true,
+      "tscErrors": [],
+      "vitePassed": true,
+      "viteErrors": [],
+      "warningsCount": 0,
+      "warnings": [],
+      "bundleSizes": {
+        "totalRawKB": 526.4,
+        "totalGzipKB": 421,
+        "jsRawKB": 146,
+        "jsGzipKB": 47,
+        "cssRawKB": 5.6,
+        "cssGzipKB": 1.7
+      },
+      "topFiles": [
+        {
+          "file": "references/sites/site-6-veloce.jpg",
+          "rawKB": 373.79,
+          "gzipKB": 371.79
+        },
+        {
+          "file": "assets/index-BDh6gAm5.js",
+          "rawKB": 146.02,
+          "gzipKB": 47.05
+        },
+        {
+          "file": "assets/index-Bf7mIAC0.css",
+          "rawKB": 5.55,
+          "gzipKB": 1.66
+        },
+        {
+          "file": "index.html",
+          "rawKB": 1.02,
+          "gzipKB": 0.53
+        }
+      ]
+    },
+    "site-7-solaris": {
+      "tscDurationSec": 5.08,
+      "viteDurationSec": 2.58,
+      "totalDurationSec": 7.66,
+      "tscPassed": true,
+      "tscErrors": [],
+      "vitePassed": true,
+      "viteErrors": [],
+      "warningsCount": 0,
+      "warnings": [],
+      "bundleSizes": {
+        "totalRawKB": 603.1,
+        "totalGzipKB": 494.8,
+        "jsRawKB": 146.1,
+        "jsGzipKB": 47.1,
+        "cssRawKB": 5.6,
+        "cssGzipKB": 1.7
+      },
+      "topFiles": [
+        {
+          "file": "references/sites/site-7-solaris.jpg",
+          "rawKB": 450.43,
+          "gzipKB": 445.59
+        },
+        {
+          "file": "assets/index-BapWqY8G.js",
+          "rawKB": 146.08,
+          "gzipKB": 47.05
+        },
+        {
+          "file": "assets/index-J0krvtqv.css",
+          "rawKB": 5.56,
+          "gzipKB": 1.66
+        },
+        {
+          "file": "index.html",
+          "rawKB": 1.01,
+          "gzipKB": 0.52
+        }
+      ]
+    }
+  },
+  "copyAudit": {
+    "gallery": {
+      "clean": false,
+      "leaksCount": 6,
+      "leaks": [
+        {
+          "file": "src/App.tsx",
+          "line": 1665,
+          "matched": "placeholder=\"e.g. Figma Tokens Sync or Linear Issue Linker\"",
+          "rule": "/\\bplaceholder\\b/i"
+        },
+        {
+          "file": "src/App.tsx",
+          "line": 1677,
+          "matched": "placeholder=\"e.g. Design Systems, Multimodal, QA\"",
+          "rule": "/\\bplaceholder\\b/i"
+        },
+        {
+          "file": "src/App.tsx",
+          "line": 1688,
+          "matched": "placeholder=\"e.g. figma-tokens --pull or curl https://...\"",
+          "rule": "/\\bplaceholder\\b/i"
+        },
+        {
+          "file": "src/App.tsx",
+          "line": 1698,
+          "matched": "placeholder=\"Briefly describe what this plugin performs...\"",
+          "rule": "/\\bplaceholder\\b/i"
+        },
+        {
+          "file": "src/components/FlagshipSiteView.tsx",
+          "line": 652,
+          "matched": "placeholder=\"Full Name or Studio\"",
+          "rule": "/\\bplaceholder\\b/i"
+        },
+        {
+          "file": "src/components/FlagshipSiteView.tsx",
+          "line": 664,
+          "matched": "placeholder=\"Direct Email\"",
+          "rule": "/\\bplaceholder\\b/i"
+        }
+      ]
+    },
+    "vane-hydronics": {
+      "clean": false,
+      "leaksCount": 3,
+      "leaks": [
+        {
+          "file": "src/App.tsx",
+          "line": 882,
+          "matched": "placeholder=\"e.g. Sarah Jenkins or Studio Architecture\"",
+          "rule": "/\\bplaceholder\\b/i"
+        },
+        {
+          "file": "src/App.tsx",
+          "line": 893,
+          "matched": "placeholder=\"e.g. Cambridge, MA 02138 or Geneva 1204\"",
+          "rule": "/\\bplaceholder\\b/i"
+        },
+        {
+          "file": "src/App.tsx",
+          "line": 928,
+          "matched": "placeholder=\"Tell us about your heating goals, quiet wall requirements, or radiant floor zones...\"",
+          "rule": "/\\bplaceholder\\b/i"
+        }
+      ]
+    },
+    "nordic-turf": {
+      "clean": true,
+      "leaksCount": 0,
+      "leaks": []
+    },
+    "strata-roofing": {
+      "clean": true,
+      "leaksCount": 0,
+      "leaks": []
+    },
+    "kronos-runtime": {
+      "clean": true,
+      "leaksCount": 0,
+      "leaks": []
+    },
+    "site-4-sora": {
+      "clean": true,
+      "leaksCount": 0,
+      "leaks": []
+    },
+    "site-5-vespers": {
+      "clean": true,
+      "leaksCount": 0,
+      "leaks": []
+    },
+    "site-6-veloce": {
+      "clean": true,
+      "leaksCount": 0,
+      "leaks": []
+    },
+    "site-7-solaris": {
+      "clean": true,
+      "leaksCount": 0,
+      "leaks": []
+    }
+  },
+  "lightModeAudit": {
+    "gallery": {
+      "isDaylightLightMode": true,
+      "issues": [],
+      "observations": [
+        "body rule: body { height: 100%; background: var(--bg-canvas); color: var(--ink-primary); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }",
+        "Root wrapper classes: muse-shell"
+      ]
+    },
+    "vane-hydronics": {
+      "isDaylightLightMode": true,
+      "issues": [],
+      "observations": [
+        "body rule: body { background-color: var(--bg-color); color: var(--ink-primary); overflow-x: hidden; font-size: 15px; line-height: 1.6; }",
+        "Root wrapper classes: plant-wrapper"
+      ]
+    },
+    "nordic-turf": {
+      "isDaylightLightMode": true,
+      "issues": [],
+      "observations": [
+        "body rule: body { background-color: var(--bg-color); color: var(--ink-primary); overflow-x: hidden; }",
+        "Root wrapper classes: edge-brand-lockup"
+      ]
+    },
+    "strata-roofing": {
+      "isDaylightLightMode": true,
+      "issues": [],
+      "observations": [
+        "body rule: body { background-color: var(--bg-color); color: var(--ink-primary); overflow-x: hidden; }",
+        "Root wrapper classes: edge-brand-lockup"
+      ]
+    },
+    "kronos-runtime": {
+      "isDaylightLightMode": true,
+      "issues": [],
+      "observations": [
+        "body rule: body { background-color: var(--bg-color); color: var(--ink-primary); overflow-x: hidden; }",
+        "Root wrapper classes: edge-brand-lockup"
+      ]
+    },
+    "site-4-sora": {
+      "isDaylightLightMode": true,
+      "issues": [],
+      "observations": [
+        "body rule: body { background-color: var(--bg-color); color: var(--ink-primary); overflow-x: hidden; }",
+        "Root wrapper classes: edge-brand-lockup"
+      ]
+    },
+    "site-5-vespers": {
+      "isDaylightLightMode": true,
+      "issues": [],
+      "observations": [
+        "body rule: body { background-color: var(--bg-color); color: var(--ink-primary); overflow-x: hidden; }",
+        "Root wrapper classes: edge-brand-lockup"
+      ]
+    },
+    "site-6-veloce": {
+      "isDaylightLightMode": true,
+      "issues": [],
+      "observations": [
+        "body rule: body { background-color: var(--bg-color); color: var(--ink-primary); overflow-x: hidden; }",
+        "Root wrapper classes: edge-brand-lockup"
+      ]
+    },
+    "site-7-solaris": {
+      "isDaylightLightMode": true,
+      "issues": [],
+      "observations": [
+        "body rule: body { background-color: var(--bg-color); color: var(--ink-primary); overflow-x: hidden; }",
+        "Root wrapper classes: edge-brand-lockup"
+      ]
+    }
+  },
+  "overallSuccess": true
+}

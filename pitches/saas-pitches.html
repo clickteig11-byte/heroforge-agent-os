@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SaaS Infrastructure Architecture — 3 Pitch Evaluation Deck</title>
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@500,700,800,900&f[]=clash-display@600,700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Cabinet Grotesk', -apple-system, sans-serif; background: #090a0d; color: #f1f4f9; overflow-x: hidden; }
+    .pitch-bar { position: fixed; top: 0; left: 0; right: 0; height: 50px; background: rgba(11, 13, 18, 0.95); backdrop-filter: blur(16px); z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .pitch-tabs { display: flex; gap: 8px; }
+    .pitch-tab { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 6px 14px; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; cursor: pointer; text-transform: uppercase; }
+    .pitch-tab.active { background: #38bdf8; border-color: #38bdf8; color: #090a0d; font-weight: 700; }
+    .view-card { padding-top: 50px; min-height: 100vh; display: none; }
+    .view-card.active { display: block; }
+    
+    /* PITCH C: KRONOS RUNTIME (WINNER) */
+    .c-hero { position: relative; height: 92vh; min-height: 680px; display: flex; flex-direction: column; justify-content: flex-end; padding: 4rem; background: radial-gradient(circle at 80% 20%, rgba(56, 189, 248, 0.08) 0%, transparent 60%), linear-gradient(180deg, #0e1118 0%, #060709 100%); border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .c-brand-edge { position: absolute; top: 70px; left: 4rem; right: 4rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.12); padding-bottom: 1rem; }
+    .c-brand { font-family: 'Clash Display', sans-serif; font-size: 1.15rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #fff; }
+    .c-coords { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #38bdf8; font-weight: 600; }
+    .c-headline { font-family: 'Clash Display', sans-serif; font-size: clamp(2.8rem, 5.2vw, 5.4rem); font-weight: 700; line-height: 0.98; text-transform: uppercase; letter-spacing: -0.03em; margin-bottom: 1.5rem; max-width: 960px; }
+    .c-sub { color: #38bdf8; display: block; font-size: 0.74em; letter-spacing: -0.01em; }
+    .c-lead { font-size: 1.05rem; line-height: 1.62; color: rgba(255,255,255,0.78); max-width: 52ch; margin-bottom: 2.2rem; }
+    .c-btn { display: inline-flex; align-items: center; gap: 0.6rem; background: #38bdf8; color: #090a0d; padding: 1rem 2.4rem; font-weight: 700; text-transform: uppercase; font-size: 0.78rem; letter-spacing: 0.08em; text-decoration: none; border: 1px solid #38bdf8; }
+    .c-btn:hover { background: #fff; border-color: #fff; }
+    .c-specs { display: flex; gap: 2rem; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: #38bdf8; margin-top: 3.5rem; }
+  </style>
+</head>
+<body>
+  <div class="pitch-bar">
+    <div style="font-family:'JetBrains Mono'; font-size:0.75rem; font-weight:600; color:#38bdf8;">
+      SaaS ARCHITECTURE: 3-PITCH ADAPTIVE EVALUATION
+    </div>
+    <div class="pitch-tabs">
+      <button class="pitch-tab" onclick="switchPitch('a')">Pitch A: Kernel-0 (CLI First)</button>
+      <button class="pitch-tab" onclick="switchPitch('b')">Pitch B: Vesper OS (Monochrome Exec)</button>
+      <button class="pitch-tab active" onclick="switchPitch('c')">Pitch C: Kronos Runtime (Selected)</button>
+    </div>
+  </div>
+
+  <!-- PITCH A -->
+  <div id="pitch-a" class="view-card">
+    <div style="padding:6rem 4rem;">
+      <h2 style="font-family:'Space Grotesk'; font-size:2.5rem; margin-bottom:1rem;">KERNEL-0 CLI PLATFORM</h2>
+      <p style="color:#889; max-width:600px; margin-bottom:2rem;">Terminal-only distributed orchestrator with stdout event streaming. Pure hacker aesthetic.</p>
+      <div style="background:#11141c; border:1px solid #1f2533; padding:2rem; max-width:700px; font-family:'JetBrains Mono'; font-size:0.8rem;">
+        <div>[AUDIT RATING]: 83/100</div>
+        <div style="margin-top:0.5rem; color:#aaa;">Strength: Instant technical credibility with backend engineers. Weakness: Alienates VP of Eng / Executive buyers.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PITCH B -->
+  <div id="pitch-b" class="view-card">
+    <div style="padding:6rem 4rem;">
+      <h2 style="font-family:'Cabinet Grotesk'; font-size:2.5rem; margin-bottom:1rem;">VESPER OPERATING SYSTEM</h2>
+      <p style="color:#889; max-width:600px; margin-bottom:2rem;">Calm Japanese-Swiss monochrome data tables. High-density executive reporting.</p>
+      <div style="background:#11141c; border:1px solid #1f2533; padding:2rem; max-width:700px; font-family:'JetBrains Mono'; font-size:0.8rem;">
+        <div>[AUDIT RATING]: 87/100</div>
+        <div style="margin-top:0.5rem; color:#aaa;">Strength: Elegant, clean negative space. Weakness: Lacks the kinetic visceral punch needed for high-speed infrastructure.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PITCH C (WINNER) -->
+  <div id="pitch-c" class="view-card active">
+    <div class="c-hero">
+      <div class="c-brand-edge">
+        <div class="c-brand">KRONOS RUNTIME</div>
+        <div class="c-coords">DISTRIBUTED AGENT ORCHESTRATION · SUB-10MS TASK MESH</div>
+      </div>
+      <div>
+        <span style="font-family:'JetBrains Mono'; font-size:0.7rem; color:#38bdf8; letter-spacing:0.18em; text-transform:uppercase; margin-bottom:0.75rem; display:block;">
+          ZERO-IDLE CONCURRENCY · REPLAYABLE TASK DAGs · MULTI-CLOUD RUNTIME
+        </span>
+        <h1 class="c-headline">
+          AUTONOMOUS AGENT RUNTIME
+          <span class="c-sub">SUB-MILLISECOND TASK MESH.</span>
+        </h1>
+        <p class="c-lead">
+          Deploy, route, and orchestrate thousands of long-running autonomous AI agents across low-latency edge clusters with cryptographic verification.
+        </p>
+        <a href="#workbench" class="c-btn">INITIALIZE CLUSTER MESH</a>
+        <div class="c-specs">
+          <span>&lt;8ms P99 LATENCY</span>
+          <span>·</span>
+          <span>100,000 CONCURRENT WORKERS</span>
+          <span>·</span>
+          <span>CRYPTOGRAPHIC TRACE STATE</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function switchPitch(p) {
+      document.querySelectorAll('.pitch-tab').forEach((t, i) => {
+        t.classList.toggle('active', (p === 'a' && i === 0) || (p === 'b' && i === 1) || (p === 'c' && i === 2));
+      });
+      document.querySelectorAll('.view-card').forEach(c => c.classList.remove('active'));
+      document.getElementById('pitch-' + p).classList.add('active');
+    }
+  </script>
+</body>
+</html>

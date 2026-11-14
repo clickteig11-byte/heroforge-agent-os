@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lawn Care & Landscape Agronomics — 3 Pitch Evaluation Deck</title>
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@500,700,800,900&f[]=general-sans@500,600,700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'General Sans', -apple-system, sans-serif; background: #0c100d; color: #f2f5f1; overflow-x: hidden; }
+    .pitch-bar { position: fixed; top: 0; left: 0; right: 0; height: 50px; background: rgba(12, 16, 13, 0.95); backdrop-filter: blur(16px); z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .pitch-tabs { display: flex; gap: 8px; }
+    .pitch-tab { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 6px 14px; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; cursor: pointer; text-transform: uppercase; }
+    .pitch-tab.active { background: #5da060; border-color: #5da060; color: #0c100d; font-weight: 700; }
+    .view-card { padding-top: 50px; min-height: 100vh; display: none; }
+    .view-card.active { display: block; }
+    
+    /* PITCH A: NORDIC TURF & MEADOW (WINNER) */
+    .b-hero { position: relative; height: 90vh; min-height: 650px; display: flex; flex-direction: column; justify-content: flex-end; padding: 4rem; background: linear-gradient(180deg, #121813 0%, #0a0e0b 100%); border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .b-brand-edge { position: absolute; top: 70px; left: 4rem; right: 4rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.12); padding-bottom: 1rem; }
+    .b-brand { font-family: 'Cabinet Grotesk', sans-serif; font-size: 1.1rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #fff; }
+    .b-coords { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #8ec391; }
+    .b-headline { font-family: 'Cabinet Grotesk', sans-serif; font-size: clamp(2.8rem, 5vw, 5.2rem); font-weight: 900; line-height: 0.98; text-transform: uppercase; letter-spacing: -0.03em; margin-bottom: 1.5rem; max-width: 900px; }
+    .b-sub { color: #8ec391; display: block; font-size: 0.75em; }
+    .b-lead { font-size: 1.05rem; line-height: 1.6; color: rgba(255,255,255,0.75); max-width: 52ch; margin-bottom: 2rem; }
+    .b-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: #8ec391; color: #0c100d; padding: 1rem 2.2rem; font-weight: 700; text-transform: uppercase; font-size: 0.78rem; letter-spacing: 0.08em; text-decoration: none; border: 1px solid #8ec391; }
+    .b-btn:hover { background: #fff; border-color: #fff; }
+    .b-specs { display: flex; gap: 2rem; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: #8ec391; margin-top: 3rem; }
+  </style>
+</head>
+<body>
+  <div class="pitch-bar">
+    <div style="font-family:'JetBrains Mono'; font-size:0.75rem; font-weight:600; color:#8ec391;">
+      VERTICAL 2: LAWN CARE &amp; AGRONOMIC ARCHITECTURE
+    </div>
+    <div class="pitch-tabs">
+      <button class="pitch-tab active" onclick="switchPitch('a')">Pitch A: Nordic Turf (Selected)</button>
+      <button class="pitch-tab" onclick="switchPitch('b')">Pitch B: Folia Botanical Estate</button>
+      <button class="pitch-tab" onclick="switchPitch('c')">Pitch C: Verdant Subscription</button>
+    </div>
+  </div>
+
+  <!-- PITCH A (WINNER) -->
+  <div id="pitch-a" class="view-card active">
+    <div class="b-hero">
+      <div class="b-brand-edge">
+        <div class="b-brand">NORDIC TURF &amp; MEADOW</div>
+        <div class="b-coords">AGRONOMIC SOIL SCIENCE &amp; ARCHITECTURAL TURF · EST 1996</div>
+      </div>
+      <div>
+        <span style="font-family:'JetBrains Mono'; font-size:0.7rem; color:#8ec391; letter-spacing:0.18em; text-transform:uppercase; margin-bottom:0.75rem; display:block;">
+          SOIL MICROBIOME · DEEP TAPROOT AERATION · ZERO CHEMICAL RUNOFF
+        </span>
+        <h1 class="b-headline">
+          LIVING TURF SCIENCE
+          <span class="b-sub">CULTURED FOR ESTATES.</span>
+        </h1>
+        <p class="b-lead">
+          Biological soil restoration, micro-clover ecological meadows, and laser-graded creeping bentgrass maintained with emission-free robotic cylinder mowers.
+        </p>
+        <a href="#soil-audit" class="b-btn">COMMISSION SOIL ANALYSIS</a>
+        <div class="b-specs">
+          <span>6.4–6.8 OPTIMAL pH</span>
+          <span>·</span>
+          <span>100% ORGANIC RESIDUALS</span>
+          <span>·</span>
+          <span>12-MONTH GROWTH CADENCE</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PITCH B -->
+  <div id="pitch-b" class="view-card">
+    <div style="padding:6rem 4rem;">
+      <h2 style="font-family:'Cabinet Grotesk'; font-size:2.5rem; margin-bottom:1rem;">FOLIA BOTANICAL ESTATE LANDSCAPING</h2>
+      <p style="color:#889; max-width:600px; margin-bottom:2rem;">Heirloom English perennial borders, hand-laid limestone paths, and dry stone terrace retaining walls.</p>
+      <div style="background:#131a14; border:1px solid #233025; padding:2rem; max-width:700px; font-family:'JetBrains Mono'; font-size:0.8rem;">
+        <div>[AUDIT RATING]: 88/100</div>
+        <div style="margin-top:0.5rem; color:#aaa;">Strength: Pure English country estate romance. Weakness: Lacks the deep agronomic turf science requested for core lawn care.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PITCH C -->
+  <div id="pitch-c" class="view-card">
+    <div style="padding:6rem 4rem;">
+      <h2 style="font-family:'Space Grotesk'; font-size:2.5rem; margin-bottom:1rem;">VERDANT RESIDENTIAL SUBSCRIPTION</h2>
+      <p style="color:#889; max-width:600px; margin-bottom:2rem;">Weekly scheduled mowing routes, push notification gate locking, and credit-card auto billing.</p>
+      <div style="background:#131a14; border:1px solid #233025; padding:2rem; max-width:700px; font-family:'JetBrains Mono'; font-size:0.8rem;">
+        <div>[AUDIT RATING]: 79/100</div>
+        <div style="margin-top:0.5rem; color:#aaa;">Strength: Easy billing model. Weakness: Utilitarian and dangerously close to suburban commodity slop.</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function switchPitch(p) {
+      document.querySelectorAll('.pitch-tab').forEach((t, i) => {
+        t.classList.toggle('active', (p === 'a' && i === 0) || (p === 'b' && i === 1) || (p === 'c' && i === 2));
+      });
+      document.querySelectorAll('.view-card').forEach(c => c.classList.remove('active'));
+      document.getElementById('pitch-' + p).classList.add('active');
+    }
+  </script>
+</body>
+</html>
