@@ -1371,7 +1371,7 @@ Supporting Sections:
           index: '03',
           title: 'Whole-Home Battery Storage Microgrid',
           metric: '< 10ms Solid-State Transfer',
-          summary: 'Tesla Powerwall 3 and Enphase 5P LiFePO4 batteries providing instantaneous, seamless power during winter grid outages.',
+          summary: 'Tesla Powerwall 3 and Enphase 5P LiFePO4 batteries providing instantaneous, uninterrupted power during winter grid outages.',
         },
       ],
       specs: [

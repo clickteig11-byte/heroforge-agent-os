@@ -1,0 +1,33 @@
+[submodule "apps/kronos-runtime"]
+	path = apps/kronos-runtime
+	url = https://github.com/clickteig11-byte/kronos-runtime.git
+[submodule "apps/nordic-turf"]
+	path = apps/nordic-turf
+	url = https://github.com/clickteig11-byte/nordic-turf.git
+[submodule "apps/nyx-oriel"]
+	path = apps/nyx-oriel
+	url = https://github.com/clickteig11-byte/nyx-oriel.git
+[submodule "apps/site-3-valkyr"]
+	path = apps/site-3-valkyr
+	url = https://github.com/clickteig11-byte/valkyr-orbital.git
+[submodule "apps/site-4-sora"]
+	path = apps/site-4-sora
+	url = https://github.com/clickteig11-byte/sora-klang.git
+[submodule "apps/site-5-vespers"]
+	path = apps/site-5-vespers
+	url = https://github.com/clickteig11-byte/atelier-vespers.git
+[submodule "apps/site-6-veloce"]
+	path = apps/site-6-veloce
+	url = https://github.com/clickteig11-byte/veloce-morphos.git
+[submodule "apps/site-7-solaris"]
+	path = apps/site-7-solaris
+	url = https://github.com/clickteig11-byte/solaris-lensworks.git
+[submodule "apps/strata-roofing"]
+	path = apps/strata-roofing
+	url = https://github.com/clickteig11-byte/strata-roofing.git
+[submodule "apps/vane-hydronics"]
+	path = apps/vane-hydronics
+	url = https://github.com/clickteig11-byte/vane-hydronics.git
+[submodule "apps/volt-foundry"]
+	path = apps/volt-foundry
+	url = https://github.com/clickteig11-byte/volt-foundry.git
