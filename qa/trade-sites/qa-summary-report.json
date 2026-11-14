@@ -1,0 +1,112 @@
+[
+  {
+    "name": "vane-hydronics",
+    "url": "https://vane-hydronics.vercel.app",
+    "viewports": {
+      "desktop": {
+        "loadTimeMs": 2405,
+        "screenshot": "/Users/caleblickteig/antigravity/Build-with-Caleb/heroforge-v1/qa/trade-sites/vane-hydronics-desktop.png",
+        "consoleErrorsCount": 1
+      },
+      "tablet": {
+        "loadTimeMs": 1975,
+        "screenshot": "/Users/caleblickteig/antigravity/Build-with-Caleb/heroforge-v1/qa/trade-sites/vane-hydronics-tablet.png",
+        "consoleErrorsCount": 0
+      },
+      "mobile": {
+        "loadTimeMs": 1624,
+        "screenshot": "/Users/caleblickteig/antigravity/Build-with-Caleb/heroforge-v1/qa/trade-sites/vane-hydronics-mobile.png",
+        "consoleErrorsCount": 0
+      }
+    },
+    "errors": []
+  },
+  {
+    "name": "nordic-turf",
+    "url": "https://nordic-turf-iota.vercel.app",
+    "viewports": {
+      "desktop": {
+        "loadTimeMs": 3069,
+        "screenshot": "/Users/caleblickteig/antigravity/Build-with-Caleb/heroforge-v1/qa/trade-sites/nordic-turf-desktop.png",
+        "consoleErrorsCount": 1
+      },
+      "tablet": {
+        "loadTimeMs": 2343,
+        "screenshot": "/Users/caleblickteig/antigravity/Build-with-Caleb/heroforge-v1/qa/trade-sites/nordic-turf-tablet.png",
+        "consoleErrorsCount": 0
+      },
+      "mobile": {
+        "loadTimeMs": 2262,
+        "screenshot": "/Users/caleblickteig/antigravity/Build-with-Caleb/heroforge-v1/qa/trade-sites/nordic-turf-mobile.png",
+        "consoleErrorsCount": 0
+      }
+    },
+    "errors": []
+  },
+  {
+    "name": "strata-roofing",
+    "url": "https://strata-roofing-ten.vercel.app",
+    "viewports": {
+      "desktop": {
+        "loadTimeMs": 3012,
+        "screenshot": "/Users/caleblickteig/antigravity/Build-with-Caleb/heroforge-v1/qa/trade-sites/strata-roofing-desktop.png",
+        "consoleErrorsCount": 1
+      },
+      "tablet": {
+        "loadTimeMs": 2869,
+        "screenshot": "/Users/caleblickteig/antigravity/Build-with-Caleb/heroforge-v1/qa/trade-sites/strata-roofing-tablet.png",
+        "consoleErrorsCount": 0
+      },
+      "mobile": {
+        "loadTimeMs": 3019,
+        "screenshot": "/Users/caleblickteig/antigravity/Build-with-Caleb/heroforge-v1/qa/trade-sites/strata-roofing-mobile.png",
+        "consoleErrorsCount": 0
+      }
+    },
+    "errors": []
+  },
+  {
+    "name": "volt-foundry",
+    "url": "https://volt-foundry.vercel.app",
+    "viewports": {
+      "desktop": {
+        "loadTimeMs": 1873,
+        "screenshot": "/Users/caleblickteig/antigravity/Build-with-Caleb/heroforge-v1/qa/trade-sites/volt-foundry-desktop.png",
+        "consoleErrorsCount": 1
+      },
+      "tablet": {
+        "loadTimeMs": 2274,
+        "screenshot": "/Users/caleblickteig/antigravity/Build-with-Caleb/heroforge-v1/qa/trade-sites/volt-foundry-tablet.png",
+        "consoleErrorsCount": 0
+      },
+      "mobile": {
+        "loadTimeMs": 2330,
+        "screenshot": "/Users/caleblickteig/antigravity/Build-with-Caleb/heroforge-v1/qa/trade-sites/volt-foundry-mobile.png",
+        "consoleErrorsCount": 0
+      }
+    },
+    "errors": []
+  },
+  {
+    "name": "gallery-dashboard",
+    "url": "https://heroforge-v1.vercel.app",
+    "viewports": {
+      "desktop": {
+        "loadTimeMs": 6140,
+        "screenshot": "/Users/caleblickteig/antigravity/Build-with-Caleb/heroforge-v1/qa/trade-sites/gallery-dashboard-desktop.png",
+        "consoleErrorsCount": 1
+      },
+      "tablet": {
+        "loadTimeMs": 4011,
+        "screenshot": "/Users/caleblickteig/antigravity/Build-with-Caleb/heroforge-v1/qa/trade-sites/gallery-dashboard-tablet.png",
+        "consoleErrorsCount": 0
+      },
+      "mobile": {
+        "loadTimeMs": 2633,
+        "screenshot": "/Users/caleblickteig/antigravity/Build-with-Caleb/heroforge-v1/qa/trade-sites/gallery-dashboard-mobile.png",
+        "consoleErrorsCount": 0
+      }
+    },
+    "errors": []
+  }
+]
