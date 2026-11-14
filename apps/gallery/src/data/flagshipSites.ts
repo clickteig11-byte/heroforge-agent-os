@@ -1239,7 +1239,7 @@ Supporting Sections:
     grade: 'A+',
     portOrRoute: 'https://nyx-oriel.vercel.app',
     externalPortUrl: 'https://nyx-oriel.vercel.app',
-    heroImage: '/references/sites/hero-luxury.png',
+    heroImage: '/references/sites/site-12-nyx.jpg',
     palette: {
       bg: '#FDFBF7',
       surface: '#FFFFFF',
